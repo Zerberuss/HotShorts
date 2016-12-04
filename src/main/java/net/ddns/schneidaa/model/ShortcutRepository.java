@@ -7,6 +7,7 @@ package net.ddns.schneidaa.model;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+//http://localhost:8080/shortcuts/
 @RepositoryRestResource
 public interface ShortcutRepository extends PagingAndSortingRepository<Shortcut, Long>{
 

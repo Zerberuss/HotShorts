@@ -1,4 +1,4 @@
-package at.fh.ima.swengs.flightexample.util;
+package net.ddns.schneidaa.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
