@@ -25,7 +25,7 @@ export class ProgramService {
 
   }
 
-  private getAuthorizationToHeader(){
+  private getAuthorizationHeader(){
     var headers = new Headers();
     //headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Authorization', 'Basic ' +
@@ -40,6 +40,7 @@ export class ProgramService {
     //ToDo: query after the primary key if possible, else try to find a way to include the primary key in the JSON data we get from the server
 
     let headers = new Headers();
+    //let headers = this.getAuthorizationHeader();
     headers.set('Accept', 'text/json');
 
     return this
