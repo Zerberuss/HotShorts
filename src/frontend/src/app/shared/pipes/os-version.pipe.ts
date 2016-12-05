@@ -2,6 +2,7 @@
  * Created by simon41 on 11/24/2016.
  */
 import {PipeTransform, Pipe} from "@angular/core";
+import {OsTypes} from "../../entities/osTypes";
 @Pipe({
   name: 'osVersion',
   pure: true

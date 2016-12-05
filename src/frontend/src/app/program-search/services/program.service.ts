@@ -10,6 +10,7 @@ import {PROGRAMS_URL, VERSIONS_URL} from "../../app.tokens";
 import {ProgramSummary} from "../../entities/programSummary";
 import {Program} from "../../entities/programs";
 import {ProgramVersion} from "../../entities/programVersions";
+import {OsTypes} from "../../entities/osTypes";
 
 @Injectable()
 export class ProgramService {
