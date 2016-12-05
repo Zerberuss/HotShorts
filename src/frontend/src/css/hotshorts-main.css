@@ -1,0 +1,38 @@
+.program-entry-bar{
+  width:80%;
+  height:100px;
+  background-color: lavender;
+  padding: 10px;
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.program-entry-bar-dark{
+  background-color: darkgray;
+}
+
+.program-entry-bar.os-icon{
+  height:90px;
+  width: 90px;
+  padding: 5px;
+}
+
+.program-entry-bar-title{
+  font-size:32pt;
+
+}
+
+.nav-text{
+  font-family: "Book Antiqua";
+  font-size: 14pt;
+}
+
+.inline-text{
+
+}
+
+.program-entry-bar-text{
+  font-size:16pt;
+
+}

@@ -1,0 +1,16 @@
+<div style="padding:12px;margin-bottom: 10px; margin-top: 10px"
+     [ngStyle]="{'background-color': (selectedItem == item) ?  'orange' : 'lightsteelblue' }">
+
+    <h2>{{item.name}}</h2>
+    <p>Description: {{item.description}}</p>
+    <p>Rating: {{(item.ratingNr / item.ratingCount) | decimal: 2}}</p>
+
+    <p>
+        <input type="button"
+               value="Auswählen"
+               class="btn btn-default"
+               (click)="select()" />
+
+
+    </p>
+</div>

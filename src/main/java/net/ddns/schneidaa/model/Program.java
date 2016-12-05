@@ -9,6 +9,7 @@ import java.util.List;
  */
 //https://hellokoding.com/jpa-one-to-many-relationship-mapping-example-with-spring-boot-maven-and-mysql/
 //https://hellokoding.com/jpa-many-to-many-relationship-mapping-example-with-spring-boot-maven-and-mysql/
+//How to expose the ID (Primary Key) in Spring Data: http://tommyziegler.com/how-to-expose-the-resourceid-with-spring-data-rest/
 
 @Entity
 @Table(name = "program")
