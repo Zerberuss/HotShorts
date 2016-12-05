@@ -17,6 +17,7 @@ export class ProgramService {
 
   programSummaries:ProgramSummary[];
   programs:Program[];
+  programNames:string[];
   programVersions:ProgramVersion[];
 
   constructor(
@@ -154,27 +155,56 @@ export class ProgramService {
 
   }
 
+
+
+  public getProgramNamesList(){
+      if (this.programs.length > 0){
+        this.programNames = this.createProgramNameList();
+      } else {
+          this.getAllPrograms().subscribe(
+              (programList: Program[]) => {
+                  this.programNames = this.createProgramNameList();
+              },
+              (err) => {
+                  console.error('Fehler beim Laden von Programinformationen', err);
+                  return [];
+              }
+          )
+      }
+
+  }
+
+
+  private createProgramNameList():string[]{
+      let programNames = [];
+      for (let p of this.programs){
+          programNames.push(p.name);
+      }
+        programNames.sort();
+      return programNames;
+  }
+
   public getProgramSummaries(){
     var programSummaries = {};
 
     this.getAllPrograms().subscribe(
-      (programList: Program[]) => {
-        //this.programs = programList;
-        this.getAllVersions().subscribe(
-            (versionList: ProgramVersion[]) => {
-              //this.programs = programList;
-              return this.createProgramSummariesFromJsonList(programList, versionList);
-            },
-            (err2) => {
-              console.error('Fehler beim Laden der Versionsinformationen', err2);
-              return programSummaries;
-            }
-        )
-      },
-      (err) => {
-        console.error('Fehler beim Laden von Programinformationen', err);
-        return programSummaries;
-      }
+        (programList: Program[]) => {
+            //this.programs = programList;
+            this.getAllVersions().subscribe(
+                (versionList: ProgramVersion[]) => {
+                    //this.programs = programList;
+                    return this.createProgramSummariesFromJsonList(programList, versionList);
+                },
+                (err2) => {
+                    console.error('Fehler beim Laden der Versionsinformationen', err2);
+                    return programSummaries;
+                }
+            )
+        },
+        (err) => {
+            console.error('Fehler beim Laden von Programinformationen', err);
+            return programSummaries;
+        }
     )
   }
 

@@ -6,7 +6,7 @@ import {ProgramService} from "./services/program.service";
 import {Program} from "../entities/programs";
 
 @Component({
-  selector: 'passenger-search', // <flight-search></...>
+  selector: 'program-search', // <flight-search></...>
   templateUrl: './program-search.component.html',
   providers: [ProgramService]
 })
