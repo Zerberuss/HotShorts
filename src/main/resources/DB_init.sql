@@ -21,6 +21,12 @@ values ('Visual Studio', 'Microsoft IDE for Writing C# and VB Applications', 'ht
 insert into hotshorts.version(os_type, version_text, program, version)
 values (0, 'Community 2015.2', 'Visual Studio', 0);
 
+insert into hotshorts.version(os_type, version_text, program, version)
+values (0, 'Community 2015 R1', 'Visual Studio', 0);
+
+insert into hotshorts.version(os_type, version_text, program, version)
+values (1, 'Community 2015.2.0', 'Visual Studio', 0);
+
 /*
 insert into hotshorts.shortcut(program_version, key_code, description, shortdescription, rating_count, rating_nr, version)
 values (1, 'Strg + s', 'Save the document you have currently open in the IDE', 'save', 1, 4, 0);
@@ -40,5 +46,25 @@ INSERT INTO hotshorts.shortcut(program_version, key_code, description, shortdesc
     0 AS version
   FROM hotshorts.version
   WHERE program = 'Visual Studio';
+
+
+INSERT INTO hotshorts.shortcut(program_version, key_code, description, shortdescription, rating_count, rating_nr, version)
+  VALUES ((SELECT id from hotshorts.version WHERE program = 'Visual Studio' AND version_text = 'Community 2015.2'),
+  'Strg + K + C',
+  'Select one or more lines of code and change them into a comment',
+  'comment out code',
+  3,
+  12,
+  0);
+
+
+insert into hotshorts.program(name, description, website, rating_nr, rating_count, version)
+values ('Blender', 'Powerful Free Program for 3D Modeling and Animtion', 'https://www.blender.org/', 40, 12, 0);
+
+insert into hotshorts.version(os_type, version_text, program, version)
+values (0, '2.77', 'Blender', 0);
+
+insert into hotshorts.version(os_type, version_text, program, version)
+values (0, '2.78a', 'Blender', 0);
 
 

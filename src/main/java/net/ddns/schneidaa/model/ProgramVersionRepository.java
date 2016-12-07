@@ -9,6 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 //http://localhost:8080/programversions/
 @RepositoryRestResource
-public interface ProgramVersionRepository extends PagingAndSortingRepository<ProgramVersion, String>{
+public interface ProgramVersionRepository extends PagingAndSortingRepository<ProgramVersion, Long>{
 
 }

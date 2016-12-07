@@ -11,6 +11,7 @@ import {ProgramSummary} from "../../entities/programSummary";
 import {Program} from "../../entities/programs";
 import {ProgramVersion} from "../../entities/programVersions";
 import {OsTypes} from "../../entities/osTypes";
+import {ProgramSummaryVersionEntry} from "../../entities/programSummaryVersionEntry";
 
 @Injectable()
 export class ProgramService {
@@ -256,6 +257,53 @@ export class ProgramService {
 
     }
 
+
+    //example url: http://localhost:8080/programs/Visual%20Studio/
+    //Parameters:
+    //programSummary - this is the object where the created programSummary is written into
+    //callbackSuccess - the callback function that is called if this function is successful. The created ProgramSummary will be passed to this callback function
+    //callbackFailure - the callback function that is called if this function fails. Not argument is passed for this function.
+    public assignProgramSummaryForProgram(program:Program, programSummary, callbackSuccess?, callbackFailure?){
+        if (!callbackSuccess){
+            callbackSuccess = (summaryObject)=>{console.log("callbackSuccess")};
+        }
+        if (!callbackFailure){
+            callbackFailure = ()=>{console.log("callbackFailure")};
+        }
+        let versionLink = program["_links"]["programVersions"]["href"];
+        //Typescript "cast" - not a real cast of course, precompile check only
+        programSummary = {
+            name: program.name,
+            description: program.description,
+            website: program.website,
+            ratingNr: program.ratingNr,
+            ratingCount: program.ratingCount,
+            versions: {
+                linux:[],
+                windows:[],
+                osx:[]
+            }
+        };
+        this.getUrlContentAsJson(versionLink).subscribe(
+            (versions)=>{
+                let versionList:ProgramVersion[] = this.accessVersionsFromJson(versions);
+                this.assignVersionsToProgramSummary(programSummary, versionList);
+                console.log("programSummary:");
+                console.log(programSummary);
+                callbackSuccess(programSummary);
+                //return programSummary;
+
+            },
+            (err)=>{
+                console.error('Fehler beim Laden der Versionen', err);
+                callbackFailure();
+                //return {};
+            }
+        );
+    }
+
+
+
     public createProgramSummaries(){
         let programSummaries = {};
         this.getAllPrograms().subscribe(
@@ -318,15 +366,16 @@ export class ProgramService {
     }
 
     for (let v of versionList){
+        let entry:ProgramSummaryVersionEntry = {"shortcutLink":v["_links"]["shortcuts"]["href"], "versionText":v.versionText};
           switch (v.osType){
               case OsTypes.windows:
-                  programSummaries[v.program].versions.windows.push(v.versionText);
+                  programSummaries[v.program].versions.windows.push(entry);
                   break;
               case OsTypes.linux:
-                  programSummaries[v.program].versions.linux.push(v.versionText);
+                  programSummaries[v.program].versions.linux.push(entry);
                   break;
               case OsTypes.osx:
-                  programSummaries[v.program].versions.osx.push(v.versionText);
+                  programSummaries[v.program].versions.osx.push(entry);
                   break;
               default:
                   break;
@@ -345,16 +394,19 @@ export class ProgramService {
   }
 
   private assignVersionsToProgramSummary(summary:ProgramSummary, versionList:ProgramVersion[]){
+      console.log("assignVersionsToProgramSummary");
       for (let v of versionList){
+          console.log("version id: "+v.id);
+          let entry:ProgramSummaryVersionEntry = {"shortcutLink":v["_links"]["shortcuts"]["href"], "versionText":v.versionText};
           switch (v.osType){
               case OsTypes.windows:
-                  summary.versions.windows.push(v.versionText);
+                  summary.versions.windows.push(entry);
                   break;
               case OsTypes.linux:
-                  summary.versions.linux.push(v.versionText);
+                  summary.versions.linux.push(entry);
                   break;
               case OsTypes.osx:
-                  summary.versions.osx.push(v.versionText);
+                  summary.versions.osx.push(entry);
                   break;
               default:
                   break;

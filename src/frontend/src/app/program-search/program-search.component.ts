@@ -6,6 +6,7 @@ import {ProgramService} from "./services/program.service";
 import {Program} from "../entities/programs";
 import {ProgramSummary} from "../entities/programSummary";
 import {Subscription} from "rxjs";
+import {ProgramSummaryVersionEntry} from "../entities/programSummaryVersionEntry";
 
 @Component({
   selector: 'program-search', // <flight-search></...>
@@ -82,12 +83,17 @@ export class ProgramSearchComponent {
           //let SummarySubsription:Subscription = this.programService.createProgramSummaryForProgramUrl(program["_links"]["self"]["href"]);
           let programSummary = {};
           var callbackSuccess = (summaryObject)=>{this.selectedProgramSummary = <ProgramSummary> summaryObject;};
-          this.programService.assignProgramSummaryForProgramUrl(this.selectedProgram["_links"]["self"]["href"], programSummary, callbackSuccess);
+          //this.programService.assignProgramSummaryForProgramUrl(this.selectedProgram["_links"]["self"]["href"], programSummary, callbackSuccess);
+          this.programService.assignProgramSummaryForProgram(this.selectedProgram, programSummary, callbackSuccess);
           console.log("select function program summary:");
           console.log(programSummary);
           //this.selectedProgramSummary = <ProgramSummary> programSummary;
       }
 
+  }
+
+  goToPageForVersionWithId(versionEntry:ProgramSummaryVersionEntry){
+      console.log("goToPageForVersionWithId() shortcut links: " + versionEntry.shortcutLink);
   }
 
 }

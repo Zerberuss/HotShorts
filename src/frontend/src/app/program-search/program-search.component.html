@@ -24,9 +24,15 @@
     -->
 </div>
 
-
+<div>
 <pre>Selected Program:
 ------------------------
 <!--{{ selectedProgram | json }}-->
     {{ selectedProgramSummary | json }}
 </pre>
+<div *ngIf="selectedProgramSummary">
+    <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" (click)="goToPageForVersionWithId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
+    <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" (click)="goToPageForVersionWithId(selectedProgramSummary.versions.linux[0])">Linux</button>
+    <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" (click)="goToPageForVersionWithId(selectedProgramSummary.versions.osx[0])">OS X</button>
+</div>
+</div>

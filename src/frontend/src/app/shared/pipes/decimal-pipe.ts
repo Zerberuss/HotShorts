@@ -21,13 +21,14 @@ export class DecimalPipe implements PipeTransform {
         if (!args[0]){
             decimalDigits = 2;
         } else if (this.isNumeric(args[0])) {
-            decimalDigits = parseFloat(args[0]);
+            decimalDigits = Math.round(parseFloat(args[0]));
         } else {
             decimalDigits = 2;
         }
 
         if (this.isNumeric(value)){
-            return Math.round(parseFloat(value) * 10^decimalDigits) / 10^decimalDigits;
+            console.log("Decimal Pipe Value: " + value);
+            return Math.round(parseFloat(value) * Math.pow(10, decimalDigits)) / Math.pow(10, decimalDigits);
         } else {
             return 0;
         }
