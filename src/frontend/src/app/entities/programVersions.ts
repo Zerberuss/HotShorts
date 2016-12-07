@@ -6,4 +6,5 @@ export interface ProgramVersion {
     osType: number;
     versionText: string;
     program: string;
+    //_links:{};
 }

@@ -15,5 +15,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 //http://localhost:8080/programs/
 @RepositoryRestResource
 public interface ProgramRepository extends PagingAndSortingRepository<Program, String> {
-
 }

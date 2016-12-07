@@ -9,4 +9,5 @@ export interface Shortcut {
   ratingCount: number;
   ratingNr: number;
   programVersion: number;
+  //_links:{};
 }

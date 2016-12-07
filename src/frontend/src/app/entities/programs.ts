@@ -7,4 +7,5 @@ export interface Program {
   website: string;
   ratingNr: number;
   ratingCount:number;
+  //_links:{};
 }

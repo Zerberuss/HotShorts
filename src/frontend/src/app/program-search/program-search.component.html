@@ -5,7 +5,10 @@
     <input [(ngModel)]="name" class="form-control">
 </div>
 <div class="form-group">
-    <button class="btn" (click)="search()">Suchen</button>
+    <button class="btn" (click)="searchV3()">Suchen</button>
+</div>
+<div class="form-group">
+    <button class="btn" (click)="getSummaryFromSelectedProgram()">ProgramSummary erstellen</button>
 </div>
 
 
@@ -24,5 +27,6 @@
 
 <pre>Selected Program:
 ------------------------
-{{ selectedProgram | json }}
+<!--{{ selectedProgram | json }}-->
+    {{ selectedProgramSummary | json }}
 </pre>
