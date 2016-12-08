@@ -68,6 +68,13 @@ export class ProgramService {
     return headers;
   }
 
+    private appendAuthorizationHeader(headers:Headers){
+        //headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Authorization', 'Basic ' +
+            btoa('user:hotshortsdb'));
+        //return headers;
+    }
+
   public getProgramFromServer(programName:string){
       return this.getUrlContentAsJson(this.programUrl + programName.replace(" ", "%20").trim());
   }
@@ -96,7 +103,10 @@ export class ProgramService {
   public getUrlContentAsJson(url:string){
     let headers = this.getAuthorizationHeader();
       //let headers = new Headers();
+      //this.appendAuthorizationHeader(headers);
     headers.append('Accept', 'application/json');
+      console.log("getUrlContentAsJson with url: " + url);
+      console.log(headers);
 
     return this
         .http.get(url, {headers})

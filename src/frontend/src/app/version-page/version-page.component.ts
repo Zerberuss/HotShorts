@@ -41,6 +41,7 @@ export class VersionPageComponent{
         this.programService.getProgramFromServer(this.programName)
             .subscribe(
                 (program:Program) => {
+                    console.log("got program successfully");
                     this.programVersionsLink = program["_links"]["programVersions"]["href"];
                     this.program = program;
                     this.createProgramSummary();

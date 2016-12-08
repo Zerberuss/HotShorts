@@ -18,7 +18,7 @@ export class ProgramFilterPipe implements PipeTransform{
         let [searchTerm] = args[0];
         //check if the program name contains the search term
         return value.filter(program => {
-            return program['name'].indexOf(searchTerm) >= 0;
+            return program['name'].toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
         });
 
 

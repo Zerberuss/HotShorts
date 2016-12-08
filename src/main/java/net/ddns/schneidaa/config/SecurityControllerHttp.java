@@ -16,8 +16,9 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 //http://stackoverflow.com/questions/25639188/disable-basic-authentication-while-using-spring-security-java-configuration
 //http://stackoverflow.com/questions/23894010/spring-boot-security-disable-security
 //http://stackoverflow.com/questions/21696592/disable-spring-security-for-options-http-method
-    //http://stackoverflow.com/questions/33813935/cors-not-working-with-spring-boot-and-anularjs
-//
+//http://stackoverflow.com/questions/33813935/cors-not-working-with-spring-boot-and-anularjs
+//http://stackoverflow.com/questions/21696592/disable-spring-security-for-options-http-method
+
 //@Configuration
 //@EnableWebSecurity
 public class SecurityControllerHttp extends WebSecurityConfigurerAdapter {
@@ -40,9 +41,25 @@ public class SecurityControllerHttp extends WebSecurityConfigurerAdapter {
 //                    .and()
 //                    .httpBasic().disable();
 
+//            http
+//                    .authorizeRequests()
+//                    .anyRequest().permitAll();
             http
+                    .csrf().disable()
                     .authorizeRequests()
-                    .anyRequest().permitAll();
+                    //option calls can be allowed in every url on the website with "/**"
+                    .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()//allow CORS option calls .antMatchers(HttpMethod.OPTIONS,"/path/to/allow").permitAll()
+                    .antMatchers("/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    .formLogin()
+                    .and()
+                    .httpBasic();
+
+//            http
+//                    .csrf().disable()
+//                    .authorizeRequests()
+//                    .anyRequest().permitAll();
         }
 
 

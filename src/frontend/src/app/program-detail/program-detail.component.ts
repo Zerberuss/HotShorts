@@ -16,6 +16,7 @@ import {ProgramVersion} from "../entities/programVersions";
 })
 
 export class ProgramDetailComponent{
+
     shortcuts:Shortcut[];
     shortcutsLink:string;
     versionInfo:ProgramVersion;
