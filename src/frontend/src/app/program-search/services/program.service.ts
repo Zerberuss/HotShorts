@@ -90,8 +90,8 @@ export class ProgramService {
     search.set('name', name);
     //ToDo: query after the primary key if possible, else try to find a way to include the primary key in the JSON data we get from the server
 
-    //let headers = new Headers();
-    let headers = this.getAuthorizationHeader();
+    let headers = new Headers();
+    //let headers = this.getAuthorizationHeader();
     headers.append('Accept', 'application/json');
 
     return this
@@ -100,9 +100,10 @@ export class ProgramService {
       .map(resp => resp.json());
   }
 
+  //ToDo: sending authorization header information in every request can cause problems such as 403 response status to preflight option requests
   public getUrlContentAsJson(url:string){
-    let headers = this.getAuthorizationHeader();
-      //let headers = new Headers();
+    //let headers = this.getAuthorizationHeader();
+      let headers = new Headers();
       //this.appendAuthorizationHeader(headers);
     headers.append('Accept', 'application/json');
       console.log("getUrlContentAsJson with url: " + url);

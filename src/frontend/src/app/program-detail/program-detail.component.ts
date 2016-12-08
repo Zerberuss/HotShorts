@@ -31,9 +31,14 @@ export class ProgramDetailComponent{
 
     }
 
-    ngOnInit() {
+    ngOnInitOld() {
         this.paramsSub = this.route.params.subscribe(params => this.id = +params['id']); //+ for turning the id string into a number
         this.loadVersion();
+    }
+
+    ngOnInit() {
+        //if we subscribe the the route params, every time the params change, the function inside subscribe is called
+        this.paramsSub = this.route.params.subscribe(params => this.loadVersionWithIdAndStoreId(+params['id'])); //+ for turning the id string into a number
     }
 
     ngOnDestroy() {
@@ -42,6 +47,21 @@ export class ProgramDetailComponent{
 
     loadVersion(){
         this.programService.getVersionFromServer(this.id)
+            .subscribe(
+                (version:ProgramVersion) => {
+                    this.shortcutsLink = version["_links"]["shortcuts"]["href"];
+                    this.versionInfo = version;
+                    this.loadShortcuts();
+                },
+                (err) => {
+                    console.error('Fehler beim Laden der Version in ngOnInit', err);
+                }
+            );
+    }
+
+    loadVersionWithIdAndStoreId(versionId:number){
+        this.id = versionId;
+        this.programService.getVersionFromServer(versionId)
             .subscribe(
                 (version:ProgramVersion) => {
                     this.shortcutsLink = version["_links"]["shortcuts"]["href"];

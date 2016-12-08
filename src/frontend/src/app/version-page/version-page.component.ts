@@ -20,7 +20,7 @@ import {isNullOrUndefined} from "util";
 })
 export class VersionPageComponent{
 
-    //paramsSub:any;
+    paramsSub:any;
     programName:string;
     program:Program;
     programVersions:ProgramVersion[];
@@ -39,6 +39,30 @@ export class VersionPageComponent{
 
     loadProgram(){
         this.programService.getProgramFromServer(this.programName)
+            .subscribe(
+                (program:Program) => {
+                    console.log("got program successfully");
+                    this.programVersionsLink = program["_links"]["programVersions"]["href"];
+                    this.program = program;
+                    this.createProgramSummary();
+                },
+                (err) => {
+                    console.error('Fehler beim Laden des Programmes in ngOnInit', err);
+                    this.program = <Program> this.programService.getPrgramByNameLocally(this.programName);
+                    if (this.program.hasOwnProperty("_links")){
+                        this.programVersionsLink = this.program["_links"]["programVersions"]["href"];
+                        this.createProgramSummary();
+                    } else {
+                        console.error("could not retrieve programVersionsLink from program");
+                    }
+                }
+            );
+    }
+
+    loadProgramWithNameAndStoreName(progName:string){
+        this.programName = progName;
+        console.log("loadProgramWithNameAndStoreName programName: " + this.programName);
+        this.programService.getProgramFromServer(progName)
             .subscribe(
                 (program:Program) => {
                     console.log("got program successfully");
@@ -88,15 +112,20 @@ export class VersionPageComponent{
 
     }
 
-    ngOnInit() {
+    ngOnInitOld() {
         this.programName = this.route.snapshot.params['name']; //Snapshot approach. programName will not change if route param changes
         //this.paramsSub = this.route.params.subscribe(params => this.programName = params['name'].toString()); //Observable Approach
         console.log("ngOnInit programName: " + this.programName);
         this.loadProgram();
     }
 
+    ngOnInit(){
+        this.paramsSub = this.route.params.subscribe(params => this.loadProgramWithNameAndStoreName(params['name'].toString())); //Observable Approach
+        
+    }
+
     ngOnDestroy() {
-        //this.paramsSub.unsubscribe();
+        this.paramsSub.unsubscribe();
     }
 
 }

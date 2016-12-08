@@ -1,14 +1,16 @@
 <div>
-    <h3>Version: {{versionInfo?.versionText}}</h3>
-    <p>OS: {{versionInfo?.osType | osVersion: 'long'}}</p>
-
     <br/>
-    <table>
-    <tr *ngFor="let item of shortcuts">
+    <h4>Selected Version: {{versionInfo?.versionText}}</h4>
+    <h4>OS: {{versionInfo?.osType | osVersion: 'long'}}</h4>
+    <br/>
+    <h2>Shortcut List</h2>
+    <br/>
+    <table style="border: 1px solid black">
+    <tr *ngFor="let item of shortcuts" style="padding: 15px;">
         <td>{{item.keyCode}}</td>
         <td>{{item.desciptionShort}}</td>
         <td>{{item.description}}</td>
-        <td><{{(item.ratingNr/item.ratingCount) | decimal:2}}/td>
+        <td>{{(item.ratingNr/item.ratingCount) | decimal:2}}</td>
     </tr>
     </table>
 
