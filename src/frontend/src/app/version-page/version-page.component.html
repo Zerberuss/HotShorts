@@ -1,0 +1,42 @@
+<h1>Shortcut Page</h1>
+<nav>
+    <a routerLink="/" routerLinkActive="nav-active">Home</a>
+</nav>
+<div>
+    <h2>{{program?.name}}</h2>
+    <br/>
+    <p>{{program?.description}}</p>
+    <br/>
+    <div>
+        Rating: {{(program?.ratingNr / program?.ratingCount)|decimal:2}}
+    </div>
+
+</div>
+<div>
+    <router-outlet></router-outlet>
+</div>
+<div>
+    <h2>Versions Overview</h2>
+    <br/>
+    <div *ngIf="programSummary?.versions?.windows.length > 0">
+        <h3>Windows Versions:</h3>
+        <div *ngFor="let v of programSummary.versions.windows">
+            <p>{{v.versionText}}</p>
+            <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
+        </div>
+    </div>
+    <div *ngIf="programSummary?.versions?.linux.length > 0">
+        <h3>Linux Versions:</h3>
+        <div *ngFor="let v of programSummary.versions.linux">
+            <p>{{v.versionText}}</p>
+            <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
+        </div>
+    </div>
+    <div *ngIf="programSummary?.versions?.osx.length > 0">
+        <h3>OS X Versions:</h3>
+        <div *ngFor="let v of programSummary.versions.osx">
+            <p>{{v.versionText}}</p>
+            <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
+        </div>
+    </div>
+</div>

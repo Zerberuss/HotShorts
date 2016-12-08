@@ -32,6 +32,10 @@
 
 }
 
+.nav-active{
+  background-color: indianred;
+}
+
 .program-entry-bar-text{
   font-size:16pt;
 

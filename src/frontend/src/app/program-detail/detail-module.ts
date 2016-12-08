@@ -7,18 +7,22 @@ import {SharedModule} from "../shared/shared.module";
 import {CommonModule} from "@angular/common";
 import {ProgramDetailComponent} from "./program-detail.component";
 import {ShortcutEntryComponent} from "./shortcut-entry.component";
+import {VersionPageComponent} from "../version-page/version-page.component";
+import {ProgramDetailEmptyComponent} from "./program-detail-empty.component";
+import {AppRoutingModule} from "../app-routing.module";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        AppRoutingModule
     ],
     declarations: [
-        ProgramDetailComponent, ShortcutEntryComponent
+        ProgramDetailComponent, ShortcutEntryComponent, VersionPageComponent, ProgramDetailEmptyComponent
     ],
     exports: [
-        ProgramDetailComponent
+        ProgramDetailComponent, VersionPageComponent, ProgramDetailEmptyComponent
     ]
 })
 export class DetailModule {

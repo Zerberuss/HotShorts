@@ -34,10 +34,31 @@ export class ProgramService {
 
   }
     //Access the ProgramVersions Array from the JSON object we get from the server
-    public accessVersionsFromJson(programObject){
-        return programObject["_embedded"]["programVersions"];
+    public accessVersionsFromJson(versionObject){
+        return versionObject["_embedded"]["programVersions"];
 
     }
+
+    public accessShortcutsFromJson(shortcutObject){
+        return shortcutObject["_embedded"]["shortcuts"];
+
+    }
+
+
+    getPrgramByNameLocally(programName:string){
+        if (!this.programs){
+            console.error("No programs were loaded from the server")
+            return {};
+            //throw Error;
+        }
+        let programMatches = this.programs.find(prog => prog.name == programName.trim());
+        if (programMatches != null){
+            return programMatches;
+        } else {
+            return {};
+        }
+    }
+
 
   private getAuthorizationHeader(){
     var headers = new Headers();
@@ -46,6 +67,15 @@ export class ProgramService {
         btoa('user:hotshortsdb'));
     return headers;
   }
+
+  public getProgramFromServer(programName:string){
+      return this.getUrlContentAsJson(this.programUrl + programName.replace(" ", "%20").trim());
+  }
+
+    public getVersionFromServer(programVersionId:number){
+        return this.getUrlContentAsJson(this.versionsUrl + programVersionId.toString());
+    }
+
 
   public find(name: string) {
     let url = this.programUrl;
@@ -63,9 +93,9 @@ export class ProgramService {
       .map(resp => resp.json());
   }
 
-  private getUrlContentAsJson(url:string){
-    //let headers = this.getAuthorizationHeader();
-      let headers = new Headers();
+  public getUrlContentAsJson(url:string){
+    let headers = this.getAuthorizationHeader();
+      //let headers = new Headers();
     headers.append('Accept', 'application/json');
 
     return this
@@ -366,7 +396,7 @@ export class ProgramService {
     }
 
     for (let v of versionList){
-        let entry:ProgramSummaryVersionEntry = {"shortcutLink":v["_links"]["shortcuts"]["href"], "versionText":v.versionText};
+        let entry:ProgramSummaryVersionEntry = {"id": v.id, "shortcutLink":v["_links"]["shortcuts"]["href"], "versionText":v.versionText};
           switch (v.osType){
               case OsTypes.windows:
                   programSummaries[v.program].versions.windows.push(entry);
@@ -397,7 +427,7 @@ export class ProgramService {
       console.log("assignVersionsToProgramSummary");
       for (let v of versionList){
           console.log("version id: "+v.id);
-          let entry:ProgramSummaryVersionEntry = {"shortcutLink":v["_links"]["shortcuts"]["href"], "versionText":v.versionText};
+          let entry:ProgramSummaryVersionEntry = {"id": v.id, "shortcutLink":v["_links"]["shortcuts"]["href"], "versionText":v.versionText};
           switch (v.osType){
               case OsTypes.windows:
                   summary.versions.windows.push(entry);

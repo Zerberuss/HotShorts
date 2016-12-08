@@ -16,7 +16,7 @@ public class RepositoryRestConfigExposedIdAdapter extends RepositoryRestConfigur
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config){
-        config.exposeIdsFor(Program.class);
+        config.exposeIdsFor(Program.class); //To get the Id of a entity, the entity must have a public getter for the id field.
         config.exposeIdsFor(ProgramVersion.class);
     }
 }

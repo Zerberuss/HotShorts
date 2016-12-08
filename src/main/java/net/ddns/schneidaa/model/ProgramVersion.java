@@ -31,6 +31,10 @@ public class ProgramVersion {
 
     private String versionText;
 
+    public long getId() {
+        return id;
+    }
+
     public Program getProgram() {
         return program;
     }

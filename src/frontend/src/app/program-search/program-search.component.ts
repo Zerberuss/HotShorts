@@ -7,6 +7,7 @@ import {Program} from "../entities/programs";
 import {ProgramSummary} from "../entities/programSummary";
 import {Subscription} from "rxjs";
 import {ProgramSummaryVersionEntry} from "../entities/programSummaryVersionEntry";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'program-search', // <flight-search></...>
@@ -20,8 +21,21 @@ export class ProgramSearchComponent {
   public selectedProgram: Program;
     public selectedProgramSummary: ProgramSummary;
 
-  constructor(private programService: ProgramService) {
+  constructor(private programService: ProgramService,
+              private router:Router) {
+
   }
+
+    ngOnInit() {
+        this.programService.getAllPrograms().subscribe(
+            (programsJson)=>{
+                this.programs = this.programService.accessProgramsFromJson(programsJson);
+            },
+            (err)=>{
+                console.log("Could not load programs");
+            }
+        )
+    }
 
   search(): void {
     this.programService.find(this.name).subscribe(
@@ -94,6 +108,12 @@ export class ProgramSearchComponent {
 
   goToPageForVersionWithId(versionEntry:ProgramSummaryVersionEntry){
       console.log("goToPageForVersionWithId() shortcut links: " + versionEntry.shortcutLink);
+
+  }
+
+  goToProgramPageWithVersionId(versionEntry:ProgramSummaryVersionEntry){
+      //this.router.navigate(['/app', this.selectedProgram.name, '/version' ,versionEntry.id]);
+      this.router.navigate(['/app/' + this.selectedProgram.name]);
   }
 
 }

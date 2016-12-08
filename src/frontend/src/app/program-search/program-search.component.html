@@ -12,7 +12,7 @@
 </div>
 
 
-<div *ngFor="let p of programs" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
+<div *ngFor="let p of programs | programFilter: name" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
     <program-entry
             [item]="p"
             [(selectedItem)]="selectedProgram">
@@ -31,8 +31,8 @@
     {{ selectedProgramSummary | json }}
 </pre>
 <div *ngIf="selectedProgramSummary">
-    <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" (click)="goToPageForVersionWithId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
-    <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" (click)="goToPageForVersionWithId(selectedProgramSummary.versions.linux[0])">Linux</button>
-    <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" (click)="goToPageForVersionWithId(selectedProgramSummary.versions.osx[0])">OS X</button>
+    <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
+    <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
+    <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">OS X</button>
 </div>
 </div>
