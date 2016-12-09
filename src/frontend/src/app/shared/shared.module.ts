@@ -7,6 +7,7 @@ import {OSVersionPipe} from "./pipes/os-version.pipe";
 import {BASE_URL, PROGRAMS_URL, VERSIONS_URL, SHORTCUTS_URL} from '../app.tokens';
 import {DecimalPipe} from "./pipes/decimal-pipe";
 import {ProgramFilterPipe} from "./pipes/filter-pipe";
+import {UniversalFilterPipe} from "./pipes/universal-filter.pipe";
 
 const BASE_URL_FOR_PRODUCTION = "http://localhost:8080/";
 const PROGRAM_URL_DEV = "http://localhost:8080/programs/";
@@ -18,7 +19,7 @@ const SHORTCUT_URL_DEV = "http://localhost:8080/shortcuts/";
     CommonModule
   ],
   declarations: [
-    OSVersionPipe, DecimalPipe, ProgramFilterPipe
+    OSVersionPipe, DecimalPipe, ProgramFilterPipe, UniversalFilterPipe
   ],
   providers: [
     { provide: BASE_URL, useValue: BASE_URL_FOR_PRODUCTION},
@@ -27,7 +28,7 @@ const SHORTCUT_URL_DEV = "http://localhost:8080/shortcuts/";
     { provide: SHORTCUTS_URL, useValue: SHORTCUT_URL_DEV}
   ],
   exports: [
-    OSVersionPipe, DecimalPipe, ProgramFilterPipe
+    OSVersionPipe, DecimalPipe, ProgramFilterPipe, UniversalFilterPipe
   ]
 
 })
