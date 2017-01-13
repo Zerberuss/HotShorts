@@ -35,6 +35,14 @@ public class ProgramVersion {
         return id;
     }
 
+    public List<Shortcut> getShortcuts() {
+        return shortcuts;
+    }
+
+    public void setShortcuts(List<Shortcut> shortcuts) {
+        this.shortcuts = shortcuts;
+    }
+
     public Program getProgram() {
         return program;
     }

@@ -31,6 +31,13 @@ public class Program {
     @Version
     private long version;
 
+    public List<ProgramVersion> getProgramVersions() {
+        return programVersions;
+    }
+
+    public void setProgramVersions(List<ProgramVersion> programVersions) {
+        this.programVersions = programVersions;
+    }
 
     public String getName() {
         return name;
