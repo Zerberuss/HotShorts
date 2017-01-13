@@ -11,13 +11,11 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'program-search', // <flight-search></...>
-  templateUrl: './program-search.component.html',
-  providers: [ProgramService]
+  templateUrl: './program-search.component.html'
 })
 export class ProgramSearchComponent {
 
   public name: string;
-  public programs: Array<Program> = [];
   public selectedProgram: Program;
     public selectedProgramSummary: ProgramSummary;
 
@@ -27,62 +25,25 @@ export class ProgramSearchComponent {
   }
 
     ngOnInit() {
-        this.programService.getAllPrograms().subscribe(
-            (programsJson)=>{
-                this.programs = this.programService.accessProgramsFromJson(programsJson);
-            },
-            (err)=>{
-                console.log("Could not load programs");
-            }
-        )
+        this.storeProgramsLocally();
     }
 
-  search(): void {
-    this.programService.find(this.name).subscribe(
-      (programs: Program[]) => {
-        console.log(programs.toString());
-        this.programs = programs;
-      },
-      (err) => {
-        console.error('Fehler beim Laden', err);
-      }
-    )
+    // {{ programs }}
+    public get programs(): Array<Program> {
+        return this.programService.programs;
+    }
+
+  // searchV3(): void {
+  //   this.programService.findProgram(this.name);
+  // }
+
+  storeProgramsLocally():void {
+      this.programService.loadAllProgramsFromServer();
   }
 
-  searchTest(): void {
-      this.programService.find(this.name).subscribe(
-        (programs) => {
-          console.log(programs);
-        },
-        (err) => {
-          console.error('Fehler beim Laden', err);
-        }
-    )
-  }
-
-  searchV3(): void {
-    this.programService.find(this.name).subscribe(
-        (programs) => {
-          console.log(programs["_embedded"]["programs"]);
-          this.programs = this.programService.accessProgramsFromJson(programs);
-        },
-        (err) => {
-          console.error('Fehler beim Laden', err);
-        }
-    )
-  }
-
-  getAllPrograms():void {
-    this.programService.getAllPrograms().subscribe(
-        (programs: Program[]) => {
-          console.log(programs.toString());
-          this.programs = programs;
-        },
-        (err) => {
-          console.error('Fehler beim Laden', err);
-        }
-
-    );
+  rateProgram(program:Program, rating:number){
+      this.programService.applyApplicationRating(program.name, rating);
+      alert("You rated " + program.name + " with " + rating + " stars!");
   }
 
   select(program: Program): void {
@@ -106,14 +67,24 @@ export class ProgramSearchComponent {
 
   }
 
-  goToPageForVersionWithId(versionEntry:ProgramSummaryVersionEntry){
-      console.log("goToPageForVersionWithId() shortcut links: " + versionEntry.shortcutLink);
-
+  delete(prog:Program){
+      this.programService.deleteProgram(prog);
   }
+
+    getSummaryFromProgram(prog:Program){
+        if (prog!=null){
+            console.log("program[_links][self][href]");
+            console.log(prog["_links"]["self"]["href"]);
+            let programSummary = {};
+            var callbackSuccess = (summaryObject)=>{this.selectedProgramSummary = <ProgramSummary> summaryObject;};
+            this.programService.assignProgramSummaryForProgram(prog, programSummary, callbackSuccess);
+            console.log("select function program summary:");
+            console.log(programSummary);
+        }
+    }
 
   goToProgramPageWithVersionId(versionEntry:ProgramSummaryVersionEntry){
       this.router.navigate(['/app', this.selectedProgram.name, 'version' ,versionEntry.id]);
-      //this.router.navigate(['/app/' + this.selectedProgram.name]);
   }
 
 }

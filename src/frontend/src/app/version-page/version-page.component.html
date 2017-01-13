@@ -1,11 +1,10 @@
 <h1>Shortcut Page</h1>
-<nav>
-    <a routerLink="/" routerLinkActive="nav-active">Home</a>
-</nav>
 <div>
     <h2>{{program?.name}}</h2>
     <br/>
     <p>{{program?.description}}</p>
+    <br/>
+    <p *ngIf="program">Website: {{program.website}}</p>
     <br/>
     <div>
         Rating: {{(program?.ratingNr / program?.ratingCount)|decimal:2}}
@@ -26,6 +25,7 @@
         <h3>Linux Versions:</h3>
         <div *ngFor="let v of programSummary.versions.linux">
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
+            <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
         </div>
     </div>
     <div *ngIf="programSummary?.versions?.osx.length > 0">
@@ -34,6 +34,9 @@
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
         </div>
     </div>
+</div>
+<div>
+    <a class="btn btn-default" [routerLink]="['/version-create']">Create new Version</a>
 </div>
 <div>
     <router-outlet></router-outlet>

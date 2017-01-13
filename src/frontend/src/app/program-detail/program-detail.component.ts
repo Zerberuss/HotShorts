@@ -3,15 +3,14 @@
  */
 import {Component} from "@angular/core";
 import {ProgramService} from "../program-search/services/program.service";
-import {VersionService} from "../version-page/services/version.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {Shortcut} from "../entities/shortcuts";
 import {ProgramVersion} from "../entities/programVersions";
 
 @Component({
     selector:'program-detail',
-    templateUrl:'./program-detail.component.html',
-    providers: [ProgramService, VersionService]
+    templateUrl:'./program-detail.component.html'
+    //,providers: [ProgramService]
 
 })
 
@@ -25,7 +24,6 @@ export class ProgramDetailComponent{
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private service: VersionService,
                 private programService:ProgramService) {
 
 
@@ -45,6 +43,16 @@ export class ProgramDetailComponent{
         this.paramsSub.unsubscribe();
     }
 
+    goToShortcutCreate(){
+        //store the current program version, so that the create page knows for what verion the new shortcut is created!
+        this.programService.versionIdForNewlyCreatedShortcut = this.versionInfo.id;
+    }
+
+    //Used for saving the current site inside a variable, so that we can return to it, after we finished editing a shortcut etc.
+    storeCurrentUrlInProgramService(){
+        this.programService.currentProgramDetailUrl = this.router.url;
+    }
+
     loadVersion(){
         this.programService.getVersionFromServer(this.id)
             .subscribe(
@@ -60,6 +68,8 @@ export class ProgramDetailComponent{
     }
 
     loadVersionWithIdAndStoreId(versionId:number){
+        this.storeCurrentUrlInProgramService();
+        this.programService.versionIdForNewlyCreatedShortcut = versionId;
         this.id = versionId;
         this.programService.getVersionFromServer(versionId)
             .subscribe(

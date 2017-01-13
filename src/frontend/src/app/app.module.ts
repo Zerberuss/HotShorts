@@ -5,10 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import {ProgramModule} from "./program-search/program-module";
 import {DetailModule} from "./program-detail/detail-module";
-import {AppRoutingModule} from "./app-routing.module";
-//import {PassengerSearchComponent} from "./program-search/passenger-search.component";
-//import {OSVersionPipe} from "./shared/pipes/os-version.pipe";
-//import {SharedModule} from "./shared/shared.module";
+import {AppRouterModule} from "./app.routes";
+import {HomeComponent} from "./home/home.component";
 
 
 @NgModule({
@@ -18,14 +16,13 @@ import {AppRoutingModule} from "./app-routing.module";
     HttpModule,
     ProgramModule,
     DetailModule,
-    AppRoutingModule
+    AppRouterModule
   ],
   declarations: [
-    AppComponent
+    AppComponent, HomeComponent
   ],
   providers: [
-    // { provide: FlightService, useClass: FlightService }
-    // FlightService
+
   ],
   bootstrap: [ AppComponent ]
 })

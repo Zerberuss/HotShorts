@@ -3,7 +3,6 @@
  */
 import {Component} from "@angular/core";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {VersionService} from "./services/version.service";
 import {ProgramService} from "../program-search/services/program.service";
 import {Program} from "../entities/programs";
 import {ProgramVersion} from "../entities/programVersions";
@@ -14,8 +13,8 @@ import {isNullOrUndefined} from "util";
 //https://angular.io/docs/ts/latest/guide/router.html
 @Component({
     selector: 'version-page',
-    templateUrl: "./version-page.component.html",
-    providers: [ProgramService, VersionService]
+    templateUrl: "./version-page.component.html"
+    //, providers: [ProgramService]
 
 })
 export class VersionPageComponent{
@@ -31,7 +30,6 @@ export class VersionPageComponent{
     //inject the necessary services:
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private service: VersionService,
                 private programService:ProgramService) {
 
 
@@ -59,7 +57,13 @@ export class VersionPageComponent{
             );
     }
 
+    storeCurrentUrlInProgramService(){
+        this.programService.currentProgramDetailUrl = this.router.url;
+    }
+
     loadProgramWithNameAndStoreName(progName:string){
+        this.storeCurrentUrlInProgramService();
+        this.programService.programNameForNewlyCreatedVersion = progName;
         this.programName = progName;
         console.log("loadProgramWithNameAndStoreName programName: " + this.programName);
         this.programService.getProgramFromServer(progName)

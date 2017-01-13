@@ -1,38 +1,85 @@
-<h1>Find your Program</h1>
+<h1>Program Overview</h1>
 
 <div class="form-group">
-    <label>Program Name:</label>
+    <label>Search for a Program:</label>
     <input [(ngModel)]="name" class="form-control">
 </div>
-<div class="form-group">
+<!--div class="form-group">
     <button class="btn" (click)="searchV3()">Suchen</button>
-</div>
-<div class="form-group">
+</div-->
+<!--div class="form-group">
     <button class="btn" (click)="getSummaryFromSelectedProgram()">ProgramSummary erstellen</button>
+</div-->
+
+<div *ngIf="selectedProgramSummary" style="border: 2px; background-color: gainsboro">
+    <h2>Selected Program Detail Preview</h2>
+    <div>
+        <pre>Selected Program:
+        ------------------------
+            <!--{{ selectedProgram | json }}-->
+            {{ selectedProgramSummary | json }}
+        </pre>
+        <p>Shortcut Pages available for: </p>
+        <div *ngIf="selectedProgramSummary">
+            <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
+            <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
+            <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">OS X</button>
+        </div>
+    </div>
 </div>
-
-
-<div *ngFor="let p of programs | programFilter: name" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
+<!-- When using program-entry.component.html as component-template: -->
+<!--div *ngFor="let p of programs | programFilter: name" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
     <program-entry
             [item]="p"
-            [(selectedItem)]="selectedProgram">
+            [(selectedItem)]="selectedProgram"
+            (createProgramSummary)="getSummaryFromProgram($event)"
+            (deleteProgram)="delete($event)">
     </program-entry>
+</div-->
 
-    <!--
-        [selectedItem]="selectedFlight"
-        (selectedItemChange)="selectedFlight = $event">
-    -->
-</div>
-
-<div>
-<pre>Selected Program:
-------------------------
-<!--{{ selectedProgram | json }}-->
-    {{ selectedProgramSummary | json }}
-</pre>
-<div *ngIf="selectedProgramSummary">
-    <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
-    <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
-    <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">OS X</button>
-</div>
-</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Program Name</th>
+        <th>Description</th>
+        <th>Avg. Rating</th>
+        <th>Rate Application</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of programs | programFilter: name">
+        <td style="font-weight: bold">{{item.name}}</td>
+        <td>{{item.description}}</td>
+        <td>{{(item.ratingNr / item.ratingCount) | decimal: 2}}</td>
+        <td>
+            <div class="rating">
+                <span (click)="rateProgram(item, 1)">☆</span>
+                <span (click)="rateProgram(item, 2)">☆</span>
+                <span (click)="rateProgram(item, 3)">☆</span>
+                <span (click)="rateProgram(item, 4)">☆</span>
+                <span (click)="rateProgram(item, 5)">☆</span>
+            </div>
+        </td>
+        <td>
+            <input type="button"
+                   value="Show Summary"
+                   class="btn btn-default"
+                   (click)="getSummaryFromProgram(item)" />
+        </td>
+        <td>
+            <a class="btn btn-default" [routerLink]="['/app', item.name]">Details</a>
+        </td>
+        <td>
+            <a class="btn btn-default" [routerLink]="['/program-edit', item.name]">Details</a>
+        </td>
+        <td>
+            <input type="button"
+                   value="Delete"
+                   class="btn btn-default"
+                   (click)="delete(item)" />
+        </td>
+    </tr>
+    </tbody>
+</table>

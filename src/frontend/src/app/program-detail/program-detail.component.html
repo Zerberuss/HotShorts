@@ -5,13 +5,26 @@
     <br/>
     <h2>Shortcut List</h2>
     <br/>
-    <table style="border: 1px solid black">
+    <table class="table table-striped"><!-- style="border: 1px solid black" -->
+	<tr>
+		<th>Hotkey</th>
+        <th>Short Description</th>
+        <th>Long Description</th>
+        <th>Avg. Rating</th>
+	</tr>
     <tr *ngFor="let item of shortcuts" style="padding: 15px;">
         <td>{{item.keyCode}}</td>
         <td>{{item.desciptionShort}}</td>
         <td>{{item.description}}</td>
         <td>{{(item.ratingNr/item.ratingCount) | decimal:2}}</td>
+        <td>
+            <a class="btn btn-default" [routerLink]="['/shortcut-edit', item.id]">Edit</a>
+        </td>
+		<!-- Insert delete button -->
     </tr>
     </table>
+    <div>
+        <a class="btn btn-default" [routerLink]="['/shortcut-create']">Create new Shortcut</a>
+    </div>
 
 </div>
