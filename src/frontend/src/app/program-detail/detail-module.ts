@@ -10,12 +10,14 @@ import {ShortcutEntryComponent} from "./shortcut-entry.component";
 import {VersionPageComponent} from "../version-page/version-page.component";
 import {ProgramDetailEmptyComponent} from "./program-detail-empty.component";
 import {ProgramService} from "../program-search/services/program.service";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        RouterModule
     ],
     declarations: [
         ProgramDetailComponent,

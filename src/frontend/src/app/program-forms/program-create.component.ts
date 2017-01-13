@@ -10,7 +10,7 @@ import {ProgramService} from "../program-search/services/program.service";
         </div>
         <div>
           <div class="form-group">
-            <label>Program Name: </label>
+            <label>Program Name (cannot be changed later): </label>
             <input [(ngModel)]="programName" required class="form-control">
           </div>
           <div class="form-group">

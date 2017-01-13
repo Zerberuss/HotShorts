@@ -43,6 +43,10 @@ export class ProgramDetailComponent{
         this.paramsSub.unsubscribe();
     }
 
+    delete(shortcut:Shortcut){
+        this.programService.deleteShortcut(shortcut);
+    }
+
     goToShortcutCreate(){
         //store the current program version, so that the create page knows for what verion the new shortcut is created!
         this.programService.versionIdForNewlyCreatedShortcut = this.versionInfo.id;
@@ -69,7 +73,6 @@ export class ProgramDetailComponent{
 
     loadVersionWithIdAndStoreId(versionId:number){
         this.storeCurrentUrlInProgramService();
-        this.programService.versionIdForNewlyCreatedShortcut = versionId;
         this.id = versionId;
         this.programService.getVersionFromServer(versionId)
             .subscribe(

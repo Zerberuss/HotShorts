@@ -70,6 +70,7 @@ export class VersionCreateComponent {
             versionText: this.versionText,
             program: this.programService.programNameForNewlyCreatedVersion
         };
+        console.log(newVersion);
         this
             .programService
             .createVersionV2(newVersion)

@@ -20,7 +20,12 @@
         <td>
             <a class="btn btn-default" [routerLink]="['/shortcut-edit', item.id]">Edit</a>
         </td>
-		<!-- Insert delete button -->
+        <td>
+            <input type="button"
+                   value="Delete"
+                   class="btn btn-default"
+                   (click)="delete(item)" />
+        </td>
     </tr>
     </table>
     <div>

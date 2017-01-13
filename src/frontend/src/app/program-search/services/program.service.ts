@@ -195,17 +195,20 @@ export class ProgramService {
             .map(resp => resp.json());
     }
 
+    //Seems like we only have to access the baseUrl, not the concrete Url to the object for the update.
     public saveProgram(program:Program):Observable<Program>{
-        return this.save<Program>(program, this.buildUrlForProgram(program));
+        //return this.save<Program>(program, this.buildUrlForProgram(program));
+        return this.save<Program>(program, this.programUrl);
     }
 
     public saveVersion(version:ProgramVersion):Observable<ProgramVersion>{
-        //return this.save<ProgramVersion>(version, this.versionsUrl);
-        return this.save<ProgramVersion>(version, this.buildUrlForVersion(version));
+        //return this.save<ProgramVersion>(version, this.buildUrlForVersion(version));
+        return this.save<ProgramVersion>(version, this.versionsUrl);
     }
 
     public saveShortcut(shortcut:Shortcut):Observable<Shortcut>{
-        return this.save<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut));
+        //return this.save<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut));
+        return this.save<Shortcut>(shortcut, this.shortcutsUrl);
     }
 
     //probably not even a Observable of Type T as return value, because the delete method returns no body of the deleted object, only a successcode
@@ -329,14 +332,14 @@ export class ProgramService {
 
             this.saveProgram(programToChange).subscribe(
                 (program) => {
-                    console.log(program);
-                    let localProgramIndex = this.programs.findIndex((prog:Program)=>prog.name == program.name);
-                    if (localProgramIndex>=0){
-                        this.programs[localProgramIndex] = program;
-                        console.log('Rating Update successful');
-                    } else {
-                        console.log('Rating Update successful on Server Side, but failed in program list locally');
-                    }
+                     console.log(program);
+                    // let localProgramIndex = this.programs.findIndex((prog:Program)=>prog.name == program.name);
+                    // if (localProgramIndex>=0){
+                    //     this.programs[localProgramIndex] = program;
+                    //     console.log('Rating Update successful');
+                    // } else {
+                    //     console.log('Rating Update successful on Server Side, but failed in program list locally');
+                    // }
 
                 },
                 (err) => {

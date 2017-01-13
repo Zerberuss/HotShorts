@@ -3,6 +3,7 @@ import {Program} from "../entities/programs";
 import {ActivatedRoute} from "@angular/router";
 import {ProgramService} from "../program-search/services/program.service";
 
+//It is not allowed to modify the program name, since it is the primary key!!! The program has to be deleted and created again for a new name
 @Component({
     template:`
         <h1>Edit program:</h1>
@@ -10,9 +11,8 @@ import {ProgramService} from "../program-search/services/program.service";
           {{ message }}
         </div>
         <div  *ngIf="program">
-          <div class="form-group">
-            <label>Program Name: </label>
-            <input [(ngModel)]="program.name" required class="form-control">
+          <div>
+            <p>Program Name: {{program.name}}</p>
           </div>
           <div class="form-group">
             <label>Description: </label>

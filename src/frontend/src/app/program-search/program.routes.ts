@@ -51,7 +51,7 @@ const PROGRAM_ROUTES: Routes = [
     }
 
 ];
-
+//All Modules that use Routing should import RouterModule. Do not forget
 export const ProgramsRouterModule
     = RouterModule.forChild(PROGRAM_ROUTES);
 
