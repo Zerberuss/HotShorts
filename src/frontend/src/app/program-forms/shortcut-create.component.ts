@@ -5,6 +5,7 @@ import {ProgramService} from "../program-search/services/program.service";
 
 @Component({
     template:`
+      <div *ngIf="programName && programVersion">
         <h1>Create new shortcut:</h1>
         <h3>For {{programName}} version {{programVersion}}</h3>
         <div>
@@ -25,6 +26,13 @@ import {ProgramService} from "../program-search/services/program.service";
           <div class="form-group">
             <button (click)="create()" class="btn btn-default">Create Shortcut</button>
           </div>
+        </div>
+        <div *ngIf="!programName || !programVersion">
+        <h2>Illegal Access!</h2>
+            <p>New Shortcut cannot be associated with existing Application Version</p>
+            <p>If you want to create a new shortcut, please go into a program detail page, select a version and then add a shortcut</p>
+            <p>Do not try to go to this page directly by entering the shortcut-create Url in the Browser</p>
+        </div>
         
     `
 
@@ -76,8 +84,16 @@ export class ShortcutCreateComponent {
 
     //!!! When persisting, when the ID is autocreated by hibernate, we have to leave it null/0 in the object
     create(): void {
-        let newShortcut:Shortcut = <Shortcut>{
-            id:null,
+        // let newShortcut:Shortcut = <Shortcut>{
+        //     id:null,
+        //     description: this.description,
+        //     desciptionShort: this.descriptionShort,
+        //     keyCode: this.keyCode,
+        //     ratingCount: 0,
+        //     ratingNr: 0,
+        //     programVersion: this.programService.versionIdForNewlyCreatedShortcut
+        // };
+        let newShortcut = {
             description: this.description,
             desciptionShort: this.descriptionShort,
             keyCode: this.keyCode,
@@ -87,7 +103,7 @@ export class ShortcutCreateComponent {
         };
         this
             .programService
-            .createShortcutV2(newShortcut)
+            .createShortcutV3(newShortcut)
             .subscribe(
                 shortcut => {
                     console.log("create() response object");

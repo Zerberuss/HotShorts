@@ -7,7 +7,10 @@ import {ProgramService} from "../program-search/services/program.service";
 @Component({
     template:`
         <h1>Edit program version:</h1>
-        <h3>For the Application {{programName}}</h3>
+        <h3>For the Application {{version.program}}</h3>
+        <div>
+          {{ message }}
+        </div>
         <div *ngIf="version">
           <div class="form-group">
             <label>Version: </label>
@@ -48,10 +51,6 @@ export class VersionEditComponent {
                 this.load(this.versionId);
             }
         )
-    }
-
-    public get programName(): string {
-        return this.programService.programNameForNewlyCreatedVersion;
     }
 
     load(id: number): void {

@@ -10,9 +10,9 @@ import {ProgramFilterPipe} from "./pipes/filter-pipe";
 import {UniversalFilterPipe} from "./pipes/universal-filter.pipe";
 
 const BASE_URL_FOR_PRODUCTION = "http://localhost:8080/";
-const PROGRAM_URL_DEV = "http://localhost:8080/programs/";
-const VERSION_URL_DEV = "http://localhost:8080/programVersions/";
-const SHORTCUT_URL_DEV = "http://localhost:8080/shortcuts/";
+const PROGRAM_URL_DEV = "http://localhost:8080/programs";
+const VERSION_URL_DEV = "http://localhost:8080/programVersions";
+const SHORTCUT_URL_DEV = "http://localhost:8080/shortcuts";
 
 @NgModule({
   imports: [

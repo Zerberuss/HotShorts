@@ -39,12 +39,35 @@ export class ProgramService {
   }
 
 
+    public static combinePaths(path1:string, path2:string):string{
+        var path_1:string;
+        var path_2:string;
+
+        if (path2.startsWith("/")){
+            path_2 = path2.substring(1);
+        } else {
+            path_2 = path2;
+        }
+
+        if (path1.endsWith("/")){
+            path_1 = path1.substring(0, path1.length - 1);
+        } else {
+            path_1 = path1;
+        }
+
+        return path_1 + "/" + path_2;
+    }
+
     public static cloneObject<T>(obj:T):T{
         return <T> JSON.parse(JSON.stringify(obj));
     }
 
     public navigateToRoute(args:any[]){
         this.router.navigate(args);
+    }
+
+    public getLocalProgramByName(progName:string):Program{
+        return this.programs.find((prog:Program)=>prog.name == progName);
     }
 
     public updateProgramLocally(program:Program){
@@ -132,7 +155,7 @@ export class ProgramService {
     }
 
     private buildUrlForProgram(program:Program):string{
-        return this.programUrl + program.name.replace(" ", "%20");// + "/";
+        return this.programUrl + "/" + program.name.replace(" ", "%20");// + "/";
     }
 
     //ToDo: The primary key has to be generated on the server side, so how do we know how we can create the new version?
@@ -152,8 +175,21 @@ export class ProgramService {
         return this.create<ProgramVersion>(programVersion, this.versionsUrl);
     }
 
+    public createVersionV3(programVersion): Observable<ProgramVersion>{
+        //return this.create(programVersion, this.versionsUrl);
+        //return this.save(programVersion, this.versionsUrl + "/");
+        return this.save(programVersion, this.versionsUrl);
+    }
+
+    public createVersionV4(programVersion, programName:string): Observable<ProgramVersion>{
+        //return this.create(programVersion, this.versionsUrl);
+        //return this.save(programVersion, this.versionsUrl + "/");
+        return this.save(programVersion, this.programUrl + "/" + programName + "/" + "programVersions");
+    }
+
+
     private buildUrlForVersion(version:ProgramVersion):string{
-        return this.versionsUrl + version.id;// + "/";
+        return this.versionsUrl + "/" + version.id;// + "/";
     }
 
     //ToDo: Do not send the id, but let the server create the shortcut id.
@@ -173,8 +209,14 @@ export class ProgramService {
         return this.create<Shortcut>(shortcut, this.shortcutsUrl);
     }
 
+    public createShortcutV3(shortcut): Observable<Shortcut>{
+        //return this.create(shortcut, this.shortcutsUrl);
+        //return this.save(shortcut, this.shortcutsUrl + "/");
+        return this.save(shortcut, this.shortcutsUrl);
+    }
+
     private buildUrlForShortcut(shortcut:Shortcut):string{
-        return this.shortcutsUrl + shortcut.id;// + "/";
+        return this.shortcutsUrl + "/" + shortcut.id;// + "/";
     }
 
     public create<T>(createObj:T, url:string):Observable<T>{
@@ -198,17 +240,17 @@ export class ProgramService {
     //Seems like we only have to access the baseUrl, not the concrete Url to the object for the update.
     public saveProgram(program:Program):Observable<Program>{
         //return this.save<Program>(program, this.buildUrlForProgram(program));
-        return this.save<Program>(program, this.programUrl);
+        return this.save<Program>(program, this.programUrl + "/");
     }
 
     public saveVersion(version:ProgramVersion):Observable<ProgramVersion>{
         //return this.save<ProgramVersion>(version, this.buildUrlForVersion(version));
-        return this.save<ProgramVersion>(version, this.versionsUrl);
+        return this.save<ProgramVersion>(version, this.versionsUrl + "/");
     }
 
     public saveShortcut(shortcut:Shortcut):Observable<Shortcut>{
         //return this.save<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut));
-        return this.save<Shortcut>(shortcut, this.shortcutsUrl);
+        return this.save<Shortcut>(shortcut, this.shortcutsUrl + "/");
     }
 
     //probably not even a Observable of Type T as return value, because the delete method returns no body of the deleted object, only a successcode
@@ -415,15 +457,15 @@ export class ProgramService {
     */
 
   public getProgramFromServer(programName:string):Observable<Program>{
-      return this.getUrlContentAsJson(this.programUrl + programName.replace(" ", "%20").trim());
+      return this.getUrlContentAsJson(this.programUrl + "/" + programName.replace(" ", "%20").trim());
   }
 
     public getVersionFromServer(programVersionId:number):Observable<ProgramVersion>{
-        return this.getUrlContentAsJson(this.versionsUrl + programVersionId.toString());
+        return this.getUrlContentAsJson(this.versionsUrl + "/" + programVersionId.toString());
     }
 
     public getShortcutFromServer(shortcutId:number):Observable<Shortcut>{
-        return this.getUrlContentAsJson(this.shortcutsUrl + shortcutId.toString());
+        return this.getUrlContentAsJson(this.shortcutsUrl + "/" + shortcutId.toString());
     }
 
     //ToDo: only retrieve single program:
@@ -639,7 +681,7 @@ export class ProgramService {
   }
 
   public createProgramUrlFromProgramName(programName:string){
-      return this.programUrl + programName.replace(" ", "%20") + "/";
+      return this.programUrl + "/" + programName.replace(" ", "%20") + "/";
   }
 
   //example url: http://localhost:8080/programs/Visual%20Studio/

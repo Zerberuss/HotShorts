@@ -19,6 +19,7 @@
         <h3>Windows Versions:</h3>
         <div *ngFor="let v of programSummary.versions.windows">
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
+            <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
         </div>
     </div>
     <div *ngIf="programSummary?.versions?.linux.length > 0">
@@ -32,6 +33,7 @@
         <h3>OS X Versions:</h3>
         <div *ngFor="let v of programSummary.versions.osx">
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
+            <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
         </div>
     </div>
 </div>

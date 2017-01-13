@@ -5,8 +5,12 @@ import {ProgramService} from "../program-search/services/program.service";
 
 @Component({
     template:`
+    <div *ngIf="programName">
         <h1>Create new program version:</h1>
         <p>For the Application {{programName}}</p>
+        <div>
+          {{ message }}
+        </div>
         <div class="form-group">
             <label>Version: </label>
             <input [(ngModel)]="versionText" required class="form-control">
@@ -22,6 +26,13 @@ import {ProgramService} from "../program-search/services/program.service";
         <div class="form-group">
             <button (click)="create()" class="btn btn-default">Create Version</button>
           </div>
+        </div>
+        <div *ngIf="!programName">
+            <h2>Illegal Access!</h2>
+            <p>New Version cannot be associated with existing Program</p>
+            <p>If you want to create a new version, please go into a program detail page and click on the button 'Create new Version'</p>
+            <p>Do not try to go to this page directly by entering the version-create Url in the Browser</p>
+        </div>
     `
 
 })
@@ -37,11 +48,6 @@ export class VersionCreateComponent {
     constructor(
         private programService:ProgramService){
 
-    }
-
-    //for accessing {{programVersion}} in the html template
-    public get programVersion(): number {
-        return this.programService.versionIdForNewlyCreatedShortcut;
     }
 
     public get programName(): string {
@@ -64,16 +70,25 @@ export class VersionCreateComponent {
 
     //!!! When persisting, when the ID is autocreated by hibernate, we have to leave it null/0 in the object
     create(): void {
-        let newVersion:ProgramVersion = <ProgramVersion>{
-            id:null,
+        // let newVersion:ProgramVersion = <ProgramVersion>{
+        //     id:null,
+        //     osType: this.osType,
+        //     versionText: this.versionText,
+        //     program: this.programService.programNameForNewlyCreatedVersion
+        // };
+        let newVersion = {
             osType: this.osType,
             versionText: this.versionText,
-            program: this.programService.programNameForNewlyCreatedVersion
+            //program: this.programService.programNameForNewlyCreatedVersion
+            program: this.programService.getLocalProgramByName(this.programService.programNameForNewlyCreatedVersion)
+
         };
+
         console.log(newVersion);
         this
             .programService
-            .createVersionV2(newVersion)
+            //.createVersionV4(newVersion, this.programService.programNameForNewlyCreatedVersion)
+            .createVersionV3(newVersion)
             .subscribe(
                 version => {
                     console.log("create() response object");
