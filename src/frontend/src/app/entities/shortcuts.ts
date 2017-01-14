@@ -8,6 +8,6 @@ export interface Shortcut {
   keyCode: string;
   ratingCount: number;
   ratingNr: number;
-  programVersion: number;
+  programVersion: string; //Url of the associated Version Entity
   //_links:{};
 }

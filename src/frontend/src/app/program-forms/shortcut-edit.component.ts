@@ -11,19 +11,19 @@ import {ActivatedRoute} from "@angular/router";
         <div *ngIf="shortcut">
           <div class="form-group">
             <label>Short Description:</label>
-            <input [(ngModel)]="descriptionShort" required class="form-control">
+            <input [(ngModel)]="shortcut.descriptionShort" required class="form-control">
           </div>
           <div class="form-group">
             <label>Key Combination:</label>
-            <input [(ngModel)]="keyCode" required class="form-control">
+            <input [(ngModel)]="shortcut.keyCode" required class="form-control">
           </div>
           <div class="form-group">
             <label>Long Description:</label>
-            <input [(ngModel)]="description" required class="form-control">
+            <input [(ngModel)]="shortcut.description" required class="form-control">
           </div>
           <div>
           <p>Average Rating:</p>
-          <p>{{(program.ratingNr / program.ratingCount) | decimal: 2}}</p>
+          <p>{{(shortcut.ratingNr / shortcut.ratingCount) | decimal: 2}}</p>
           </div>
           <div class="form-group">
             <button (click)="resetRating()" class="btn btn-default">Reset Ratings</button>

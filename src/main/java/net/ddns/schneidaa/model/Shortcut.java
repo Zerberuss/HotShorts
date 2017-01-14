@@ -17,7 +17,8 @@ public class Shortcut {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "programVersion")
+    //@JoinColumn(name = "programVersion")
+    @JoinColumn(name = "version_id")
     private ProgramVersion programVersion;
 
     @Version

@@ -5,6 +5,6 @@ export interface ProgramVersion {
     id: number;
     osType: number;
     versionText: string;
-    program: string;
+    program: string; //Url of the associated Program Entity
     //_links:{};
 }

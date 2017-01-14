@@ -158,6 +158,30 @@ export class ProgramService {
         return this.programUrl + "/" + program.name.replace(" ", "%20");// + "/";
     }
 
+    public buildUrlForProgramByName(name:string):string{
+        return this.programUrl + "/" + name.replace(" ", "%20");
+    }
+
+    public buildUrlForVersionById(id:number):string{
+        return this.versionsUrl + "/" + id.toString();
+    }
+
+    public buildUrlForShortcutById(id:number):string{
+        return this.shortcutsUrl + "/" + id.toString();
+    }
+
+    public buildRelativeUrlForProgram(name:string):string{
+        return "/programs/" + name.replace(" ", "%20");
+    }
+
+    public buildRelativeUrlForVersion(id:number):string{
+        return "/programVersions/" + id.toString();
+    }
+
+    public buildRelativeUrlForShortcut(id:number):string{
+        return "/shortcuts/" + id.toString();
+    }
+
     //ToDo: The primary key has to be generated on the server side, so how do we know how we can create the new version?
     public createVersion(programVersion:ProgramVersion): Observable<ProgramVersion>{
         //let url = this.buildUrlForVersion(programVersion);

@@ -50,6 +50,7 @@ export class ProgramDetailComponent{
     goToShortcutCreate(){
         //store the current program version, so that the create page knows for what verion the new shortcut is created!
         this.programService.versionIdForNewlyCreatedShortcut = this.versionInfo.id;
+        this.router.navigate(['/shortcut-create']);
     }
 
     //Used for saving the current site inside a variable, so that we can return to it, after we finished editing a shortcut etc.

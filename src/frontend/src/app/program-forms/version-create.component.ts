@@ -3,6 +3,8 @@ import {Program} from "../entities/programs";
 import {ProgramVersion} from "../entities/programVersions";
 import {ProgramService} from "../program-search/services/program.service";
 
+//IMPORTANT - for storing the foreign key reference to the program, we have to provide the PROGRAM URL as value for the program column in ProgramVersion
+
 @Component({
     template:`
     <div *ngIf="programName">
@@ -79,8 +81,9 @@ export class VersionCreateComponent {
         let newVersion = {
             osType: this.osType,
             versionText: this.versionText,
-            //program: this.programService.programNameForNewlyCreatedVersion
-            program: this.programService.getLocalProgramByName(this.programService.programNameForNewlyCreatedVersion)
+            //foreign key has to be the program URL!!
+            program: this.programService.buildUrlForProgramByName(this.programService.programNameForNewlyCreatedVersion)
+            //program: this.programService.getLocalProgramByName(this.programService.programNameForNewlyCreatedVersion)
 
         };
 

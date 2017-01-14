@@ -3,6 +3,8 @@ import {Program} from "../entities/programs";
 import {Shortcut} from "../entities/shortcuts";
 import {ProgramService} from "../program-search/services/program.service";
 
+//IMPORTANT - for storing the foreign key reference to the version, we have to provide the VERSION URL as value for the programVersion column in ProgramVersion
+
 @Component({
     template:`
       <div *ngIf="programName && programVersion">
@@ -78,7 +80,7 @@ export class ShortcutCreateComponent {
             keyCode: "",
             ratingCount: 0,
             ratingNr: 0,
-            programVersion: 0
+            programVersion: ""
         };
     }
 
@@ -99,7 +101,8 @@ export class ShortcutCreateComponent {
             keyCode: this.keyCode,
             ratingCount: 0,
             ratingNr: 0,
-            programVersion: this.programService.versionIdForNewlyCreatedShortcut
+            //foreign key has to be the version URL!!
+            programVersion: this.programService.buildUrlForVersionById(this.programService.versionIdForNewlyCreatedShortcut)
         };
         this
             .programService

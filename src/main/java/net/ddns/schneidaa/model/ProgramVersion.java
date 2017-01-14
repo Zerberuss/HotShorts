@@ -18,7 +18,8 @@ public class ProgramVersion {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "program")
+    //@JoinColumn(name = "program")
+    @JoinColumn(name = "program_name")
     private Program program;
 
     @OneToMany(mappedBy = "programVersion", cascade = CascadeType.ALL)
