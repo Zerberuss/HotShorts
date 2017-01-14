@@ -37,6 +37,10 @@ public class Shortcut {
 
     private int ratingCount;
 
+    public long getId() {
+        return id;
+    }
+
     public ProgramVersion getProgramVersion() {
         return programVersion;
     }
@@ -58,6 +62,14 @@ public class Shortcut {
     }
 
     public void setDescritionShort(String descritionShort) {
+        this.descriptionShort = descritionShort;
+    }
+
+    public String getShortdescription() {
+        return descriptionShort;
+    }
+
+    public void setShortdescription(String descritionShort) {
         this.descriptionShort = descritionShort;
     }
 

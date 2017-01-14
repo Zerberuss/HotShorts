@@ -44,7 +44,8 @@ export class ProgramDetailComponent{
     }
 
     delete(shortcut:Shortcut){
-        this.programService.deleteShortcut(shortcut);
+        //this.programService.deleteShortcut(shortcut);
+        this.programService.deleteShortcutOnlineAndFromArray(shortcut, this.shortcuts);
     }
 
     goToShortcutCreate(){

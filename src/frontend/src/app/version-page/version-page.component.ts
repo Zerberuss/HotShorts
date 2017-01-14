@@ -8,6 +8,8 @@ import {Program} from "../entities/programs";
 import {ProgramVersion} from "../entities/programVersions";
 import {ProgramSummary} from "../entities/programSummary";
 import {isNullOrUndefined} from "util";
+import {OsTypes} from "../entities/osTypes";
+import {ProgramSummaryVersionEntry} from "../entities/programSummaryVersionEntry";
 
 //https://coryrylan.com/blog/introduction-to-angular-2-routing
 //https://angular.io/docs/ts/latest/guide/router.html
@@ -97,6 +99,54 @@ export class VersionPageComponent{
                 console.error('Fehler beim Laden der Programmversionen', err);
             }
         );
+    }
+
+    deleteVersion(version:ProgramVersion){ //ToDo: version is here of type ProgramSummaryVersionEntry, change the function. The below functions work however.
+        console.log(version);
+        // switch (version.osType){
+        //     case OsTypes.windows:
+        //         console.log("osType windows");
+        //         console.log(this.programSummary.versions.windows);
+        //         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.windows, version.id);
+        //         break;
+        //     case OsTypes.linux:
+        //         console.log("osType linux");
+        //         console.log(this.programSummary.versions.linux);
+        //         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.linux, version.id);
+        //         break;
+        //     case OsTypes.osx:
+        //         console.log("osType osx");
+        //         console.log(this.programSummary.versions.osx);
+        //         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.osx, version.id);
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+        //this.programService.deleteVersion(version);
+
+
+
+
+        this.programService.deleteVersionOnlineAndFromArray(version, this.programVersions);
+        this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.osx, version.id);
+        this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.linux, version.id);
+        this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.windows, version.id);
+
+        console.log("router url: " + this.router.url);
+        //if the current route is the route of the deleted version, change the route:
+        //if (this.router.url.indexOf(this.programName.replace(" ", "%20") + "/version/" + version.id.toString()) >= 0){
+        if(this.router.url.indexOf(this.programName.replace(" ", "%20")) >= 0 && this.router.url.endsWith(version.id.toString())){
+            this.router.navigate(['/app', this.programName.replace(" ", "%20")]);
+        }
+
+    }
+
+    deleteVersionFromSummaryVersionEntry(arr:ProgramSummaryVersionEntry[], id:number){
+        let indexToDelete = arr.findIndex((entry:ProgramSummaryVersionEntry)=> entry.id == id);
+        if (indexToDelete >= 0){
+            arr.splice(indexToDelete, 1);
+        }
     }
 
     createProgramSummary(){

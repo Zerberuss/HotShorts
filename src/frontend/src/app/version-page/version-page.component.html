@@ -15,11 +15,14 @@
 <div>
     <h2>Versions Overview</h2>
     <br/>
+    <!-- http://stackoverflow.com/questions/34164413/how-to-apply-filters-to-ngfor -->
+    <!--div *ngFor="#item of itemsList" *ngIf="conditon(item)">{item | filter1 | filter2}</div-->
     <div *ngIf="programSummary?.versions?.windows.length > 0">
         <h3>Windows Versions:</h3>
         <div *ngFor="let v of programSummary.versions.windows">
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
             <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
+            <button class="btn btn-default" (click)="deleteVersion(v)">Delete this Version</button>
         </div>
     </div>
     <div *ngIf="programSummary?.versions?.linux.length > 0">
@@ -27,6 +30,7 @@
         <div *ngFor="let v of programSummary.versions.linux">
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
             <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
+            <button class="btn btn-default" (click)="deleteVersion(v)">Delete this Version</button>
         </div>
     </div>
     <div *ngIf="programSummary?.versions?.osx.length > 0">
@@ -34,6 +38,7 @@
         <div *ngFor="let v of programSummary.versions.osx">
             <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
             <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
+            <button class="btn btn-default" (click)="deleteVersion(v)">Delete this Version</button>
         </div>
     </div>
 </div>

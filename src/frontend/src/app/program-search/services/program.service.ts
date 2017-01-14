@@ -82,6 +82,10 @@ export class ProgramService {
         this.updateLocally<Shortcut>(shortcut, "id", this.shortcuts);
     }
 
+    public updateShortcutInArray(shortcut:Shortcut, arr:Shortcut[]){
+        this.updateLocally<Shortcut>(shortcut, "id", arr);
+    }
+
     private updateLocally<T>(obj:T, idAttribute:string, localArray:T[]){
         let objIndex = localArray.findIndex((elem:T)=>elem[idAttribute] == obj[idAttribute]);
         if (objIndex>=0){
@@ -297,13 +301,16 @@ export class ProgramService {
             .subscribe(
                 (ok) => {
                     //delete the program also locally if server delete is successful
-                    let localIndex = array.indexOf(obj);
-                    if (localIndex >= 0){
-                        array.splice(localIndex, 1);
-                        console.log("Object " + typeof(obj) + " deleted successfully");
-                    } else {
-                        console.log("Object " + typeof(obj)+ " deleted successfully only on server side");
+                    if (array){
+                        let localIndex = array.indexOf(obj);
+                        if (localIndex >= 0){
+                            array.splice(localIndex, 1);
+                            console.log("Object " + typeof(obj) + " deleted successfully");
+                        } else {
+                            console.log("Object " + typeof(obj)+ " deleted successfully only on server side");
+                        }
                     }
+
                 },
                 (err) => {
                     console.error('Delete Error for Object', err);
@@ -381,8 +388,16 @@ export class ProgramService {
         this.deleteOnBackendAndFrontend<ProgramVersion>(version, this.buildUrlForVersion(version), this.programVersions);
     }
 
+    public deleteVersionOnlineAndFromArray(version:ProgramVersion, arrayToDelete:ProgramVersion[]){
+        this.deleteOnBackendAndFrontend<ProgramVersion>(version, this.buildUrlForVersion(version),arrayToDelete);
+    }
+
     public deleteShortcut(shortcut:Shortcut){
         this.deleteOnBackendAndFrontend<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut), this.shortcuts);
+    }
+
+    public deleteShortcutOnlineAndFromArray(shortcut:Shortcut, arrayToDelete:Shortcut[]){
+        this.deleteOnBackendAndFrontend<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut), arrayToDelete);
     }
 
     //ToDo: only increase the ratingNr by rating and the ratingCount by 1 for the given Version
