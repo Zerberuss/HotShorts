@@ -20,9 +20,9 @@ import {ProgramService} from "../program-search/services/program.service";
         <div class="form-group">
         <p>Operating System: </p>
         <form>
-          <input type="radio" name="os-type" [(ngModel)]="osType" checked value="0"> Windows <br>
-          <input type="radio" name="os-type" [(ngModel)]="osType" value="1"> Linux <br>
-          <input type="radio" name="os-type" [(ngModel)]="osType" value="2"> OSX 
+          <input type="radio" name="os-type" [(ngModel)]="osType" [value]="0"> Windows <br>
+          <input type="radio" name="os-type" [(ngModel)]="osType" [value]="1"> Linux <br>
+          <input type="radio" name="os-type" [(ngModel)]="osType" [value]="2"> OSX 
         </form>
         </div>
         <div class="form-group">
