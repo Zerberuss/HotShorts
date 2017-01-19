@@ -11,22 +11,7 @@
     <button class="btn" (click)="getSummaryFromSelectedProgram()">ProgramSummary erstellen</button>
 </div-->
 
-<div *ngIf="selectedProgramSummary" style="border: 2px; background-color: gainsboro">
-    <h2>Selected Program Detail Preview</h2>
-    <div>
-        <pre>Selected Program:
-        ------------------------
-            <!--{{ selectedProgram | json }}-->
-            {{ selectedProgramSummary | json }}
-        </pre>
-        <p>Shortcut Pages available for: </p>
-        <div *ngIf="selectedProgramSummary">
-            <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
-            <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
-            <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">OS X</button>
-        </div>
-    </div>
-</div>
+
 <!-- When using program-entry.component.html as component-template: -->
 <!--div *ngFor="let p of programs | programFilter: name" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
     <program-entry
@@ -37,7 +22,7 @@
     </program-entry>
 </div-->
 
-<table class="table table-striped">
+<table class="table table-striped" >
     <thead>
     <tr>
         <th>Program Name</th>
@@ -48,8 +33,8 @@
         <th></th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let item of programs | programFilter: name">
+    <tbody *ngFor="let item of programs | programFilter: name">
+    <tr>
         <td style="font-weight: bold">{{item.name}}</td>
         <td>{{item.description}}</td>
         <td>{{(item.ratingNr / item.ratingCount) | decimal: 2}}</td>
@@ -80,6 +65,27 @@
                    class="btn btn-default"
                    (click)="delete(item)" />
         </td>
+    </tr>
+    <tr *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
+        <td></td>
+        <td colspan="6" style="border: 0px; background-color: gainsboro">
+                <h4>Summary</h4>
+                <div>
+                    <pre>
+                        <!--{{ selectedProgram | json }}-->
+                        {{ selectedProgramSummary | json }}
+                    </pre>
+                    <p>Shortcut Pages available for: </p>
+                    <div *ngIf="selectedProgramSummary">
+                        <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
+                        <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
+                        <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">OS X</button>
+                    </div>
+                </div>
+        </td>
+    </tr>
+    <tr *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
+        <td></td>
     </tr>
     </tbody>
 </table>
