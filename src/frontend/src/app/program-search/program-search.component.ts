@@ -17,7 +17,7 @@ export class ProgramSearchComponent {
 
   public name: string;
   public selectedProgram: Program;
-    public selectedProgramSummary: ProgramSummary;
+  public selectedProgramSummary: ProgramSummary;
 
   constructor(private programService: ProgramService,
               private router:Router) {
