@@ -89,7 +89,7 @@ export class ShortcutCreateComponent {
         // let newShortcut:Shortcut = <Shortcut>{
         //     id:null,
         //     description: this.description,
-        //     desciptionShort: this.descriptionShort,
+        //     descriptionShort: this.descriptionShort,
         //     keyCode: this.keyCode,
         //     ratingCount: 0,
         //     ratingNr: 0,
@@ -97,12 +97,13 @@ export class ShortcutCreateComponent {
         // };
         let newShortcut = {
             description: this.description,
-            desciptionShort: this.descriptionShort,
+            descriptionShort: this.descriptionShort,
             keyCode: this.keyCode,
             ratingCount: 0,
             ratingNr: 0,
             //foreign key has to be the version URL!!
             programVersion: this.programService.buildUrlForVersionById(this.programService.versionIdForNewlyCreatedShortcut)
+
         };
         this
             .programService

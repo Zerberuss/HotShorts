@@ -83,6 +83,8 @@ export class ShortcutEditComponent {
     }
 
     save(): void {
+        //@Simon Pfusch der gelöscht werden muss
+        this.shortcut.programVersion = this.programService.buildUrlForVersionById(this.programService.versionIdForNewlyCreatedShortcut)
         this
             .programService
             .saveShortcut(this.shortcut)
@@ -99,7 +101,6 @@ export class ShortcutEditComponent {
                     this.message = "Fehler beim Speichern: " + err.text();
                 }
             )
-
     }
 
     resetRating(): void{

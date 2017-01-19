@@ -75,6 +75,7 @@ export class ProgramDetailComponent{
 
     loadVersionWithIdAndStoreId(versionId:number){
         this.storeCurrentUrlInProgramService();
+        this.programService.versionIdForNewlyCreatedShortcut = versionId;
         this.id = versionId;
         this.programService.getVersionFromServer(versionId)
             .subscribe(

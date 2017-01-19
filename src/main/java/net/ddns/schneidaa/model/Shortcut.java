@@ -57,12 +57,12 @@ public class Shortcut {
         this.keyCode = keyCode;
     }
 
-    public String getDescritionShort() {
+    public String getDescriptionShort() {
         return descriptionShort;
     }
 
-    public void setDescritionShort(String descritionShort) {
-        this.descriptionShort = descritionShort;
+    public void setDescriptionShort(String descriptionShort) {
+        this.descriptionShort = descriptionShort;
     }
 
     public String getShortdescription() {
