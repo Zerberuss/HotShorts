@@ -72,14 +72,13 @@
                 <h4>Summary</h4>
                 <div>
                     <pre>
-                        <!--{{ selectedProgram | json }}-->
                         {{ selectedProgramSummary | json }}
                     </pre>
                     <p>Shortcut Pages available for: </p>
                     <div *ngIf="selectedProgramSummary">
-                        <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
-                        <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
-                        <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" style="background-color:cornflowerblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">OS X</button>
+                        <button *ngIf="selectedProgramSummary.versions.windows.length > 0" class="btn" style="background-color:lightblue" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.windows[0])">Windows</button><!-- Argument should be selectedProgramSummary.versions.windows[0]-->
+                        <button *ngIf="selectedProgramSummary.versions.linux.length > 0" class="btn" style="background-color:orange" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.linux[0])">Linux</button>
+                        <button *ngIf="selectedProgramSummary.versions.osx.length > 0" class="btn" style="background-color:lightgray" (click)="goToProgramPageWithVersionId(selectedProgramSummary.versions.osx[0])">macOS</button>
                     </div>
                 </div>
         </td>

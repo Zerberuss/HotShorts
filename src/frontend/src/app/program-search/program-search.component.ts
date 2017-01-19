@@ -80,6 +80,7 @@ export class ProgramSearchComponent {
             this.programService.assignProgramSummaryForProgram(prog, programSummary, callbackSuccess);
             console.log("select function program summary:");
             console.log(programSummary);
+            this.select(prog);
         }
     }
 
