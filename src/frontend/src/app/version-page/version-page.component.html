@@ -1,47 +1,116 @@
-<h1>Shortcut Page</h1>
+<h1>{{program?.name}} Shortcut Page</h1>
 <div>
-    <h2>{{program?.name}}</h2>
-    <br/>
-    <p>{{program?.description}}</p>
-    <br/>
-    <p *ngIf="program">Website: {{program.website}}</p>
-    <br/>
-    <div>
-        Rating: {{(program?.ratingNr / program?.ratingCount)|decimal:2}}
-    </div>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td *ngIf="program"  style="border: 0px; background-color: #FFFFFF">
+                    <h4><a href={{program.website}}>  {{program.website}} </a></h4>
+                </td>
+                <td style="border: 0px; background-color: #FFFFFF">
+                    <h4> </h4>
+                </td>
+                <td style="border: 0px; background-color: #FFFFFF">
+                    <h4> Rating: {{(program?.ratingNr / program?.ratingCount)|decimal:2}} </h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>{{program?.description}}</h4>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
     <!--button class="btn" (click)="loadProgram()">ProgramSummary erstellen</button-->
 
 </div>
 <div>
-    <h2>Versions Overview</h2>
-    <br/>
-    <!-- http://stackoverflow.com/questions/34164413/how-to-apply-filters-to-ngfor -->
-    <!--div *ngFor="#item of itemsList" *ngIf="conditon(item)">{item | filter1 | filter2}</div-->
-    <div *ngIf="programSummary?.versions?.windows.length > 0">
-        <h3>Windows Versions:</h3>
-        <div *ngFor="let v of programSummary.versions.windows">
-            <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
-            <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
-            <button class="btn btn-default" (click)="deleteVersion(v)">Delete this Version</button>
-        </div>
-    </div>
-    <div *ngIf="programSummary?.versions?.linux.length > 0">
-        <h3>Linux Versions:</h3>
-        <div *ngFor="let v of programSummary.versions.linux">
-            <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
-            <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
-            <button class="btn btn-default" (click)="deleteVersion(v)">Delete this Version</button>
-        </div>
-    </div>
-    <div *ngIf="programSummary?.versions?.osx.length > 0">
-        <h3>OS X Versions:</h3>
-        <div *ngFor="let v of programSummary.versions.osx">
-            <a [routerLink]="['/app', programSummary.name, 'version', v.id]">{{v.versionText}}</a>
-            <a class="btn btn-default" [routerLink]="['/version-edit', v.id]">Edit this Version</a>
-            <button class="btn btn-default" (click)="deleteVersion(v)">Delete this Version</button>
-        </div>
-    </div>
+    <h3>Program Versions</h3>
+    <table class="table table-striped">
+
+        <!-- http://stackoverflow.com/questions/34164413/how-to-apply-filters-to-ngfor -->
+        <!--div *ngFor="#item of itemsList" *ngIf="conditon(item)">{item | filter1 | filter2}</div-->
+        <tbody>
+            <tr style="border: 0px; background-color: transparent">
+                <div *ngIf="programSummary?.versions?.windows.length > 0">
+                    <h4>Windows</h4>
+                    <div *ngFor="let v of programSummary.versions.windows">
+                        <table class="table table-striped" style="width: 60%">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete Version</button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </tr>
+            <tr style="border: 0px; background-color: transparent">
+                <div *ngIf="programSummary?.versions?.linux.length > 0">
+                    <h4>Linux</h4>
+                    <div *ngFor="let v of programSummary.versions.linux">
+                        <table class="table table-striped" style="width: 60%">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete Version</button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </tr>
+            <tr style="border: 0px; background-color: transparent">
+                <div *ngIf="programSummary?.versions?.osx.length > 0">
+                    <h4>macOS:</h4>
+                    <div *ngFor="let v of programSummary.versions.osx">
+                        <table class="table table-striped" style="width: 60%">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete Version</button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<br>
+<br>
 <div>
     <a class="btn btn-default" [routerLink]="['/version-create']">Create new Version</a>
 </div>
