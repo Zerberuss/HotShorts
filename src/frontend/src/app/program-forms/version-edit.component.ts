@@ -18,14 +18,10 @@ import {ProgramService} from "../program-search/services/program.service";
           </div>
         <div class="form-group">
             <p>Operating System: </p>
-            <!-- 
-            <input type="radio" name="os-type-1" (click)="version.osType = 0" 
-             [checked]="version.osType === 0">Windows
-              -->
             <form>
-              <input type="radio" name="os-type" [(ngModel)]="osType" [value]="0"> <img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png"> Windows <br>
-              <input type="radio" name="os-type" [(ngModel)]="osType" [value]="1"> <img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png"> Linux <br>
-              <input type="radio" name="os-type" [(ngModel)]="osType" [value]="2"> <img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png"> macOS 
+              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="0"> <img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png"> Windows <br>
+              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="1"> <img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png"> Linux <br>
+              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="2"> <img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png"> macOS 
             </form>
           </div>
           <div class="form-group">
