@@ -74,12 +74,24 @@ export class ProgramService {
         this.updateLocally<Program>(program, "name", this.programs);
     }
 
+    public updateProgramByAttributesLocally(program:Program){
+        this.updateLocallyV2<Program>(program, "name", this.programs);
+    }
+
     public updateVersionLocally(version:ProgramVersion){
         this.updateLocally<ProgramVersion>(version, "id", this.programVersions);
     }
 
+    public updateVersionByAttributesLocally(version:ProgramVersion){
+        this.updateLocallyV2<ProgramVersion>(version, "id", this.programVersions);
+    }
+
     public updateShortcutLocally(shortcut:Shortcut){
         this.updateLocally<Shortcut>(shortcut, "id", this.shortcuts);
+    }
+
+    public updateShortcutByAttributesLocally(shortcut:Shortcut){
+        this.updateLocallyV2<Shortcut>(shortcut, "id", this.shortcuts);
     }
 
     public updateShortcutInArray(shortcut:Shortcut, arr:Shortcut[]){
@@ -89,6 +101,27 @@ export class ProgramService {
     private updateLocally<T>(obj:T, idAttribute:string, localArray:T[]){
         let objIndex = localArray.findIndex((elem:T)=>elem[idAttribute] == obj[idAttribute]);
         if (objIndex>=0){
+            localArray[objIndex] = obj;
+            console.log("Local Object updated successfully");
+        } else {
+            console.log("Object not found in local array");
+        }
+    }
+
+    //only replace attributes of a existing value:
+    private updateLocallyV2<T>(obj:any, idAttribute:string, localArray:T[]){
+        let objIndex = localArray.findIndex((elem:T)=>elem[idAttribute] == obj[idAttribute]);
+        if (objIndex>=0){
+            for (var key in obj){
+                if (obj.hasOwnProperty(key) && obj[key] != null){
+                    if (localArray[objIndex].hasOwnProperty(key)){
+                        if (obj[key] != localArray[objIndex][key]){
+                            localArray[objIndex][key] = obj[key];
+                        }
+                    }
+                }
+
+            }
             localArray[objIndex] = obj;
             console.log("Local Object updated successfully");
         } else {
@@ -286,6 +319,32 @@ export class ProgramService {
             .http
             .post(url, saveObj, { headers })
             .map(resp => resp.json());
+    }
+
+    //patching requres the exact url for the object (/programs/Blender), while post only needs the base url for the entity: /programs/
+    public putSave(saveObj:any, url:string){
+        let headers = this.generateHttpHeader();
+
+        return this
+            .http
+            .patch(url, saveObj, { headers })
+            .map(resp => resp.json());
+    }
+
+    public saveProgramByPut(program:any, programName:string):Observable<Program>{
+        //return this.save<Program>(program, this.buildUrlForProgram(program));
+        return this.putSave(program, this.programUrl + "/" + programName);
+    }
+
+    public saveVersionByPut(version:any, versionId:number):Observable<ProgramVersion>{
+        //return this.save<ProgramVersion>(version, this.buildUrlForVersion(version));
+        return this.putSave(version, this.versionsUrl + "/" + versionId);
+    }
+
+    //the shortcut object does not necessarily have the id attribute we need for creating the url, so we have to pass the id separately
+    public saveShortcutByPut(shortcut:any, shortcutId:number):Observable<Shortcut>{
+        //return this.save<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut));
+        return this.putSave(shortcut, this.shortcutsUrl + "/" + shortcutId);
     }
 
     //Seems like we only have to access the baseUrl, not the concrete Url to the object for the update.

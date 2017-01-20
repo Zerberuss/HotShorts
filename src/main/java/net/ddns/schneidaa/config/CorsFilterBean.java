@@ -12,6 +12,8 @@ import java.util.Arrays;
 /**
  * Created by simon41 on 12/18/2016.
  */
+//http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/cors/CorsConfiguration.html#setAllowedMethods-java.util.List-
+
 @Configuration
 public class CorsFilterBean {
 
@@ -21,7 +23,10 @@ public class CorsFilterBean {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowCredentials(true);
             config.addAllowedOrigin("http://localhost:8081");
-            config.setAllowedMethods(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "DELETE"));
+
+            //If a angular http put request comes that does not have all necessary attributes, it might get turned into a patch request, so patch has to be allowed or we have a cross origin request violation
+            //config.setAllowedMethods(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "DELETE", "PATCH"));
+            config.setAllowedMethods(Arrays.asList("*"));
             config.addAllowedHeader("*");
 //            config.addAllowedMethod("*");
             source.registerCorsConfiguration("/**", config);

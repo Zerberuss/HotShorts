@@ -97,7 +97,7 @@ export class ShortcutCreateComponent {
         // };
         let newShortcut = {
             description: this.description,
-            descriptionShort: this.descriptionShort,
+            desciptionShort: this.descriptionShort,
             keyCode: this.keyCode,
             ratingCount: 0,
             ratingNr: 0,

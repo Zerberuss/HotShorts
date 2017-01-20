@@ -25,7 +25,7 @@ import {ProgramService} from "../program-search/services/program.service";
             </form>
           </div>
           <div class="form-group">
-            <button (click)="save()" class="btn btn-default">Save</button>
+            <button (click)="saveV2()" class="btn btn-default">Save</button>
           </div>
         </div>
         <div *ngIf="!version">
@@ -90,13 +90,36 @@ export class VersionEditComponent {
                 versionObject => {
                     console.log(versionObject);
                     this.version = versionObject;
-                    this.appendForeignKeyToVersion(this.version);
+                    //this.appendForeignKeyToVersion(this.version);
                     this.message = "";
                 },
                 (err) => {
                     this.message = "Fehler beim Laden: " + err.text();
                 }
             )
+    }
+
+    saveV2():void{
+        let saveObj = {
+            osType: this.version.osType,
+            versionText: this.version.versionText
+        };
+        this
+            .programService
+            .saveVersionByPut(saveObj, this.version.id)
+            .subscribe(
+                versionObject => {
+                    this.version = versionObject;
+                    this.programService.updateVersionByAttributesLocally(this.version);
+                    this.message = "Daten wurden gespeichert!";
+                    //redirect to the Program Detail page:
+                    this.programService.navigateToRoute([this.programService.currentProgramDetailUrl]);
+                },
+                (err) => {
+                    this.message = "Fehler beim Speichern: " + err.text();
+                }
+            )
+
     }
 
     save(): void {

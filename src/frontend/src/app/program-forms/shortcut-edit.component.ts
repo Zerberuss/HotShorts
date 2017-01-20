@@ -12,7 +12,7 @@ import {ProgramVersion} from "../entities/programVersions";
         <div *ngIf="shortcut">
           <div class="form-group">
             <label>Short Description:</label>
-            <input [(ngModel)]="shortcut.descriptionShort" required class="form-control">
+            <input [(ngModel)]="shortcut.desciptionShort" required class="form-control">
           </div>
           <div class="form-group">
             <label>Key Combination:</label>
@@ -30,7 +30,7 @@ import {ProgramVersion} from "../entities/programVersions";
             <button (click)="resetRating()" class="btn btn-default">Reset Ratings</button>
           </div>
           <div class="form-group">
-            <button (click)="save()" class="btn btn-default">Save</button>
+            <button (click)="saveV2()" class="btn btn-default">Save</button>
           </div>
         </div>
         <div *ngIf="!shortcut">
@@ -98,13 +98,40 @@ export class ShortcutEditComponent {
                     //this.appendForeignKeyToShortcut(shortcutObject);
                     console.log(shortcutObject);
                     this.shortcut = shortcutObject;
-                    this.appendForeignKeyToShortcut(this.shortcut);
+                    //this.appendForeignKeyToShortcut(this.shortcut);
                     this.message = "";
                 },
                 (err) => {
                     this.message = "Fehler beim Laden: " + err.text();
                 }
             )
+    }
+
+    saveV2():void{
+        let saveObj = {
+            description: this.shortcut.description,
+            desciptionShort: this.shortcut.desciptionShort,
+            keyCode: this.shortcut.keyCode,
+            ratingCount: this.shortcut.ratingCount,
+            ratingNr: this.shortcut.ratingNr
+        };
+
+        this
+            .programService
+            .saveShortcutByPut(saveObj, this.shortcut.id)
+            .subscribe(
+                shortcutObject => {
+                    this.shortcut = shortcutObject;
+                    this.programService.updateShortcutByAttributesLocally(this.shortcut);
+                    this.message = "Daten wurden gespeichert!";
+                    //redirect to the Program Detail page:
+                    this.programService.navigateToRoute([this.programService.currentProgramDetailUrl]);
+                },
+                (err) => {
+                    this.message = "Fehler beim Speichern: " + err.text();
+                }
+            )
+
     }
 
     save(): void {

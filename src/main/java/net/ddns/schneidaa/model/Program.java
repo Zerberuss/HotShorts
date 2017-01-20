@@ -10,6 +10,8 @@ import java.util.List;
 //https://hellokoding.com/jpa-many-to-many-relationship-mapping-example-with-spring-boot-maven-and-mysql/
 //How to expose the ID (Primary Key) in Spring Data: http://tommyziegler.com/how-to-expose-the-resourceid-with-spring-data-rest/
 
+    //NOTE!: If the spring server receives a put, post etc. method, the attribut names HAVE TO MATCH the attribut names of the class: so here for example: ratingNr instead of rating_nr
+
 @Entity
 @Table(name = "program")
 public class Program {

@@ -1,8 +1,6 @@
 package net.ddns.schneidaa.model;
 
 import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.persistence.*;
 
 /**
  * Created by johann on 8/23/16.
@@ -29,7 +27,7 @@ public class Shortcut {
     private String keyCode;
 
     @Column(name = "shortdescription")
-    private String descriptionShort;
+    private String desciptionShort;
 
     private String description;
 
@@ -57,20 +55,28 @@ public class Shortcut {
         this.keyCode = keyCode;
     }
 
+    public String getDesciptionShort() {
+        return desciptionShort;
+    }
+
+    public void setDesciptionShort(String descriptionShort) {
+        this.desciptionShort = descriptionShort;
+    }
+
     public String getDescriptionShort() {
-        return descriptionShort;
+        return desciptionShort;
     }
 
     public void setDescriptionShort(String descriptionShort) {
-        this.descriptionShort = descriptionShort;
+        this.desciptionShort = descriptionShort;
     }
 
     public String getShortdescription() {
-        return descriptionShort;
+        return desciptionShort;
     }
 
     public void setShortdescription(String descritionShort) {
-        this.descriptionShort = descritionShort;
+        this.desciptionShort = descritionShort;
     }
 
     public String getDescription() {
