@@ -47,22 +47,34 @@
                 <span (click)="rateProgram(item, 5)">☆</span>
             </div>
         </td>
+        <td> <button class="btn"  (click)="goToProgramPageWithOsId(item,0)">
+            <img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png">
+        </button></td>
+        <td> <a class="btn btn-default" [routerLink]="['/app', item.name]">
+            <img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png">
+        </a></td>
+        <td> <a class="btn btn-default" [routerLink]="['/app', item.name]">
+            <img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png">
+        </a></td>
+
+        <!--
+        <td>
+            <a class="btn btn-default" [routerLink]="['/app', item.name]">Details</a>
+        </td>
+        -->
         <td>
             <input type="button"
-                   value="Show Summary"
+                   value="Summary"
                    class="btn btn-default"
                    (click)="getSummaryFromProgram(item)" />
         </td>
         <td>
-            <a class="btn btn-default" [routerLink]="['/app', item.name]">Details</a>
-        </td>
-        <td>
-            <a class="btn btn-default" [routerLink]="['/program-edit', item.name]">Edit</a>
+            <a class="btn btn-warning" [routerLink]="['/program-edit', item.name]">Edit</a>
         </td>
         <td>
             <input type="button"
                    value="Delete"
-                   class="btn btn-default"
+                   class="btn btn-danger"
                    (click)="delete(item)" />
         </td>
     </tr>

@@ -42,11 +42,11 @@
                 <div *ngIf="programSummary?.versions?.windows.length > 0">
                     <h4>Windows Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.windows">
-                        <table class="table table-striped" style="width: 80%">
+                        <table class="table table-striped" style="width: 60%">
                             <thead>
                                 <tr>
                                     <td>
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Version {{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
