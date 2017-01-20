@@ -6,8 +6,8 @@ import {ProgramService} from "../program-search/services/program.service";
 
 @Component({
     template:`
-        <h1>Edit program version:</h1>
-        <h3>For the Application {{programName}}</h3>
+        <h1>Edit Program Version:</h1>
+        <h3>Application: {{programName}}</h3>
         <div>
           {{ message }}
         </div>
@@ -23,9 +23,9 @@ import {ProgramService} from "../program-search/services/program.service";
              [checked]="version.osType === 0">Windows
               -->
             <form>
-              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="0"> Windows <br>
-              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="1"> Linux <br>
-              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="2"> OSX 
+              <input type="radio" name="os-type" [(ngModel)]="osType" [value]="0"> <img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png"> Windows <br>
+              <input type="radio" name="os-type" [(ngModel)]="osType" [value]="1"> <img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png"> Linux <br>
+              <input type="radio" name="os-type" [(ngModel)]="osType" [value]="2"> <img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png"> macOS 
             </form>
           </div>
           <div class="form-group">

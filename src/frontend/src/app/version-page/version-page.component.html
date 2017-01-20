@@ -40,16 +40,16 @@
         <tbody>
             <tr style="border: 0px; background-color: transparent">
                 <div *ngIf="programSummary?.versions?.windows.length > 0">
-                    <h4>Windows Program Versions:</h4>
+                    <h4><img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png"> Windows Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.windows">
                         <table class="table table-striped" style="width: 60%">
                             <thead>
                                 <tr>
                                     <td>
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
+                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
@@ -65,16 +65,16 @@
             </tr>
             <tr style="border: 0px; background-color: transparent">
                 <div *ngIf="programSummary?.versions?.linux.length > 0">
-                    <h4>Linux Program Versions:</h4>
+                    <h4><img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png"> Linux Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.linux">
                         <table class="table table-striped" style="width: 60%">
                             <thead>
                                 <tr>
                                     <td>
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
+                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
@@ -90,16 +90,16 @@
             </tr>
             <tr style="border: 0px; background-color: transparent">
                 <div *ngIf="programSummary?.versions?.osx.length > 0">
-                    <h4>macOS Program Versions:</h4>
+                    <h4><img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png"> macOS Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.osx">
                         <table class="table table-striped" style="width: 60%">
                             <thead>
                                 <tr>
                                     <td>
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
+                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>

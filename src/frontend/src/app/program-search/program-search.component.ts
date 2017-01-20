@@ -95,41 +95,4 @@ export class ProgramSearchComponent {
       this.router.navigate(['/app', this.selectedProgram.name, 'version' ,versionEntry.id]);
   }
 
-    public goToProgramPageWithOsId(prog:Program, os:number){
-      //var callbackSuccess = this.getSummaryFromProgram(prog);
-
-        this.getSummaryFromProgram(prog);
-
-
-        console.log("DONE??");
-
-
-      if (this.selectedProgramSummary == null){
-          console.log("FAIL!!!");
-      }
-      else{
-          if (os == 0){
-              if(this.selectedProgramSummary.versions.windows.length>0) {
-                  this.goToProgramPageWithVersionId(this.selectedProgramSummary.versions.windows[0]);
-              }else{
-                  console.log("Couldn't find any windows Entries ")
-                  this.router.navigate(['/app', this.selectedProgram.name]);
-              }
-          }else if(os == 1){
-              if(this.selectedProgramSummary.versions.linux.length>0) {
-                  this.goToProgramPageWithVersionId(this.selectedProgramSummary.versions.linux[0]);
-              }else
-                  console.log("Couldn't find any linux Entries ")
-          }else{
-              if(this.selectedProgramSummary.versions.osx.length>0) {
-                  this.goToProgramPageWithVersionId(this.selectedProgramSummary.versions.osx[0]);
-              }else
-                  console.log("Couldn't find any macOS Entries ")
-          }
-      }
-
-
-
-    }
-
 }
