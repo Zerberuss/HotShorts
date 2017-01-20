@@ -3,6 +3,7 @@ import {Program} from "../entities/programs"
 import {Shortcut} from "../entities/shortcuts";
 import {ProgramService} from "../program-search/services/program.service";
 import {ActivatedRoute} from "@angular/router";
+import {ProgramVersion} from "../entities/programVersions";
 
 @Component({
     template:`
@@ -66,14 +67,38 @@ export class ShortcutEditComponent {
         return this.programService.programNameForNewlyCreatedVersion;
     }
 
+    appendForeignKeyToShortcut(shortcut:Shortcut, callbackFunc:()=>void = function(){}){
+        try {
+            this.programService.retrieveAssociatedVersionForShortcut(shortcut)
+                .subscribe(
+                    versionObject => {
+                        shortcut.programVersion = ProgramService.getSelfLinkFromObject<ProgramVersion>(versionObject);
+                        callbackFunc();
+
+                    },
+                    (err) => {
+                        console.log("correct link for foreign key reference could not be retrieved for shortcut");
+                        shortcut.programVersion = this.programService.buildUrlForVersionById(this.programService.versionIdForNewlyCreatedShortcut);
+                        callbackFunc();
+                    }
+                )
+        } catch (e) {
+            console.log("correct link for foreign key reference could not be retrieved for shortcut");
+            shortcut.programVersion = this.programService.buildUrlForVersionById(this.programService.versionIdForNewlyCreatedShortcut);
+            callbackFunc();
+        }
+    }
+
     load(id: number): void {
         this
             .programService
             .getShortcutFromServer(id)
             .subscribe(
                 shortcutObject => {
+                    //this.appendForeignKeyToShortcut(shortcutObject);
                     console.log(shortcutObject);
                     this.shortcut = shortcutObject;
+                    this.appendForeignKeyToShortcut(this.shortcut);
                     this.message = "";
                 },
                 (err) => {
@@ -83,18 +108,23 @@ export class ShortcutEditComponent {
     }
 
     save(): void {
-        //@Simon Pfusch der gelöscht werden muss
-        this.shortcut.programVersion = this.programService.buildUrlForVersionById(this.programService.versionIdForNewlyCreatedShortcut)
         this
             .programService
             .saveShortcut(this.shortcut)
             .subscribe(
                 shortcutObject => {
+                    //this.appendForeignKeyToShortcut(shortcutObject);
                     this.shortcut = shortcutObject;
-                    this.programService.updateShortcutLocally(this.shortcut);
-                    this.message = "Daten wurden gespeichert!";
+                    let self = this;
+                    this.appendForeignKeyToShortcut(this.shortcut, function(){
+                        self.programService.updateShortcutLocally(self.shortcut);
+                        self.message = "Daten wurden gespeichert!";
+                        //redirect to the Program Detail page:
+                        self.programService.navigateToRoute([self.programService.currentProgramDetailUrl]);
+                    });
+                    //this.message = "Daten wurden gespeichert!";
                     //redirect to the Program Detail page:
-                    this.programService.navigateToRoute([this.programService.currentProgramDetailUrl]);
+                    //this.programService.navigateToRoute([this.programService.currentProgramDetailUrl]);
 
                 },
                 (err) => {

@@ -96,6 +96,29 @@ export class ProgramService {
         }
     }
 
+    //retrives the foreign key referenced Url for the Shortcut, maybe better as static function in Shortcut
+    public retrieveAssociatedVersionForShortcut(shortcut:Shortcut): Observable<ProgramVersion>{
+        //This is the most exhausting pathing to a foreign key reference of All Time
+        let url = shortcut["_links"]["programVersion"]["href"];
+
+        return this.getUrlContentAsJson(url);
+
+        //return shortcut["_links"]["programVersion"]["href"];
+    }
+
+    //retrives the foreign key referenced Url for the Version, maybe better as static function in ProgramVersion
+    public retrieveAssociatedProgramForVersion(version:ProgramVersion): Observable<Program>{
+        //This is the most exhausting pathing to a foreign key reference of All Time
+        let url = version["_links"]["program"]["href"];
+
+        return this.getUrlContentAsJson(url);
+        //return version["_links"]["program"]["href"];
+    }
+
+    public static getSelfLinkFromObject<T>(prog:T){
+        return prog["_links"]["self"]["href"];
+    }
+
     public addNewProgramLocally(program:Program){
         this.addLocally<Program>(program, "name", this.programs);
     }

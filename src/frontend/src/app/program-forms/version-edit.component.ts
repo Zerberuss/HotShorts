@@ -19,9 +19,9 @@ import {ProgramService} from "../program-search/services/program.service";
         <div class="form-group">
             <p>Operating System: </p>
             <form>
-              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="0"> <img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png"> Windows <br>
-              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="1"> <img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png"> Linux <br>
-              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="2"> <img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png"> macOS 
+              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="0" (click)="version.osType = 0"> <img alt="" style="width: 35px; height: 35px;" src="images/win-icon.png"> Windows <br>
+              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="1" (click)="version.osType = 1"> <img alt="" style="width: 35px; height: 35px;" src="images/linux-icon.png"> Linux <br>
+              <input type="radio" name="os-type" [(ngModel)]="version.osType" [value]="2" (click)="version.osType = 2"> <img alt="" style="width: 35px; height: 35px;" src="images/macOS-icon.png"> macOS 
             </form>
           </div>
           <div class="form-group">
@@ -59,6 +59,29 @@ export class VersionEditComponent {
         return this.programService.programNameForNewlyCreatedVersion;
     }
 
+
+    appendForeignKeyToVersion(version:ProgramVersion, callbackFunc:()=>void = function(){}){
+        try {
+            this.programService.retrieveAssociatedProgramForVersion(version)
+                .subscribe(
+                    prog => {
+                        version.program = ProgramService.getSelfLinkFromObject<Program>(prog);
+                        callbackFunc();
+
+                    },
+                    (err) => {
+                        console.log("correct link for foreign key reference could not be retrieved for version");
+                        version.program = this.programService.buildUrlForProgramByName(this.programService.programNameForNewlyCreatedVersion);
+                        callbackFunc();
+                    }
+                )
+        } catch (e) {
+            console.log("correct link for foreign key reference could not be retrieved for version");
+            version.program = this.programService.buildUrlForProgramByName(this.programService.programNameForNewlyCreatedVersion);
+            callbackFunc();
+        }
+    }
+
     load(id: number): void {
         this
             .programService
@@ -67,6 +90,7 @@ export class VersionEditComponent {
                 versionObject => {
                     console.log(versionObject);
                     this.version = versionObject;
+                    this.appendForeignKeyToVersion(this.version);
                     this.message = "";
                 },
                 (err) => {
@@ -76,18 +100,19 @@ export class VersionEditComponent {
     }
 
     save(): void {
-        this.version.program = this.programService.buildUrlForProgramByName(this.programService.programNameForNewlyCreatedVersion);
         this
             .programService
             .saveVersion(this.version)
             .subscribe(
                 versionObject => {
                     this.version = versionObject;
-                    this.programService.updateVersionLocally(this.version);
-                    this.message = "Daten wurden gespeichert!";
-                    //redirect to the Program Detail page:
-                    this.programService.navigateToRoute([this.programService.currentProgramDetailUrl]);
-
+                    let self = this;
+                    this.appendForeignKeyToVersion(this.version, function(){
+                        self.programService.updateVersionLocally(self.version);
+                        self.message = "Daten wurden gespeichert!";
+                        //redirect to the Program Detail page:
+                        self.programService.navigateToRoute([self.programService.currentProgramDetailUrl]);
+                    });
                 },
                 (err) => {
                     this.message = "Fehler beim Speichern: " + err.text();
