@@ -8,6 +8,7 @@ import {ProgramSummary} from "../entities/programSummary";
 import {Subscription} from "rxjs";
 import {ProgramSummaryVersionEntry} from "../entities/programSummaryVersionEntry";
 import {Router} from "@angular/router";
+import {concatMap} from "rxjs/operator/concatMap";
 
 @Component({
   selector: 'program-search', // <flight-search></...>
@@ -71,7 +72,7 @@ export class ProgramSearchComponent {
       this.programService.deleteProgram(prog);
   }
 
-    getSummaryFromProgram(prog:Program){
+  getSummaryFromProgram(prog:Program){
         if (prog!=null){
             console.log("program[_links][self][href]");
             console.log(prog["_links"]["self"]["href"]);
@@ -80,7 +81,14 @@ export class ProgramSearchComponent {
             this.programService.assignProgramSummaryForProgram(prog, programSummary, callbackSuccess);
             console.log("select function program summary:");
             console.log(programSummary);
+            this.select(prog);
+
+            return callbackSuccess;
+        }else{
+            console.log("can't load summary: no program defined!")
+            return null;
         }
+
     }
 
   goToProgramPageWithVersionId(versionEntry:ProgramSummaryVersionEntry){

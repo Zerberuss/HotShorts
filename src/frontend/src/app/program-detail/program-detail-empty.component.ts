@@ -7,7 +7,8 @@ import {Component} from "@angular/core";
     selector:'program-detail-emtpy',
     template:`
     <div>
-        <h3>Please click on a program version link to display a specific shortcut list</h3>
+        <p>Please click on a program version link to display a specific shortcut list.</p>
+        <br>
     </div>
     `
 

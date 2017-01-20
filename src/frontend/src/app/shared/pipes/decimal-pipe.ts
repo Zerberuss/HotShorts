@@ -1,9 +1,3 @@
-/**
- * Created by simon41 on 12/5/2016.
- */
-/**
- * Created by simon41 on 11/24/2016.
- */
 import {PipeTransform, Pipe} from "@angular/core";
 @Pipe({
     name: 'decimal',
