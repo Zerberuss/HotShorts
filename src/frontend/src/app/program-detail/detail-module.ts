@@ -30,8 +30,8 @@ import {RouterModule} from "@angular/router";
     ],
     exports: [
         ProgramDetailComponent,
-        VersionPageComponent,
-        ProgramDetailEmptyComponent
+        ProgramDetailEmptyComponent,
+        VersionPageComponent
     ]
 })
 export class DetailModule {

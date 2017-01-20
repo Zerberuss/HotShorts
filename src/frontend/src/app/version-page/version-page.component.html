@@ -4,7 +4,7 @@
         <tbody>
             <tr>
                 <td *ngIf="program"  style="border: 0px; background-color: #FFFFFF">
-                    <h4><a href={{program.website}}>  {{program.website}} </a></h4>
+                    <h4>{{program?.description}}</h4>
                 </td>
                 <td style="border: 0px; background-color: #FFFFFF">
                     <h4> </h4>
@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>{{program?.description}}</h4>
+                    <h4><a href={{program?.website}}>  {{program?.website}} </a></h4>
                 </td>
             </tr>
         </tbody>
@@ -24,8 +24,15 @@
     <!--button class="btn" (click)="loadProgram()">ProgramSummary erstellen</button-->
 
 </div>
+
+
+<!-- embeded shortcut List, if a Version has been selected -->
 <div>
-    <h3>Program Versions</h3>
+    <router-outlet></router-outlet>
+</div>
+
+<!-- All Program Versions -->
+<div>
     <table class="table table-striped">
 
         <!-- http://stackoverflow.com/questions/34164413/how-to-apply-filters-to-ngfor -->
@@ -33,13 +40,13 @@
         <tbody>
             <tr style="border: 0px; background-color: transparent">
                 <div *ngIf="programSummary?.versions?.windows.length > 0">
-                    <h4>Windows</h4>
+                    <h4>Windows Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.windows">
-                        <table class="table table-striped" style="width: 60%">
+                        <table class="table table-striped" style="width: 80%">
                             <thead>
                                 <tr>
                                     <td>
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>{{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Version {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts</a>
@@ -58,7 +65,7 @@
             </tr>
             <tr style="border: 0px; background-color: transparent">
                 <div *ngIf="programSummary?.versions?.linux.length > 0">
-                    <h4>Linux</h4>
+                    <h4>Linux Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.linux">
                         <table class="table table-striped" style="width: 60%">
                             <thead>
@@ -83,7 +90,7 @@
             </tr>
             <tr style="border: 0px; background-color: transparent">
                 <div *ngIf="programSummary?.versions?.osx.length > 0">
-                    <h4>macOS:</h4>
+                    <h4>macOS Program Versions:</h4>
                     <div *ngFor="let v of programSummary.versions.osx">
                         <table class="table table-striped" style="width: 60%">
                             <thead>
@@ -109,11 +116,8 @@
         </tbody>
     </table>
 </div>
-<br>
-<br>
+
 <div>
-    <a class="btn btn-default" [routerLink]="['/version-create']">Create new Version</a>
+    <a class="btn btn-default" [routerLink]="['/version-create']">Create New Program Version</a>
 </div>
-<div>
-    <router-outlet></router-outlet>
-</div>
+
