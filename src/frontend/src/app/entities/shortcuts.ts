@@ -4,7 +4,7 @@
 export interface Shortcut {
   id: number;
   description: string;
-  desciptionShort: string;
+  descriptionShort: string;
   keyCode: string;
   ratingCount: number;
   ratingNr: number;

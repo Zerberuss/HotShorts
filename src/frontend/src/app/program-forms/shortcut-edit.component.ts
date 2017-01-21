@@ -12,7 +12,7 @@ import {ProgramVersion} from "../entities/programVersions";
         <div *ngIf="shortcut">
           <div class="form-group">
             <label>Short Description:</label>
-            <input [(ngModel)]="shortcut.desciptionShort" required class="form-control">
+            <input [(ngModel)]="shortcut.descriptionShort" required class="form-control">
           </div>
           <div class="form-group">
             <label>Key Combination:</label>
@@ -110,7 +110,7 @@ export class ShortcutEditComponent {
     saveV2():void{
         let saveObj = {
             description: this.shortcut.description,
-            desciptionShort: this.shortcut.desciptionShort,
+            descriptionShort: this.shortcut.descriptionShort,
             keyCode: this.shortcut.keyCode,
             ratingCount: this.shortcut.ratingCount,
             ratingNr: this.shortcut.ratingNr

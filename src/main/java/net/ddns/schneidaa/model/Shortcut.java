@@ -27,7 +27,7 @@ public class Shortcut {
     private String keyCode;
 
     @Column(name = "shortdescription")
-    private String desciptionShort;
+    private String descriptionShort;
 
     private String description;
 
@@ -51,32 +51,22 @@ public class Shortcut {
         return keyCode;
     }
 
-    public void setKeyCode(String keyCode) {
-        this.keyCode = keyCode;
-    }
-
-    public String getDesciptionShort() {
-        return desciptionShort;
-    }
-
-    public void setDesciptionShort(String descriptionShort) {
-        this.desciptionShort = descriptionShort;
-    }
+    public void setKeyCode(String keyCode) { this.keyCode = keyCode; }
 
     public String getDescriptionShort() {
-        return desciptionShort;
+        return descriptionShort;
     }
 
     public void setDescriptionShort(String descriptionShort) {
-        this.desciptionShort = descriptionShort;
+        this.descriptionShort = descriptionShort;
     }
 
     public String getShortdescription() {
-        return desciptionShort;
+        return descriptionShort;
     }
 
-    public void setShortdescription(String descritionShort) {
-        this.desciptionShort = descritionShort;
+    public void setShortdescription(String descriptionShort) {
+        this.descriptionShort = descriptionShort;
     }
 
     public String getDescription() {
