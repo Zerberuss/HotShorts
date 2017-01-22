@@ -12,10 +12,26 @@ import {ProgramService} from "../program-search/services/program.service";
           {{ message }}
         </div>
         <div *ngIf="version">
+         <form #f="ngForm" novalidate>
           <div class="form-group">
-            <label>Version: </label>
-            <input [(ngModel)]="version.versionText" required class="form-control">
+            <label>Version:</label>
+            <input [(ngModel)]="version.versionText" 
+                name="versionText"
+                required  
+                minlength="1"
+                maxlength="20"
+                pattern="[.\\-\\+ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.versionText?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.versionText?.hasError('minlength')"> Requires min. one char.  </span>
+        
+            <span *ngIf="f?.controls?.versionText?.hasError('pattern')"> Invald chars. </span>
+        
+            <span *ngIf="f?.controls?.versionText?.hasError('maxlength')"> Max. 20 chars! </span>
           </div>
+          
         <div class="form-group">
             <p>Operating System: </p>
             <form>
@@ -25,9 +41,11 @@ import {ProgramService} from "../program-search/services/program.service";
             </form>
           </div>
           <div class="form-group">
-            <button (click)="saveV2()" class="btn btn-default">Save</button>
+            <button (click)="saveV2()" [disabled]="!f?.controls?.versionText?.valid"  class="btn btn-default">Save Changes</button>
           </div>
+          </form>
         </div>
+   
         <div *ngIf="!version">
           <p>Loading Version...</p>
         </div>

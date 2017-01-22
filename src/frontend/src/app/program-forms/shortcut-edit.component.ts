@@ -10,28 +10,76 @@ import {ProgramVersion} from "../entities/programVersions";
         <h1>Edit Shortcut:</h1>
         <h3>For {{programName}} version {{programVersion}}</h3>
         <div *ngIf="shortcut">
-          <div class="form-group">
+        <form #f="ngForm" novalidate>
+        
+        <div class="form-group">
+            <label>Short Key:</label>
+            <input [(ngModel)]="shortcut.keyCode" 
+                name="keyCode"
+                required  
+                minlength="1"
+                maxlength="30"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.keyCode?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.keyCode?.hasError('minlength')"> Requires min. one char.  </span>
+        
+            <span *ngIf="f?.controls?.keyCode?.hasError('maxlength')"> Max. 30 chars! </span>
+          </div>
+        
+        <div class="form-group">
             <label>Short Description:</label>
-            <input [(ngModel)]="shortcut.descriptionShort" required class="form-control">
+            <input [(ngModel)]="shortcut.descriptionShort" 
+                name="descriptionShort"
+                required  
+                minlength="4"
+                maxlength="50"
+                pattern="[.\\-\\+ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.descriptionShort?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.descriptionShort?.hasError('minlength')"> Requires min. 4 chars.  </span>
+        
+            <span *ngIf="f?.controls?.descriptionShort?.hasError('pattern')"> Invald chars. </span>
+        
+            <span *ngIf="f?.controls?.descriptionShort?.hasError('maxlength')"> Max. 30 chars! </span>
           </div>
-          <div class="form-group">
-            <label>Key Combination:</label>
-            <input [(ngModel)]="shortcut.keyCode" required class="form-control">
+        
+        <div class="form-group">
+            <label>Description: </label>
+            <input [(ngModel)]="shortcut.description" 
+                name="description"
+                required  
+                minlength="10"
+                maxlength="100"
+                pattern="[.\\-\\+ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.description?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.description?.hasError('minlength')"> Requires min. 10 chars.  </span>
+        
+            <span *ngIf="f?.controls?.description?.hasError('pattern')"> Invald chars. </span>
+        
+            <span *ngIf="f?.controls?.description?.hasError('maxlength')"> Max. 100 chars! </span>
           </div>
-          <div class="form-group">
-            <label>Long Description:</label>
-            <input [(ngModel)]="shortcut.description" required class="form-control">
-          </div>
+                   
+
+      
           <div>
           <p>Average Rating:</p>
           <p>{{(shortcut.ratingNr / shortcut.ratingCount) | decimal: 2}}</p>
           </div>
+          
           <div class="form-group">
             <button (click)="resetRating()" class="btn btn-default">Reset Ratings</button>
           </div>
           <div class="form-group">
-            <button (click)="saveV2()" class="btn btn-default">Save</button>
+            <button (click)="saveV2()" [disabled]="!f?.controls?.description?.valid || !f?.controls?.keyCode?.valid || !f?.controls?.descriptionShort?.valid"  class="btn btn-default">Save Changes</button>
           </div>
+          </form>
         </div>
         <div *ngIf="!shortcut">
           <p>Loading Shortcut...</p>
