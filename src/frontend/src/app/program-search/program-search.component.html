@@ -76,7 +76,7 @@
         <td style="font-weight: bold">{{item.name}}</td>
         <td>{{item.description}}</td>
 
-        <td style="width: 110px; color=goldenrod">
+        <td style="width: 110px; color:goldenrod">
                 <span *ngFor="let star of getStars((item.ratingNr/item.ratingCount) | decimal:1)">
                     <span type="checkbox" class="glyphicon glyphicon-star"></span>
                 </span>
@@ -85,7 +85,7 @@
                 </span>
         </td>
 
-        <td style="width: 110px; color=goldenrod">
+        <td style="width: 110px; color:goldenrod">
                 <span *ngIf="checkRatingValueForCorrectnes(alreadyRated[item.name])">
                     <span *ngFor="let star of getStars(alreadyRated[item.name])">
                         <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star"></span>

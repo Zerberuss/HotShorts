@@ -26,7 +26,8 @@ public class CorsFilterBean {
 
             //If a angular http put request comes that does not have all necessary attributes, it might get turned into a patch request, so patch has to be allowed or we have a cross origin request violation
             //config.setAllowedMethods(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "DELETE", "PATCH"));
-            config.setAllowedMethods(Arrays.asList("*"));
+            //config.setAllowedMethods(Arrays.asList("*"));
+            config.addAllowedMethod("*");
             config.addAllowedHeader("*");
 //            config.addAllowedMethod("*");
             source.registerCorsConfiguration("/**", config);
