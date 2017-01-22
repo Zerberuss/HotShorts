@@ -20,7 +20,7 @@ export class ProgramSearchComponent {
   public selectedProgram: Program;
   public selectedProgramSummary: ProgramSummary;
 
-  private alreadyRated: Boolean;
+  private alreadyRated: string[];
 
   constructor(private programService: ProgramService,
               private router:Router) {
@@ -29,7 +29,7 @@ export class ProgramSearchComponent {
 
     ngOnInit() {
         this.storeProgramsLocally();
-        this.alreadyRated = false;
+        this.alreadyRated = [];
     }
 
     // {{ programs }}
@@ -46,10 +46,21 @@ export class ProgramSearchComponent {
   }
 
   rateProgram(program:Program, rating:number){
-      if(this.alreadyRated){
+      var alreadyRated:Boolean = false;
+      var alreadyRatedCount = this.alreadyRated.length;
+      for(var index = 0; index < alreadyRatedCount; index++){
+          if(this.alreadyRated[index] == program.name){
+              alreadyRated = true;
+              break;
+          }
+      }
+
+
+      if(alreadyRated){
           alert("Error! You already rated " + program.name + "!");
       }
       else{
+          this.alreadyRated.push(program.name);
           this.programService.applyApplicationRating(program.name, rating);
           alert("You rated " + program.name + " with " + rating + " stars!");
       }

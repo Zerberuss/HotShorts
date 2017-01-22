@@ -38,7 +38,7 @@ import {ProgramService} from "../program-search/services/program.service";
             <button (click)="resetRating()" class="btn btn-default">Reset Ratings</button>
           </div>
           <div class="form-group">
-            <button (click)="save()" class="btn btn-default">Save Changes</button>
+            <button (click)="saveV2()" class="btn btn-default">Save Changes</button>
           </div>
         </div>
         <div *ngIf="!program">
@@ -83,6 +83,7 @@ export class ProgramEditComponent {
             )
     }
 
+    //old
     save(): void {
         this
             .programService
@@ -97,6 +98,35 @@ export class ProgramEditComponent {
                     //redirect to the Program Search page:
                     this.programService.navigateToRoute(['/program-search']);
 
+                },
+                (err) => {
+                    this.message = "Fehler beim Speichern: " + err.text();
+                }
+            )
+
+    }
+
+    saveV2():void{
+        let saveObj = {
+            description: this.program.description,
+            website: this.program.website,
+            ratingCount: this.program.ratingCount,
+            ratingNr: this.program.ratingNr
+        };
+
+        this
+            .programService
+            .saveProgramByPut(saveObj, this.program.name)
+            .subscribe(
+                programObject => {
+
+                    this.program = programObject;
+                    this.message = "Daten wurden gespeichert!";
+                    //either reload all programs or just update the program locally: We update it locally:
+                    //this.programService.loadAllProgramsFromServer();
+                    this.programService.updateProgramLocally(this.program)
+                    //redirect to the Program Search page:
+                    this.programService.navigateToRoute(['/program-search']);
                 },
                 (err) => {
                     this.message = "Fehler beim Speichern: " + err.text();

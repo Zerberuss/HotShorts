@@ -503,7 +503,6 @@ export class ProgramService {
                     // } else {
                     //     console.log('Rating Update successful on Server Side, but failed in program list locally');
                     // }
-
                 },
                 (err) => {
                     console.error('Fehler beim Laden', err);

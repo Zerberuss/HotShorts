@@ -106,15 +106,14 @@ export class ProgramDetailComponent{
     rateProgram(shortcut:Shortcut, rating:number){
         var alreadyRated:Boolean = false;
 
-        if(this.alreadyRated!=null){
-            var alreadyRatedCount = this.alreadyRated.length;
-            for(var index = 0; index < alreadyRatedCount; index++){
-                if(this.alreadyRated[index] == shortcut.id){
-                    alreadyRated = true;
-                    break;
-                }
+        var alreadyRatedCount = this.alreadyRated.length;
+        for(var index = 0; index < alreadyRatedCount; index++){
+            if(this.alreadyRated[index] == shortcut.id){
+                alreadyRated = true;
+                break;
             }
         }
+
 
         if(alreadyRated){
             alert("Error! You already rated this shortcut!");
