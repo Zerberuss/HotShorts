@@ -1,14 +1,6 @@
 <div>
     <h3><b>Shortcut List <img alt="" style="width: 32px; height: 25px;" src="images/keys-icon.png"></b></h3>
 
-
-    <h2>
-        <span class="rating">
-          <span type="checkbox" class="glyphicon glyphicon-star"></span>
-          <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
-        </span>
-    </h2>
-
     <table class="table table-striped"><!-- style="border: 1px solid black" -->
         <!-- Shortcut - Programm OS and Version Info -->
         <tr>
@@ -45,10 +37,10 @@
             <td style="width: 105px; color=goldenrod">
                 <span *ngIf="checkRatingValueForCorrectnes(alreadyRated[item.id])">
                     <span *ngFor="let star of getStars(alreadyRated[item.id])">
-                        <span type="checkbox" class="glyphicon glyphicon-star"></span>
+                        <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star"></span>
                     </span>
                     <span *ngFor="let star of getStars(5 - (alreadyRated[item.id]))">
-                        <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                        <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star-empty"></span>
                     </span>
                 </span>
                 <span *ngIf="!checkRatingValueForCorrectnes(alreadyRated[item.id])">

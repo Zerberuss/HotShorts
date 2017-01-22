@@ -23,7 +23,6 @@
 </div-->
 
 <table class="table table-striped" >
-    <thead>
     <tr>
         <th>Program Name</th>
         <th>Description</th>
@@ -31,26 +30,48 @@
         <th>Rate Application</th>
         <th></th>
         <th></th>
+        <th></th>
+        <th></th>
     </tr>
-    </thead>
-    <tbody *ngFor="let item of programs | programFilter: name">
-    <tr>
+    <tr *ngFor="let item of programs | programFilter: name">
         <td style="font-weight: bold">{{item.name}}</td>
         <td>{{item.description}}</td>
-        <td>{{(item.ratingNr / item.ratingCount) | decimal: 2}}</td>
-        <td>
-            <div class="rating">
-                <span (click)="rateProgram(item, 1)">☆</span>
-                <span (click)="rateProgram(item, 2)">☆</span>
-                <span (click)="rateProgram(item, 3)">☆</span>
-                <span (click)="rateProgram(item, 4)">☆</span>
-                <span (click)="rateProgram(item, 5)">☆</span>
-            </div>
+
+        <td style="width: 110px; color=goldenrod">
+                <span *ngFor="let star of getStars((item.ratingNr/item.ratingCount) | decimal:1)">
+                    <span type="checkbox" class="glyphicon glyphicon-star"></span>
+                </span>
+            <span *ngFor="let star of getStars(4.9 - ((item.ratingNr/item.ratingCount) | decimal:1))">
+                    <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                </span>
         </td>
-        <td> <a class="btn btn-default" [routerLink]="['/app', item.name]">
-            ShortKeys
-            <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png">
-        </a></td>
+
+        <td style="width: 110px; color=goldenrod">
+                <span *ngIf="checkRatingValueForCorrectnes(alreadyRated[item.name])">
+                    <span *ngFor="let star of getStars(alreadyRated[item.name])">
+                        <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star"></span>
+                    </span>
+                    <span *ngFor="let star of getStars(5 - (alreadyRated[item.name]))">
+                        <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                    </span>
+                </span>
+            <span *ngIf="!checkRatingValueForCorrectnes(alreadyRated[item.name])">
+                    <span *ngFor="let star of getStars(5); let indexx = index" [attr.data-index]="i">
+                        <span (click)="rateProgram(item, indexx+1)" type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                    </span>
+                </span>
+
+        </td>
+
+        <td> <a class="btn btn-default" [routerLink]="['/app', item.name]"> ShortKeys
+            <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"> </a>
+            <p></p>
+            <input type="button"
+                   style="float: right;"
+                   value="Summary"
+                   class="btn btn-default"
+                   (click)="getSummaryFromProgram(item)" />
+        </td>
 
         <!--
         <td>
@@ -58,15 +79,8 @@
         </td>
         -->
         <td>
-            <input type="button"
-                   value="Summary"
-                   class="btn btn-default"
-                   (click)="getSummaryFromProgram(item)" />
-        </td>
-        <td>
             <a class="btn btn-warning" [routerLink]="['/program-edit', item.name]">Edit</a>
-        </td>
-        <td>
+            <p></p>
             <input type="button"
                    value="Delete"
                    class="btn btn-danger"
@@ -93,5 +107,4 @@
     <tr *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
         <td></td>
     </tr>
-    </tbody>
 </table>

@@ -9,6 +9,7 @@ import {Subscription} from "rxjs";
 import {ProgramSummaryVersionEntry} from "../entities/programSummaryVersionEntry";
 import {Router} from "@angular/router";
 import {concatMap} from "rxjs/operator/concatMap";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'program-search', // <flight-search></...>
@@ -19,8 +20,8 @@ export class ProgramSearchComponent {
   public name: string;
   public selectedProgram: Program;
   public selectedProgramSummary: ProgramSummary;
+  alreadyRated: { [key:number]:number; };
 
-  private alreadyRated: string[];
 
   constructor(private programService: ProgramService,
               private router:Router) {
@@ -29,7 +30,7 @@ export class ProgramSearchComponent {
 
     ngOnInit() {
         this.storeProgramsLocally();
-        this.alreadyRated = [];
+        this.alreadyRated= {};
     }
 
     // {{ programs }}
@@ -46,25 +47,35 @@ export class ProgramSearchComponent {
   }
 
   rateProgram(program:Program, rating:number){
-      var alreadyRated:Boolean = false;
-      var alreadyRatedCount = this.alreadyRated.length;
-      for(var index = 0; index < alreadyRatedCount; index++){
-          if(this.alreadyRated[index] == program.name){
-              alreadyRated = true;
-              break;
-          }
-      }
-
-
-      if(alreadyRated){
-          alert("Error! You already rated " + program.name + "!");
+      if(this.alreadyRated[program.name]!=null){
+          alert("Error! You already rated this shortcut!");
       }
       else{
-          this.alreadyRated.push(program.name);
+          this.alreadyRated[program.name] = rating;
           this.programService.applyApplicationRating(program.name, rating);
-          alert("You rated " + program.name + " with " + rating + " stars!");
+          //alert("You rated the shortcut with " + rating + " stars!");
       }
   }
+
+    checkRatingValueForCorrectnes(value:any):Boolean{
+        if(isNullOrUndefined(value) || isNaN(value)){
+            return false;
+        }
+        if(value == 0){
+            return false;
+        }
+        return true;
+    }
+
+    //return an array of a number for the ngFor method
+    getStars(num:any):any {
+        console.log("WTF is going on: "+num);
+
+        if(this.checkRatingValueForCorrectnes(num)){
+            return new Array(Math.round(num));
+        }
+        return Array();
+    }
 
   select(program: Program): void {
       console.log("select"); //this function does not get called?

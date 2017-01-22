@@ -107,7 +107,7 @@ export class ProgramDetailComponent{
     rateProgram(shortcut:Shortcut, rating:number){
 
         if(this.alreadyRated[shortcut.id]!=null){
-            //alert("Error! You already rated this shortcut!");
+            alert("Error! You already rated this shortcut!");
         }
         else{
             this.alreadyRated[shortcut.id] = rating;
@@ -120,7 +120,7 @@ export class ProgramDetailComponent{
         if(isNullOrUndefined(value) || isNaN(value)){
             return false;
         }
-        if(value ==0){
+        if(value == 0){
             return false;
         }
         return true;
