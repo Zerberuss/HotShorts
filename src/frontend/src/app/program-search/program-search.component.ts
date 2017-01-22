@@ -20,6 +20,8 @@ export class ProgramSearchComponent {
   public selectedProgram: Program;
   public selectedProgramSummary: ProgramSummary;
 
+  private alreadyRated: Boolean;
+
   constructor(private programService: ProgramService,
               private router:Router) {
 
@@ -27,6 +29,7 @@ export class ProgramSearchComponent {
 
     ngOnInit() {
         this.storeProgramsLocally();
+        this.alreadyRated = false;
     }
 
     // {{ programs }}
@@ -43,8 +46,13 @@ export class ProgramSearchComponent {
   }
 
   rateProgram(program:Program, rating:number){
-      this.programService.applyApplicationRating(program.name, rating);
-      alert("You rated " + program.name + " with " + rating + " stars!");
+      if(this.alreadyRated){
+          alert("Error! You already rated " + program.name + "!");
+      }
+      else{
+          this.programService.applyApplicationRating(program.name, rating);
+          alert("You rated " + program.name + " with " + rating + " stars!");
+      }
   }
 
   select(program: Program): void {

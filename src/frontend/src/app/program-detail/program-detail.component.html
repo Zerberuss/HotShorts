@@ -25,7 +25,15 @@
             <td>{{item.descriptionShort}}</td>
             <td>{{item.description}}</td>
             <td>{{(item.ratingNr/item.ratingCount) | decimal:2}}</td>
-            <td> TODO RATE </td>
+            <td>
+                <div class="rating">
+                    <span (click)="rateProgram(item, 1)">☆</span>
+                    <span (click)="rateProgram(item, 2)">☆</span>
+                    <span (click)="rateProgram(item, 3)">☆</span>
+                    <span (click)="rateProgram(item, 4)">☆</span>
+                    <span (click)="rateProgram(item, 5)">☆</span>
+                </div>
+            </td>
             <td>
                 <a class="btn btn-warning" [routerLink]="['/shortcut-edit', item.id]">Edit</a>
             </td>

@@ -21,6 +21,7 @@ export class ProgramDetailComponent{
     versionInfo:ProgramVersion;
     id: any;
     paramsSub: any;
+    alreadyRated: number[];
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -37,6 +38,7 @@ export class ProgramDetailComponent{
     ngOnInit() {
         //if we subscribe the the route params, every time the params change, the function inside subscribe is called
         this.paramsSub = this.route.params.subscribe(params => this.loadVersionWithIdAndStoreId(+params['id'])); //+ for turning the id string into a number
+        this.alreadyRated = [];
     }
 
     ngOnDestroy() {
@@ -98,7 +100,29 @@ export class ProgramDetailComponent{
             (err) => {
                 console.error('Fehler beim Laden der Shortcuts in loadShortcuts', err);
             }
-
         );
+    }
+
+    rateProgram(shortcut:Shortcut, rating:number){
+        var alreadyRated:Boolean = false;
+
+        if(this.alreadyRated!=null){
+            var alreadyRatedCount = this.alreadyRated.length;
+            for(var index = 0; index < alreadyRatedCount; index++){
+                if(this.alreadyRated[index] == shortcut.id){
+                    alreadyRated = true;
+                    break;
+                }
+            }
+        }
+
+        if(alreadyRated){
+            alert("Error! You already rated this shortcut!");
+        }
+        else{
+            this.alreadyRated.push(shortcut.id);
+            this.programService.applyShortcutRating(shortcut.id, rating);
+            alert("You rated the shortcut with " + rating + " stars!");
+        }
     }
 }
