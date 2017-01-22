@@ -10,7 +10,8 @@ import {isNullOrUndefined} from "util";
 
 @Component({
     selector:'program-detail',
-    templateUrl:'./program-detail.component.html'
+    templateUrl:'./program-detail.component.html',
+    styleUrls: ['../styles/hotshorts-main.css']
     //,providers: [ProgramService]
 
 })

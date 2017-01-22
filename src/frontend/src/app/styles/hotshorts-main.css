@@ -111,7 +111,7 @@ body {
 .acidjs-rating-stars label:hover,
 .acidjs-rating-stars label:hover ~ label
 {
-  color: #189800;
+  color: #f5b301;
 }
 
 .acidjs-rating-stars *
@@ -139,17 +139,17 @@ body {
 .acidjs-rating-stars label::before
 {
   content: "\2605";
-  width: 18px;
-  line-height: 18px;
-  text-align: center;
-  font-size: 18px;
+  width: 14px;
+  line-height: 14px;
+  text-align: start;
+  font-size: 20px;
   cursor: pointer;
 }
-
+/*
 .acidjs-rating-stars input:checked ~ label
 {
   color: #f5b301;
-}
+}*/
 
 .acidjs-rating-disabled
 {

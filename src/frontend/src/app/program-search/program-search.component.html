@@ -4,61 +4,6 @@
     <label>Search for a Program:</label>
     <input [(ngModel)]="name" class="form-control">
 </div>
-<div>
-    <h2>Without Default Selection</h2>
-
-    <div class="acidjs-rating-stars">
-        <form>
-            <input type="radio" name="group-1" id="group-1-0" value="5" /><label for="group-1-0"></label><!--
-        --><input type="radio" name="group-1" id="group-1-1" value="4" /><label for="group-1-1"></label><!--
-        --><input type="radio" name="group-1" id="group-1-2" value="3" /><label for="group-1-2"></label><!--
-        --><input type="radio" name="group-1" id="group-1-3" value="2" /><label for="group-1-3"></label><!--
-        --><input type="radio" name="group-1" id="group-1-4"  value="1" /><label for="group-1-4"></label>
-        </form>
-    </div>
-
-    <h2>With Default Selection</h2>
-
-    <div class="acidjs-rating-stars">
-        <form>
-            <input type="radio" name="group-2" id="group-2-0" value="5" /><label for="group-2-0"></label><!--
-        --><input type="radio" name="group-2" id="group-2-1" value="4" /><label for="group-2-1"></label><!--
-        --><input type="radio" checked="checked" name="group-2" id="group-2-2" value="3" /><label for="group-2-2"></label><!--
-        --><input type="radio" name="group-2" id="group-2-3" value="2" /><label for="group-2-3"></label><!--
-        --><input type="radio" name="group-2" id="group-2-4"  value="1" /><label for="group-2-4"></label>
-        </form>
-    </div>
-
-    <h2>Disabled</h2>
-
-    <div class="acidjs-rating-stars acidjs-rating-disabled">
-        <form>
-            <input disabled="disabled" type="radio" name="group-3" id="group-3-0" value="5" /><label for="group-3-0"></label><!--
-        --><input disabled="disabled" type="radio" checked="checked" name="group-3" id="group-3-1" value="4" /><label for="group-3-1"></label><!--
-        --><input disabled="disabled" type="radio" name="group-3" id="group-3-2" value="3" /><label for="group-3-2"></label><!--
-        --><input disabled="disabled" type="radio" name="group-3" id="group-3-3" value="2" /><label for="group-3-3"></label><!--
-        --><input disabled="disabled" type="radio" name="group-3" id="group-3-4"  value="1" /><label for="group-3-4"></label>
-        </form>
-    </div>
-
-</div>
-<!--div class="form-group">
-    <button class="btn" (click)="searchV3()">Suchen</button>
-</div-->
-<!--div class="form-group">
-    <button class="btn" (click)="getSummaryFromSelectedProgram()">ProgramSummary erstellen</button>
-</div-->
-
-
-<!-- When using program-entry.component.html as component-template: -->
-<!--div *ngFor="let p of programs | programFilter: name" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
-    <program-entry
-            [item]="p"
-            [(selectedItem)]="selectedProgram"
-            (createProgramSummary)="getSummaryFromProgram($event)"
-            (deleteProgram)="delete($event)">
-    </program-entry>
-</div-->
 
 <table class="table table-striped" >
     <tr>
@@ -74,31 +19,36 @@
         <td style="font-weight: bold">{{item.name}}</td>
         <td>{{item.description}}</td>
 
-        <td style="width: 110px; color=goldenrod">
-                <span *ngFor="let star of getStars((item.ratingNr/item.ratingCount) | decimal:1)">
+        <td style="width: 110px;">
+                <span style="color:#f5b301" *ngFor="let star of getStars((item.ratingNr/item.ratingCount) | decimal:1)">
                     <span type="checkbox" class="glyphicon glyphicon-star"></span>
                 </span>
-            <span *ngFor="let star of getStars(4.9 - ((item.ratingNr/item.ratingCount) | decimal:1))">
-                    <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+            <span style="color:lightgrey" *ngFor="let star of getStars(4.9 - ((item.ratingNr/item.ratingCount) | decimal:1))">
+                    <span type="checkbox" class="glyphicon glyphicon-star"></span>
                 </span>
         </td>
 
-        <td style="width: 110px; color=goldenrod">
-                <span *ngIf="checkRatingValueForCorrectnes(alreadyRated[item.name])">
-                    <span *ngFor="let star of getStars(alreadyRated[item.name])">
-                        <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star"></span>
-                    </span>
-                    <span *ngFor="let star of getStars(5 - (alreadyRated[item.name]))">
-                        <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star-empty"></span>
-                    </span>
+            <td style="width: 102px;" *ngIf="checkRatingValueForCorrectnes(alreadyRated[item.name])">
+                <span style="color:#f5b301" *ngFor="let star of getStars(alreadyRated[item.name])">
+                    <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star"> </span>
                 </span>
-            <span *ngIf="!checkRatingValueForCorrectnes(alreadyRated[item.name])">
-                    <span *ngFor="let star of getStars(5); let indexx = index" [attr.data-index]="i">
-                        <span (click)="rateProgram(item, indexx+1)" type="checkbox" class="glyphicon glyphicon-star-empty"></span>
-                    </span>
+                <span style="color:lightgrey" *ngFor="let star of getStars(4.9 - (alreadyRated[item.name]))">
+                    <span (click)="rateProgram(item, 5)" type="checkbox" class="glyphicon glyphicon-star"> </span>
                 </span>
+            </td>
 
-        </td>
+            <td style="width: 102px;" *ngIf="!checkRatingValueForCorrectnes(alreadyRated[item.name])" class="acidjs-rating-stars">
+                <form>
+                   <input type="radio" name="group-1" id="group-1-0" value="5" /><label for="group-1-0" (click)="rateProgram(item, 5)"></label>
+                   <input type="radio" name="group-1" id="group-1-1" value="4" /><label for="group-1-1" (click)="rateProgram(item, 4)"></label>
+                   <input type="radio" name="group-1" id="group-1-2" value="3" /><label for="group-1-2" (click)="rateProgram(item, 3)"></label>
+                   <input type="radio" name="group-1" id="group-1-3" value="2" /><label for="group-1-3" (click)="rateProgram(item, 2)"></label>
+                   <input type="radio" name="group-1" id="group-1-4" value="1" /><label for="group-1-4" (click)="rateProgram(item, 1)"></label>
+                </form>
+            </td>
+
+
+
 
         <td style="width: 120px"> <a class="btn btn-default" [routerLink]="['/app', item.name]"> ShortKeys
             <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"> </a>
