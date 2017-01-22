@@ -48,7 +48,7 @@ export class ProgramSearchComponent {
 
   rateProgram(program:Program, rating:number){
       if(this.alreadyRated[program.name]!=null){
-          alert("Error! You already rated this shortcut!");
+          alert("Error! You already rated this program!");
       }
       else{
           this.alreadyRated[program.name] = rating;

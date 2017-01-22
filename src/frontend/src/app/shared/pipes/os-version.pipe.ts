@@ -24,7 +24,7 @@ export class OSVersionPipe implements PipeTransform {
         short = "Lin";
         break;
       case OsTypes.osx:
-        long = "Macintosh";
+        long = "macOS";
         short = "OS X";
         break;
       default:
