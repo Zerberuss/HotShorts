@@ -28,7 +28,6 @@ export class VersionPageComponent{
     programVersionsLink:string;
     programSummary:ProgramSummary;
 
-
     //inject the necessary services:
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -181,5 +180,14 @@ export class VersionPageComponent{
     ngOnDestroy() {
         this.paramsSub.unsubscribe();
     }
+
+
+    getStars(num:any):any {
+        if((num>0.49)){
+            return new Array(Math.round(num));
+        }else
+            return Array();
+    }
+
 
 }

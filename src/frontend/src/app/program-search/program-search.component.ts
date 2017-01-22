@@ -69,8 +69,6 @@ export class ProgramSearchComponent {
 
     //return an array of a number for the ngFor method
     getStars(num:any):any {
-        console.log("WTF is going on: "+num);
-
         if(this.checkRatingValueForCorrectnes(num)){
             return new Array(Math.round(num));
         }

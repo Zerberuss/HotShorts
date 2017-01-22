@@ -1,4 +1,16 @@
-<h1>{{program?.name}} Shortcut Page</h1>
+<h1>{{program?.name}} Shortcut Page
+
+    <h4 style="float: right">
+        <span *ngFor="let star of getStars((program?.ratingNr/program?.ratingCount) | decimal:1)">
+            <span type="checkbox" class="glyphicon glyphicon-star"></span>
+        </span>
+        <span *ngFor="let star of getStars(4.9 - ((program?.ratingNr/program?.ratingCount) | decimal:1))">
+            <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+        </span>
+    </h4>
+</h1>
+<p style="float: right"> {{(program?.ratingNr / program?.ratingCount)|decimal:2}} / 5</p>
+
 <div>
     <table class="table table-striped">
         <tbody>
@@ -9,8 +21,8 @@
                 <td style="border: 0px; background-color: #FFFFFF">
                     <h4> </h4>
                 </td>
-                <td style="border: 0px; background-color: #FFFFFF">
-                    <h4> Rating: {{(program?.ratingNr / program?.ratingCount)|decimal:2}} </h4>
+                <td  style="border: 0px; background-color: #FFFFFF">
+
                 </td>
             </tr>
             <tr>
@@ -45,17 +57,17 @@
                         <table class="table table-striped" style="width: 60%">
                             <thead>
                                 <tr>
-                                    <td>
+                                    <td style="width: 100px">
                                         <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
+                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit</a>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete Version</button>
+                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete</button>
                                     </td>
                                 </tr>
                             </thead>
@@ -77,10 +89,10 @@
                                         <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
+                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit</a>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete Version</button>
+                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete</button>
                                     </td>
                                 </tr>
                             </thead>
@@ -102,10 +114,10 @@
                                         <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit Version</a>
+                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit</a>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete Version</button>
+                                        <button class="btn btn-danger" (click)="deleteVersion(v)">Delete</button>
                                     </td>
                                 </tr>
                             </thead>

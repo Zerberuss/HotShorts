@@ -27,13 +27,14 @@
         <th>Program Name</th>
         <th>Description</th>
         <th>Avg. Rating</th>
-        <th>Rate Application</th>
+        <th>Your Rating</th>
         <th></th>
         <th></th>
         <th></th>
         <th></th>
     </tr>
-    <tr *ngFor="let item of programs | programFilter: name">
+    <tbody *ngFor="let item of programs | programFilter: name">
+    <tr>
         <td style="font-weight: bold">{{item.name}}</td>
         <td>{{item.description}}</td>
 
@@ -107,4 +108,5 @@
     <tr *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
         <td></td>
     </tr>
+    </tbody>
 </table>
