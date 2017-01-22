@@ -70,9 +70,11 @@
                    (click)="delete(item)" />
         </td>
     </tr>
+
+    <!-- show summary -->
     <tr *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
         <td></td>
-        <td colspan="6" style="border: 0px; background-color: gainsboro">
+        <td colspan="4" style="border: 0px; background-color: gainsboro">
                 <h4>Summary</h4>
                 <div>
                     <pre>
@@ -87,8 +89,9 @@
                 </div>
         </td>
     </tr>
-    <tr *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
-        <td></td>
-    </tr>
+    <!-- only for visual effect-->
+    <div *ngIf="selectedProgramSummary && selectedProgramSummary.name == item.name">
+        <br>
+    </div>
     </tbody>
 </table>
