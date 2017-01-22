@@ -1,6 +1,14 @@
 <div>
     <h3><b>Shortcut List <img alt="" style="width: 32px; height: 25px;" src="images/keys-icon.png"></b></h3>
 
+
+    <h2>
+        <span class="rating">
+          <span type="checkbox" class="glyphicon glyphicon-star"></span>
+          <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+        </span>
+    </h2>
+
     <table class="table table-striped"><!-- style="border: 1px solid black" -->
         <!-- Shortcut - Programm OS and Version Info -->
         <tr>
@@ -16,23 +24,39 @@
             <th>Short Description</th>
             <th>Long Description</th>
             <th>Avg. Rating</th>
-            <th>New Rating</th>
+            <th>Your Rating</th>
             <th></th>
             <th></th>
         </tr>
         <tr *ngFor="let item of shortcuts" style="padding: 15px;">
-            <td>{{item.keyCode}}</td>
+            <td style="width: 95px">{{item.keyCode}}</td>
             <td>{{item.descriptionShort}}</td>
             <td>{{item.description}}</td>
-            <td>{{(item.ratingNr/item.ratingCount) | decimal:2}}</td>
-            <td>
-                <div class="rating">
-                    <span (click)="rateProgram(item, 1)">☆</span>
-                    <span (click)="rateProgram(item, 2)">☆</span>
-                    <span (click)="rateProgram(item, 3)">☆</span>
-                    <span (click)="rateProgram(item, 4)">☆</span>
-                    <span (click)="rateProgram(item, 5)">☆</span>
-                </div>
+
+            <td style="width: 105px; color=goldenrod">
+                <span *ngFor="let star of getStars((item.ratingNr/item.ratingCount) | decimal:1)">
+                    <span type="checkbox" class="glyphicon glyphicon-star"></span>
+                </span>
+                <span *ngFor="let star of getStars(4.9 - ((item.ratingNr/item.ratingCount) | decimal:1))">
+                    <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                </span>
+            </td>
+
+            <td style="width: 105px; color=goldenrod">
+                <span *ngIf="checkRatingValueForCorrectnes(alreadyRated[item.id])">
+                    <span *ngFor="let star of getStars(alreadyRated[item.id])">
+                        <span type="checkbox" class="glyphicon glyphicon-star"></span>
+                    </span>
+                    <span *ngFor="let star of getStars(5 - (alreadyRated[item.id]))">
+                        <span type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                    </span>
+                </span>
+                <span *ngIf="!checkRatingValueForCorrectnes(alreadyRated[item.id])">
+                    <span *ngFor="let star of getStars(5); let indexx = index" [attr.data-index]="i">
+                        <span (click)="rateProgram(item, indexx+1)" type="checkbox" class="glyphicon glyphicon-star-empty"></span>
+                    </span>
+                </span>
+
             </td>
             <td>
                 <a class="btn btn-warning" [routerLink]="['/shortcut-edit', item.id]">Edit</a>
@@ -41,7 +65,7 @@
                 <input type="button"
                        value="Delete"
                        class="btn btn-danger"
-                       (click)="delete(item)" />
+                       (click)="delete(item)"/>
             </td>
         </tr>
     </table>
@@ -51,7 +75,8 @@
         <!--a class="btn btn-default" [routerLink]="['/shortcut-create']">Create new Shortcut</a-->
     </div>
     <br>
-    <p>--------------------------------------------------------------------------------------------------------------------------</p>
+    <p>
+        --------------------------------------------------------------------------------------------------------------------------</p>
     <h3>All Versions:</h3>
 
 </div>

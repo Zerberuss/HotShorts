@@ -9,5 +9,5 @@ export interface Shortcut {
   ratingCount: number;
   ratingNr: number;
   programVersion: string; //Url of the associated Version Entity
-  //_links:{};
+  //_links:{}; links to foreign keys
 }

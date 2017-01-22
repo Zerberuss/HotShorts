@@ -6,6 +6,7 @@ import {ProgramService} from "../program-search/services/program.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {Shortcut} from "../entities/shortcuts";
 import {ProgramVersion} from "../entities/programVersions";
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector:'program-detail',
@@ -21,13 +22,12 @@ export class ProgramDetailComponent{
     versionInfo:ProgramVersion;
     id: any;
     paramsSub: any;
-    alreadyRated: number[];
+    alreadyRated: { [key:number]:number; };
+
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private programService:ProgramService) {
-
-
     }
 
     ngOnInitOld() {
@@ -38,7 +38,7 @@ export class ProgramDetailComponent{
     ngOnInit() {
         //if we subscribe the the route params, every time the params change, the function inside subscribe is called
         this.paramsSub = this.route.params.subscribe(params => this.loadVersionWithIdAndStoreId(+params['id'])); //+ for turning the id string into a number
-        this.alreadyRated = [];
+        this.alreadyRated= {};
     }
 
     ngOnDestroy() {
@@ -105,24 +105,34 @@ export class ProgramDetailComponent{
     }
 
     rateProgram(shortcut:Shortcut, rating:number){
-        var alreadyRated:Boolean = false;
 
-        var alreadyRatedCount = this.alreadyRated.length;
-        for(var index = 0; index < alreadyRatedCount; index++){
-            if(this.alreadyRated[index] == shortcut.id){
-                alreadyRated = true;
-                break;
-            }
-        }
-
-
-        if(alreadyRated){
-            alert("Error! You already rated this shortcut!");
+        if(this.alreadyRated[shortcut.id]!=null){
+            //alert("Error! You already rated this shortcut!");
         }
         else{
-            this.alreadyRated.push(shortcut.id);
+            this.alreadyRated[shortcut.id] = rating;
             this.programService.applyShortcutRating(shortcut.id, rating);
-            alert("You rated the shortcut with " + rating + " stars!");
+            //alert("You rated the shortcut with " + rating + " stars!");
         }
+    }
+
+    checkRatingValueForCorrectnes(value:any):Boolean{
+        if(isNullOrUndefined(value) || isNaN(value)){
+            return false;
+        }
+        if(value ==0){
+            return false;
+        }
+        return true;
+    }
+
+    //return an array of a number for the ngFor method
+     getStars(num:any):any {
+        console.log("WTF is going on: "+num);
+
+        if(this.checkRatingValueForCorrectnes(num)){
+            return new Array(Math.round(num));
+        }
+        return Array();
     }
 }
