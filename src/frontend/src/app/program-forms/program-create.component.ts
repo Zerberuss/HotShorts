@@ -18,7 +18,7 @@ import {FormsModule} from "@angular/forms";
                 required  
                 minlength="3"
                 maxlength="50"
-                pattern="[ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                pattern="[.\\+\\- 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
                 class="form-control"
              />
             
@@ -39,7 +39,7 @@ import {FormsModule} from "@angular/forms";
                 required  
                 minlength="10"
                 maxlength="100"
-                pattern="[ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                pattern="[.\\+\\- 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
                 class="form-control"
                 />                
             <span *ngIf="!f?.controls?.description?.valid"> Check your input! </span>

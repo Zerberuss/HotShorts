@@ -13,22 +13,71 @@ import {ProgramService} from "../program-search/services/program.service";
         <div>
           {{ message }}
         </div>
+        
+        <form #f="ngForm" novalidate>
+        
+        <div class="form-group">
+            <label>Short Key:</label>
+            <input [(ngModel)]="keyCode" 
+                name="keyCode"
+                required  
+                minlength="1"
+                maxlength="30"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.keyCode?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.keyCode?.hasError('minlength')"> Requires min. one char.  </span>
+        
+            <span *ngIf="f?.controls?.keyCode?.hasError('maxlength')"> Max. 30 chars! </span>
+         </div>
+          
         <div class="form-group">
             <label>Short Description:</label>
-            <input [(ngModel)]="descriptionShort" required class="form-control">
+            <input [(ngModel)]="descriptionShort" 
+                name="descriptionShort"
+                required  
+                minlength="4"
+                maxlength="50"
+                pattern="[.\\-\\+ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.descriptionShort?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.descriptionShort?.hasError('minlength')"> Requires min. 4 chars.  </span>
+        
+            <span *ngIf="f?.controls?.descriptionShort?.hasError('pattern')"> Invald chars. </span>
+        
+            <span *ngIf="f?.controls?.descriptionShort?.hasError('maxlength')"> Max. 30 chars! </span>
           </div>
+          
           <div class="form-group">
-            <label>Key Combination:</label>
-            <input [(ngModel)]="keyCode" required class="form-control">
+            <label>Long Description: </label>
+            <input [(ngModel)]="description" 
+                name="description"
+                required  
+                minlength="10"
+                maxlength="100"
+                pattern="[.\\-\\+ 0-9a-zA-ZÃ¶Ã¤Ã¼ÃŸÃ–Ã„Ãœ]*"
+                class="form-control"
+                />                
+            <span *ngIf="!f?.controls?.description?.valid"> Check your input! </span>
+            
+            <span *ngIf="f?.controls?.description?.hasError('minlength')"> Requires min. 10 chars.  </span>
+        
+            <span *ngIf="f?.controls?.description?.hasError('pattern')"> Invald chars. </span>
+        
+            <span *ngIf="f?.controls?.description?.hasError('maxlength')"> Max. 100 chars! </span>
           </div>
+
+          
+           <br>          
+
           <div class="form-group">
-            <label>Long Description:</label>
-            <input [(ngModel)]="description" required class="form-control">
+            <button (click)="create()" [disabled]="!f?.controls?.description?.valid || !f?.controls?.keyCode?.valid || !f?.controls?.descriptionShort?.valid"  class="btn btn-default">Save Changes</button>
           </div>
-          <div class="form-group">
-            <button (click)="create()" class="btn btn-default">Create Shortcut</button>
-          </div>
-        </div>
+          </form>
+        </div>        
         <div *ngIf="!programName || !programVersion">
         <h2>Illegal Access!</h2>
             <p>New Shortcut cannot be associated with existing Application Version</p>
