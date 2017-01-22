@@ -13,7 +13,8 @@ import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'program-search', // <flight-search></...>
-  templateUrl: './program-search.component.html'
+  templateUrl: './program-search.component.html',
+    styleUrls: ['../styles/hotshorts-main.css']
 })
 export class ProgramSearchComponent {
 

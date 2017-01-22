@@ -1,0 +1,161 @@
+/*
+
+.program-entry-bar{
+  width:80%;
+  height:100px;
+  background-color: lavender;
+  padding: 10px;
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.program-entry-bar-dark{
+  background-color: darkgray;
+}
+
+.program-entry-bar.os-icon{
+  height:90px;
+  width: 90px;
+  padding: 5px;
+}
+
+.program-entry-bar-title{
+  font-size:32pt;
+
+}
+
+.nav-text{
+  font-size: 14pt;
+}
+
+.inline-text{
+
+}
+
+.nav-active{
+  background-color: indianred;
+}
+
+.program-entry-bar-text{
+  font-size:16pt;
+
+}
+
+*/
+
+
+
+/*******************************************
+  = LESS
+*******************************************/
+/* LESS - Mixins */
+/*******************************************
+  = TYPOGRAPHY
+*******************************************/
+
+/*
+html {
+  font-size: 62.5%;
+}
+body {
+  font: 12px 'Arial', 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 1.2rem;
+  background: #333;
+  color: #fff;
+}
+
+*/
+/*******************************************
+  = LAYOUT
+*******************************************/
+
+/*
+* {
+  -webit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+*/
+
+/*******************************************
+  = RATING
+*******************************************/
+/* RATING - Form */
+/*
+ * Selectable CSS3 Rating Stars by Martin Ivanov (@wemakesitesnet)
+ * @version 1.0
+ * @author Martin Ivanov
+ * @url portfolio http://wemakesites.net/
+ * @url twitter https://twitter.com/wemakesitesnet
+ * @url blog http://acidmartin.wordpress.com/
+ **/
+
+/*
+ * Do you like this solution? Please, donate:
+ * https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QFUHPWJB2JDBS
+ *
+ * If you are looking for a feature-complete rating system http://acidjs.wemakesites.net/rating.html
+ *
+ **/
+
+.acidjs-rating-stars,
+.acidjs-rating-stars label::before
+{
+  display: inline-block;
+}
+
+.acidjs-rating-stars label:hover,
+.acidjs-rating-stars label:hover ~ label
+{
+  color: #189800;
+}
+
+.acidjs-rating-stars *
+{
+  margin: 0;
+  padding: 0;
+}
+
+.acidjs-rating-stars input
+{
+  display: none;
+}
+
+.acidjs-rating-stars
+{
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.acidjs-rating-stars label
+{
+  color: #ccc;
+}
+
+.acidjs-rating-stars label::before
+{
+  content: "\2605";
+  width: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.acidjs-rating-stars input:checked ~ label
+{
+  color: #f5b301;
+}
+
+.acidjs-rating-disabled
+{
+  opacity: .50;
+
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  pointer-events: none;
+}
