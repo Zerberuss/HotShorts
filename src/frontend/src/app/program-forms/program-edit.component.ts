@@ -25,15 +25,6 @@ import {ProgramService} from "../program-search/services/program.service";
           <div>
           <p>Average Rating:</p>
           <p>{{(program.ratingNr / program.ratingCount) | decimal: 2}}</p>
-           </div>
-          <!--div class="form-group">
-            <label>Sum of Rating Scores: </label>
-            <input [(ngModel)]="program.ratingCount" type="number" required class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Sum of Ratings: </label>
-            <input [(ngModel)]="program.ratingCount" type="number" required class="form-control">
-          </div-->
           <div class="form-group">
             <button (click)="resetRating()" class="btn btn-default">Reset Ratings</button>
           </div>
@@ -106,6 +97,8 @@ export class ProgramEditComponent {
 
     }
 
+
+
     saveV2():void{
         let saveObj = {
             description: this.program.description,
@@ -124,7 +117,7 @@ export class ProgramEditComponent {
                     this.message = "Daten wurden gespeichert!";
                     //either reload all programs or just update the program locally: We update it locally:
                     //this.programService.loadAllProgramsFromServer();
-                    this.programService.updateProgramLocally(this.program)
+                    this.programService.updateProgramLocally(this.program);
                     //redirect to the Program Search page:
                     this.programService.navigateToRoute(['/program-search']);
                 },

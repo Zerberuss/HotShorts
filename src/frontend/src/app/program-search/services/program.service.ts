@@ -491,19 +491,22 @@ export class ProgramService {
             programToChange.ratingCount+=1;
             programToChange.ratingNr+=rating;
 
-            //let url = this.buildUrlForProgram(programToChange);
+            let saveObj = {
+                ratingCount: programToChange.ratingCount,
+                ratingNr: programToChange.ratingNr
+            };
 
-            this.saveProgram(programToChange).subscribe(
-                (program) => {
-                     console.log(program);
-                    // let localProgramIndex = this.programs.findIndex((prog:Program)=>prog.name == program.name);
-                    // if (localProgramIndex>=0){
-                    //     this.programs[localProgramIndex] = program;
-                    //     console.log('Rating Update successful');
-                    // } else {
-                    //     console.log('Rating Update successful on Server Side, but failed in program list locally');
-                    // }
-                },
+            //let url = this.buildUrlForProgram(programToChange);
+            //.saveProgram(saveObj, this.program.name)
+
+            this.saveProgramByPut(saveObj, applicationName)
+                .subscribe(
+                    (program) => {
+                        programToChange = program;
+                        this.updateProgramLocally(program);
+
+                        console.log(program);
+                    },
                 (err) => {
                     console.error('Fehler beim Laden', err);
                 }
@@ -518,26 +521,28 @@ export class ProgramService {
             shortcutToChange.ratingCount+=1;
             shortcutToChange.ratingNr+=rating;
 
+            let saveObj = {
+                ratingCount: shortcutToChange.ratingCount,
+                ratingNr: shortcutToChange.ratingNr
+            };
 
             //let url = this.buildUrlForShortcut(shortcutToChange);
 
-            this.saveShortcut(shortcutToChange).subscribe(
-                (shortcut) => {
-                    console.log(shortcut);
-                    let localShortcutIndex = this.shortcuts.findIndex((shct:Shortcut)=>shct.id == shortcutId);
-                    if (localShortcutIndex>=0){
-                        this.shortcuts[localShortcutIndex] = shortcut;
-                        console.log('Rating Update successful');
-                    } else {
-                        console.log('Rating Update successful on Server Side, but failed in program list locally');
-                    }
+            this.saveShortcutByPut(saveObj, shortcutToChange.id)
+                .subscribe(
+                    (shortcut) => {
+                        shortcutToChange = shortcut;
+                        this.updateShortcutLocally(shortcut);
 
+                        console.log(shortcut);
                 },
                 (err) => {
                     console.error('Fehler beim Laden', err);
                 }
 
             );
+        }else{
+            console.error('Fehler beim Finden des Shortcuts ' + shortcutId + ', alle shorts: ' + this.shortcuts.length);
         }
     }
 

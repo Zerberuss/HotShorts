@@ -96,6 +96,7 @@ export class ProgramDetailComponent{
         this.programService.getUrlContentAsJson(this.shortcutsLink).subscribe(
             (shortcutsJson) => {
                 this.shortcuts = this.programService.accessShortcutsFromJson(shortcutsJson);
+                this.programService.shortcuts = this.shortcuts;
             },
             (err) => {
                 console.error('Fehler beim Laden der Shortcuts in loadShortcuts', err);
