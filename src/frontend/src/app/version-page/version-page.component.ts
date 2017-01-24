@@ -136,7 +136,7 @@ export class VersionPageComponent{
         //if the current route is the route of the deleted version, change the route:
         //if (this.router.url.indexOf(this.programName.replace(" ", "%20") + "/version/" + version.id.toString()) >= 0){
         if(this.router.url.indexOf(this.programName.replace(" ", "%20")) >= 0 && this.router.url.endsWith(version.id.toString())){
-            this.router.navigate(['/app', this.programName.replace(" ", "%20")]);
+            this.router.navigate(['/programs/app', this.programName.replace(" ", "%20")]);
         }
 
     }

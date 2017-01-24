@@ -58,13 +58,13 @@
                             <thead>
                                 <tr>
                                     <td style="width: 150px">
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/programs/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
+                                        <a class="btn btn-default" [routerLink]="['/programs/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit</a>
+                                        <a class="btn btn-warning" [routerLink]="['/programs/version-edit', v.id]">Edit</a>
                                     </td>
                                     <td>
                                         <button class="btn btn-danger" (click)="deleteVersion(v)">Delete</button>
@@ -83,13 +83,13 @@
                             <thead>
                                 <tr>
                                     <td style="width: 150px">
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/programs//app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
+                                        <a class="btn btn-default" [routerLink]="['/programs/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit</a>
+                                        <a class="btn btn-warning" [routerLink]="['/programs/version-edit', v.id]">Edit</a>
                                     </td>
                                     <td>
                                         <button class="btn btn-danger" (click)="deleteVersion(v)">Delete</button>
@@ -108,13 +108,13 @@
                             <thead>
                                 <tr>
                                     <td style="width: 150px">
-                                        <a [routerLink]="['/app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
+                                        <a [routerLink]="['/programs//app', programSummary.name, 'version', v.id]"><h4>Vs. {{v.versionText}}</h4></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-default" [routerLink]="['/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
+                                        <a class="btn btn-default" [routerLink]="['/programs/app', programSummary.name, 'version', v.id]">Show Shortcuts <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"></a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-warning" [routerLink]="['/version-edit', v.id]">Edit</a>
+                                        <a class="btn btn-warning" [routerLink]="['/programs/version-edit', v.id]">Edit</a>
                                     </td>
                                     <td>
                                         <button class="btn btn-danger" (click)="deleteVersion(v)">Delete</button>
@@ -130,6 +130,6 @@
 </div>
 
 <div>
-    <a class="btn btn-default" [routerLink]="['/version-create']">Create New Program Version</a>
+    <a class="btn btn-default" [routerLink]="['/programs/version-create']">Create New Program Version</a>
 </div>
 

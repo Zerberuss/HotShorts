@@ -22,11 +22,13 @@ const APP_ROUTES: Routes = [
     {
         path: 'program-create',
         component: ProgramCreateComponent
-    },
+    }
+    /*,
     {
         path: '**',
         redirectTo: 'home'
-    }
+    }*/
+
 
 ];
 
