@@ -50,7 +50,7 @@
 
 
 
-        <td style="width: 120px"> <a class="btn btn-default" [routerLink]="['/app', item.name]"> ShortKeys
+        <td style="width: 120px"> <a class="btn btn-default" [routerLink]="['programs', 'app', item.name]"> ShortKeys
             <img alt="" style="width: 25px; height: 20px;" src="images/keys-icon.png"> </a>
             <p></p>
             <input type="button"
@@ -62,7 +62,7 @@
 
 
         <td>
-            <a class="btn btn-warning" [routerLink]="['/program-edit', item.name]">Edit</a>
+            <a class="btn btn-warning" [routerLink]="['programs/program-edit', item.name]">Edit</a>
             <p></p>
             <input type="button"
                    value="Delete"

@@ -154,7 +154,7 @@ export class ProgramEditComponent {
                     //this.programService.loadAllProgramsFromServer();
                     this.programService.updateProgramLocally(this.program);
                     //redirect to the Program Search page:
-                    this.programService.navigateToRoute(['/program-search']);
+                    this.programService.navigateToRoute(['programs/program-search']);
                 },
                 (err) => {
                     this.message = "Fehler beim Speichern: " + err.text();

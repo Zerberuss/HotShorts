@@ -121,7 +121,7 @@ export class ProgramSearchComponent {
     }
 
   goToProgramPageWithVersionId(versionEntry:ProgramSummaryVersionEntry){
-      this.router.navigate(['/app', this.selectedProgram.name, 'version' ,versionEntry.id]);
+      this.router.navigate(['programs', 'app', this.selectedProgram.name, 'version' ,versionEntry.id]);
   }
 
 }
