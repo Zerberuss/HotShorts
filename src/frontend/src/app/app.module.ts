@@ -3,10 +3,10 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import {ProgramModule} from "./program-search/program-module";
-import {DetailModule} from "./program-detail/detail-module";
-import {AppRouterModule} from "./app.routes";
+import {AppRouterModule, APP_ROUTES_MODULE_PROVIDER} from "./app.routes";
 import {HomeComponent} from "./home/home.component";
+import {ProgramCreateComponent} from "./program-forms/program-create.component";
+import {PreloadSelectedPaths} from "./preload-strategy/preload-selected-paths";
 
 
 @NgModule({
@@ -14,15 +14,13 @@ import {HomeComponent} from "./home/home.component";
     BrowserModule,
     FormsModule,
     HttpModule,
-    ProgramModule,
-    DetailModule,
     AppRouterModule
   ],
   declarations: [
-    AppComponent, HomeComponent
+    AppComponent, HomeComponent, ProgramCreateComponent
   ],
   providers: [
-
+    APP_ROUTES_MODULE_PROVIDER
   ],
   bootstrap: [ AppComponent ]
 })

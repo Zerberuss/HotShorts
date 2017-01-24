@@ -76,7 +76,10 @@ import {FormsModule} from "@angular/forms";
             <button (click)="create()" [disabled]="!f?.controls?.programName?.valid || !f?.controls?.description?.valid || !f?.controls?.website?.valid"  class="btn btn-default">Create Program</button>
           </div>
         </form>
-    `
+    `,
+    providers: [
+        ProgramService
+    ]
 
 })
 //There should be no possibility to set a rating sum or a rating count when creating the Program, because they should be 0!
@@ -138,7 +141,7 @@ export class ProgramCreateComponent {
 
                     this.resetComponentMembers();
                     //redirect to the Program Search page:
-                    this.programService.navigateToRoute(['/program-search']);
+                    this.programService.navigateToRoute(['programs/program-search']);
                 },
                 (err) => {
                     this.message = "Fehler beim Speichern: " + err.text();

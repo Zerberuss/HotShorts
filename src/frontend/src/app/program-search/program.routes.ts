@@ -2,7 +2,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {ProgramDetailComponent} from "../program-detail/program-detail.component";
 import {ProgramDetailEmptyComponent} from "../program-detail/program-detail-empty.component";
 import {VersionPageComponent} from "../version-page/version-page.component";
-import {ProgramCreateComponent} from "../program-forms/program-create.component";
 import {ProgramEditComponent} from "../program-forms/program-edit.component";
 import {VersionCreateComponent} from "../program-forms/version-create.component";
 import {VersionEditComponent} from "../program-forms/version-edit.component";
@@ -12,6 +11,11 @@ import {ProgramSearchComponent} from "./program-search.component";
 
 
 const PROGRAM_ROUTES: Routes = [
+    {
+        path: '',
+        redirectTo: 'program-search',
+        pathMatch: 'full'
+    },
     { path: 'app/:name',
         component: VersionPageComponent,
         children: [
@@ -22,10 +26,6 @@ const PROGRAM_ROUTES: Routes = [
     {
         path: 'program-search',
         component: ProgramSearchComponent
-    },
-    {
-        path: 'program-create',
-        component: ProgramCreateComponent
     },
     {
         path: 'program-edit/:id',
