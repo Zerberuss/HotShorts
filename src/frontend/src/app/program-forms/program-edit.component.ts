@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Program} from "../entities/programs";
 import {ActivatedRoute} from "@angular/router";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 
 //It is not allowed to modify the program name, since it is the primary key!!! The program has to be deleted and created again for a new name
 @Component({

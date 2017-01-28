@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Program} from "../entities/programs";
-import {ProgramService} from "../program-search/services/program.service";
-//import {FormsModule} from "@angular/forms";
+import {ProgramService} from "../shared/services/program.service";
 
 @Component({
     template: `

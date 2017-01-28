@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Program} from "../entities/programs";
 import {Shortcut} from "../entities/shortcuts";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 
 //IMPORTANT - for storing the foreign key reference to the version, we have to provide the VERSION URL as value for the programVersion column in ProgramVersion
 
@@ -135,15 +135,7 @@ export class ShortcutCreateComponent {
 
     //!!! When persisting, when the ID is autocreated by hibernate, we have to leave it null/0 in the object
     create(): void {
-        // let newShortcut:Shortcut = <Shortcut>{
-        //     id:null,
-        //     description: this.description,
-        //     descriptionShort: this.descriptionShort,
-        //     keyCode: this.keyCode,
-        //     ratingCount: 0,
-        //     ratingNr: 0,
-        //     programVersion: this.programService.versionIdForNewlyCreatedShortcut
-        // };
+
         let newShortcut = {
             description: this.description,
             descriptionShort: this.descriptionShort,

@@ -10,7 +10,6 @@ import {PipeTransform, Pipe} from "@angular/core";
 })
 export class ProgramFilterPipe implements PipeTransform{
     //Filters a list of Programs after the name
-    //Everything works except the Letter "e". WTF
     transform(value: any, ...args: any[]): any {
         //if (!args[0] || !value || !value.hasOwnProperty("name")){
         if (!args[0]){

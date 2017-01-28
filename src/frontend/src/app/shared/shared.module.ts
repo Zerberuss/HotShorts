@@ -8,7 +8,7 @@ import {BASE_URL, PROGRAMS_URL, VERSIONS_URL, SHORTCUTS_URL, PROGRAM_URL_PREFIX}
 import {DecimalPipe} from "./pipes/decimal-pipe";
 import {ProgramFilterPipe} from "./pipes/filter-pipe";
 import {UniversalFilterPipe} from "./pipes/universal-filter.pipe";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "./services/program.service";
 
 const BASE_URL_FOR_PRODUCTION = "http://localhost:8080/";
 const PROGRAM_URL_DEV = "http://localhost:8080/programs";

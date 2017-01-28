@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Program} from "../entities/programs";
 import {ProgramVersion} from "../entities/programVersions";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 
 //IMPORTANT - for storing the foreign key reference to the program, we have to provide the PROGRAM URL as value for the program column in ProgramVersion
 
@@ -90,12 +90,7 @@ export class VersionCreateComponent {
 
     //!!! When persisting, when the ID is autocreated by hibernate, we have to leave it null/0 in the object
     create(): void {
-        // let newVersion:ProgramVersion = <ProgramVersion>{
-        //     id:null,
-        //     osType: this.osType,
-        //     versionText: this.versionText,
-        //     program: this.programService.programNameForNewlyCreatedVersion
-        // };
+
         let newVersion = {
             osType: this.osType,
             versionText: this.versionText,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Program} from "../entities/programs";
 import {ProgramVersion} from "../entities/programVersions";
 import {ActivatedRoute} from "@angular/router";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 
 @Component({
     template:`
@@ -140,6 +140,7 @@ export class VersionEditComponent {
 
     }
 
+    //Version 1: foreign key was built and stored back for every operation until we find out that it was possible to make partial updates of only certain attributes
     save(): void {
         this
             .programService

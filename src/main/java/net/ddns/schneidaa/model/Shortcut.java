@@ -61,14 +61,6 @@ public class Shortcut {
         this.descriptionShort = descriptionShort;
     }
 
-    public String getShortdescription() {
-        return descriptionShort;
-    }
-
-    public void setShortdescription(String descriptionShort) {
-        this.descriptionShort = descriptionShort;
-    }
-
     public String getDescription() {
         return description;
     }

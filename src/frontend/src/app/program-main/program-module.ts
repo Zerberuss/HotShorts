@@ -6,9 +6,7 @@ import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {CommonModule} from "@angular/common";
-import {ProgramSearchComponent} from "./program-search.component";
-import {ProgramEntryComponent} from "./program-entry.component";
-import {ProgramService} from "./services/program.service";
+import {ProgramSearchComponent} from "../program-search/program-search.component";
 import {ProgramEditComponent} from "../program-forms/program-edit.component";
 import {VersionCreateComponent} from "../program-forms/version-create.component";
 import {VersionEditComponent} from "../program-forms/version-edit.component";
@@ -28,7 +26,6 @@ import {ProgramCreateComponent} from "../program-forms/program-create.component"
     ],
     declarations: [
         ProgramSearchComponent,
-        ProgramEntryComponent,
         ProgramCreateComponent,
         ProgramEditComponent,
         VersionCreateComponent,

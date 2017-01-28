@@ -3,7 +3,6 @@
  */
 import {PipeTransform, Pipe} from "@angular/core";
 
-// Tell Angular2 we're creating a Pipe with TypeScript decorators
 @Pipe({
     name: 'universalFilter',
     pure: false
@@ -36,7 +35,7 @@ export class UniversalFilterPipe implements PipeTransform{
         let filterAttribute = args[0];
         let [searchTerm] = args[1];
 
-        //check if the program name contains the search term
+        //check if the program name contains the search term. Would only work if the attribute is of type string
         return value.filter(program => {
             if (this.isObject(value) && value.hasOwnProperty(searchTerm)){
                 return program[searchTerm].toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;

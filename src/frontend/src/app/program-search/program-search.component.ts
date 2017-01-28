@@ -2,7 +2,7 @@
  * Created by simon41 on 11/30/2016.
  */
 import {Component} from "@angular/core";
-import {ProgramService} from "./services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 import {Program} from "../entities/programs";
 import {ProgramSummary} from "../entities/programSummary";
 import {Subscription} from "rxjs";
@@ -38,10 +38,6 @@ export class ProgramSearchComponent {
     public get programs(): Array<Program> {
         return this.programService.programs;
     }
-
-  // searchV3(): void {
-  //   this.programService.findProgram(this.name);
-  // }
 
   storeProgramsLocally():void {
       this.programService.loadAllProgramsFromServer();

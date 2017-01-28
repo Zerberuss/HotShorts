@@ -2,7 +2,6 @@ import {PreloadingStrategy, Route} from "@angular/router";
 import {Observable} from "rxjs";
 import {of} from "rxjs/observable/of";
 
-//source: https://vsavkin.com/angular-router-preloading-modules-ba3c75e424cb#.9s359tbhm
 
 export class PreloadSelectedPaths implements PreloadingStrategy {
 

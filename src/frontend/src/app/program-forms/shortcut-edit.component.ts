@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Program} from "../entities/programs"
 import {Shortcut} from "../entities/shortcuts";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 import {ActivatedRoute} from "@angular/router";
 import {ProgramVersion} from "../entities/programVersions";
 

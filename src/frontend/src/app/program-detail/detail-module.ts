@@ -6,10 +6,8 @@ import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {CommonModule} from "@angular/common";
 import {ProgramDetailComponent} from "./program-detail.component";
-import {ShortcutEntryComponent} from "./shortcut-entry.component";
-import {VersionPageComponent} from "../version-page/version-page.component";
+import {VersionPageComponent} from "./version-page.component";
 import {ProgramDetailEmptyComponent} from "./program-detail-empty.component";
-import {ProgramService} from "../program-search/services/program.service";
 import {RouterModule} from "@angular/router";
 
 @NgModule({
@@ -21,7 +19,6 @@ import {RouterModule} from "@angular/router";
     ],
     declarations: [
         ProgramDetailComponent,
-        ShortcutEntryComponent,
         VersionPageComponent,
         ProgramDetailEmptyComponent
     ],

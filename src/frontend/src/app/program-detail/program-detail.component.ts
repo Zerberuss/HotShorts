@@ -2,7 +2,7 @@
  * Created by simon41 on 12/7/2016.
  */
 import {Component} from "@angular/core";
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {Shortcut} from "../entities/shortcuts";
 import {ProgramVersion} from "../entities/programVersions";
@@ -29,11 +29,6 @@ export class ProgramDetailComponent{
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private programService:ProgramService) {
-    }
-
-    ngOnInitOld() {
-        this.paramsSub = this.route.params.subscribe(params => this.id = +params['id']); //+ for turning the id string into a number
-        this.loadVersion();
     }
 
     ngOnInit() {

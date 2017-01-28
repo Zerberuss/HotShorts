@@ -3,7 +3,7 @@
  */
 import {Component} from "@angular/core";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {ProgramService} from "../program-search/services/program.service";
+import {ProgramService} from "../shared/services/program.service";
 import {Program} from "../entities/programs";
 import {ProgramVersion} from "../entities/programVersions";
 import {ProgramSummary} from "../entities/programSummary";
@@ -100,32 +100,8 @@ export class VersionPageComponent{
         );
     }
 
-    deleteVersion(version:ProgramVersion){ //ToDo: version is here of type ProgramSummaryVersionEntry, change the function. The below functions work however.
+    deleteVersion(version:ProgramVersion){ //ToDo: version is here of type ProgramSummaryVersionEntry, change the function. The below functions work however, because the necessary attributes are still present
         console.log(version);
-        // switch (version.osType){
-        //     case OsTypes.windows:
-        //         console.log("osType windows");
-        //         console.log(this.programSummary.versions.windows);
-        //         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.windows, version.id);
-        //         break;
-        //     case OsTypes.linux:
-        //         console.log("osType linux");
-        //         console.log(this.programSummary.versions.linux);
-        //         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.linux, version.id);
-        //         break;
-        //     case OsTypes.osx:
-        //         console.log("osType osx");
-        //         console.log(this.programSummary.versions.osx);
-        //         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.osx, version.id);
-        //         break;
-        //     default:
-        //         break;
-        // }
-
-        //this.programService.deleteVersion(version);
-
-
-
 
         this.programService.deleteVersionOnlineAndFromArray(version, this.programVersions);
         this.deleteVersionFromSummaryVersionEntry(this.programSummary.versions.osx, version.id);

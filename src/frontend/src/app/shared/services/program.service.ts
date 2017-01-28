@@ -1,9 +1,7 @@
 /**
  * Created by simon41 on 11/30/2016.
  */
-/**
- * Created by simon41 on 11/24/2016.
- */
+
 import {Injectable, Inject} from "@angular/core";
 import {Http, URLSearchParams, Headers, RequestOptions} from "@angular/http";
 import {PROGRAMS_URL, VERSIONS_URL, SHORTCUTS_URL} from "../../app.tokens";
@@ -392,75 +390,12 @@ export class ProgramService {
                             console.log("Object " + typeof(obj)+ " deleted successfully only on server side");
                         }
                     }
-
                 },
                 (err) => {
                     console.error('Delete Error for Object', err);
                 }
             )
     }
-
-    // public deleteProgramOld(program:Program){
-    //     this.delete<Program>(program, this.buildUrlForProgram(program))
-    //         .subscribe(
-    //             (ok) => {
-    //                 //delete the program also locally if server delete is successful
-    //                 let localProgIndex = this.programs.indexOf(program);
-    //                 if (localProgIndex >= 0){
-    //                     this.programs.splice(localProgIndex, 1);
-    //                     console.log("Program deleted successfully");
-    //                 } else {
-    //                     console.log("Program deleted successfully only on server side");
-    //                 }
-    //             },
-    //             (err) => {
-    //                 console.error('Delete Error for Program', err);
-    //             }
-    //         )
-    // }
-
-
-
-    // public deleteVersionOld(version:ProgramVersion){
-    //     this.delete<ProgramVersion>(version, this.buildUrlForVersion(version))
-    //         .subscribe(
-    //             (ok) => {
-    //                 //delete the program also locally if server delete is successful
-    //                 let localVersionIndex = this.programVersions.indexOf(version);
-    //                 if (localVersionIndex >= 0){
-    //                     this.programVersions.splice(localVersionIndex, 1);
-    //                     console.log("ProgramVersion deleted successfully");
-    //                 } else {
-    //                     console.log("ProgramVersion deleted successfully only on server side");
-    //                 }
-    //             },
-    //             (err) => {
-    //                 console.error('Delete Error for ProgramVersion', err);
-    //             }
-    //         )
-    // }
-
-
-
-    // public deleteShortcutOld(shortcut:Shortcut){
-    //     this.delete<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut))
-    //         .subscribe(
-    //             (ok) => {
-    //                 //delete the program also locally if server delete is successful
-    //                 let localShortcutIndex = this.shortcuts.indexOf(shortcut);
-    //                 if (localShortcutIndex >= 0){
-    //                     this.shortcuts.splice(localShortcutIndex, 1);
-    //                     console.log("Shortcut deleted successfully");
-    //                 } else {
-    //                     console.log("Shortcut deleted successfully only on server side");
-    //                 }
-    //             },
-    //             (err) => {
-    //                 console.error('Delete Error for Shortcut', err);
-    //             }
-    //         )
-    // }
-
 
     public deleteProgram(program:Program){
         this.deleteOnBackendAndFrontend<Program>(program, this.buildUrlForProgram(program), this.programs);
@@ -482,7 +417,6 @@ export class ProgramService {
         this.deleteOnBackendAndFrontend<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut), arrayToDelete);
     }
 
-    //ToDo: only increase the ratingNr by rating and the ratingCount by 1 for the given Version
     applyApplicationRating(applicationName:string, rating:number){
         let programToChange:Program = this.programs.find((prog:Program)=>prog.name == applicationName);
         if (programToChange){
@@ -546,8 +480,6 @@ export class ProgramService {
         }
     }
 
-
-
     getPrgramByNameLocally(programName:string){
         if (!this.programs){
             console.error("No programs were loaded from the server")
@@ -562,25 +494,6 @@ export class ProgramService {
         }
     }
 
-
-    //ToDo:Delete following authorization method:
-    /*
-  private getAuthorizationHeader(){
-    var headers = new Headers();
-    //headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Authorization', 'Basic ' +
-        btoa('user:hotshortsdb'));
-    return headers;
-  }
-
-    private appendAuthorizationHeader(headers:Headers){
-        //headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('Authorization', 'Basic ' +
-            btoa('user:hotshortsdb'));
-        //return headers;
-    }
-    */
-
   public getProgramFromServer(programName:string):Observable<Program>{
       return this.getUrlContentAsJson(this.programUrl + "/" + programName.replace(" ", "%20").trim());
   }
@@ -593,108 +506,18 @@ export class ProgramService {
         return this.getUrlContentAsJson(this.shortcutsUrl + "/" + shortcutId.toString());
     }
 
-    //ToDo: only retrieve single program:
-    /*
-    public findSingleProgramByName(name:string):Observable<Program> {
-        let url = this.programUrl;
-        let search = new URLSearchParams();
-        search.set('name', name);
 
-        let headers = this.generateHttpHeader();
-
-        return this
-            .http
-            .get(url, { headers, search })
-            .map(resp => resp.json());
-
-    }
-    */
-
-    //Most generic and reuseable find method:
-    public findObject<T>(serverAttribute:string, attributeValue:string, url):Observable<T>{
-
-        let search = new URLSearchParams();
-        search.set(serverAttribute, attributeValue);
-
-        let headers = this.generateHttpHeader();
-
-        return this
-            .http
-            .get(url, { headers, search })
-            .map(resp => resp.json());
-    }
-
-    //For Shortcut and ProgramVersion:
-    public findById<T>(id:number, url):Observable<T>{
-
-        let search = new URLSearchParams();
-        search.set('id', id.toString());
-
-        let headers = this.generateHttpHeader();
-
-        return this
-            .http
-            .get(url, { headers, search })
-            .map(resp => resp.json());
-    }
-
-    public findSingleProgramByName(name:string):Observable<Program> {
-        return this.findObject<Program>('name', name, this.programUrl);
-
-    }
-
-    public findSingleShortcutById(id:number):Observable<Shortcut>{
-        //return this.findById<Shortcut>(id, this.shortcutsUrl);
-        return this.findObject<Shortcut>('id', id.toString(), this.shortcutsUrl);
-    }
-
-    public findSingleVersionById(id:number):Observable<ProgramVersion>{
-        //return this.findById<ProgramVersion>(id, this.versionsUrl);
-        return this.findObject<ProgramVersion>('id', id.toString(), this.versionsUrl);
-    }
-
-    //ToDo: no search function implemented on server side as of now
-    /*
-  public findProgram(name: string) {
-    let url = this.programUrl;
-    let search = new URLSearchParams();
-    search.set('name', name);
-    //ToDo: query after the primary key if possible, else try to findProgram a way to include the primary key in the JSON data we get from the server
-
-    let headers = this.generateHttpHeader();
-
-      this
-          .http
-          .get(url, { headers, search })
-          .map(resp => resp.json())
-          .subscribe(
-              (programs) => {
-                  console.log(programs["_embedded"]["programs"]);
-                  this.programs = this.accessProgramsFromJson(programs);
-              },
-              (err) => {
-                  console.error('Fehler beim Laden', err);
-              }
-          );
-  }
-
-*/
-
-
-    // public findVersionById(name: string):Observable<ProgramVersion> {
-    //     let versionToStore: ProgramVersion;
-    //     let url = this.versionsUrl;
-    //     let search = new URLSearchParams();
-    //     search.set('name', name);
-    //     //ToDo: query after the primary key if possible, else try to findProgram a way to include the primary key in the JSON data we get from the server
+    //Most generic and reuseable find method, sadly with the spring data server, the search function does not work that way
+    // public findObject<T>(serverAttribute:string, attributeValue:string, url):Observable<T>{
     //
-    //     let headers = new Headers();
-    //     //let headers = this.getAuthorizationHeader();
-    //     headers.append('Accept', 'application/json');
+    //     let search = new URLSearchParams();
+    //     search.set(serverAttribute, attributeValue);
+    //
+    //     let headers = this.generateHttpHeader();
     //
     //     return this
     //         .http
-    //         .post(url, { headers, search })
+    //         .get(url, { headers, search })
     //         .map(resp => resp.json());
     // }
 
@@ -734,22 +557,6 @@ export class ProgramService {
 
   }
 
-  /*
-  private getAllVersionInformation(callbackFunc:(versionList)=>{}, errorFunc:(error)=>{}){
-    var programSummaries = {};
-
-    this.getAllVersions().subscribe(
-        (versionList: ProgramVersion[]) => {
-          //this.programVersions = versionList;
-          return callbackFunc(versionList);
-        },
-        (err) => {
-          return errorFunc(err);
-        }
-    )
-  }
-  */
-
   public getAllVersionInformation(){
     var versionInformation = [];
 
@@ -788,15 +595,7 @@ export class ProgramService {
 
   public createProgramSummaryForProgram(){
       let programSummeries = {};
-      // this.getAllPrograms().subscribe(
-      //     (programJson)=>{
-      //       let programCurrent = this.accessProgramsFromJson(programJson);
-      //     },
-      //     (err)=>{
-      //         console.error('Fehler beim Laden', err);
-      //     }
-      //
-      // )
+
       this.getAllPrograms().map((prog)=>{
           let programs = this.accessProgramsFromJson(prog);
           let versionLinks:string = programs["_links"]["programVersions"]["href"];
@@ -953,46 +752,6 @@ export class ProgramService {
         );
     }
 
-
-
-    public createProgramSummaries(){
-        let programSummaries = {};
-        this.getAllPrograms().subscribe(
-            (programJson) => {
-                let programList = this.accessProgramsFromJson(programJson);
-                console.log(programList);
-                programSummaries = this.createEmptyProgramSummariesFromPrograms(<Program[]> programList);
-
-                for (let p of programList){
-
-                }
-                let versionLinks:string = programList["_links"]["programVersions"]["href"];
-                console.log(versionLinks);
-                this.getUrlContentAsJson(versionLinks).subscribe(
-                    (versionsJson)=>{
-
-                    },
-                    (err)=>{
-                        console.error('Fehler beim Laden der Versionen', err);
-                        return {};
-                    }
-                )
-            },
-            (err) => {
-                console.error('Fehler beim Laden der Programme', err);
-                return {};
-            }
-        )
-/*
-        this.http.get('./customer.json').map((res: Response) => {
-            this.customer = res.json();
-            return this.customer;
-        })
-            .flatMap((customer) => this.http.get(customer.contractUrl)).map((res: Response) => res.json())
-            .subscribe(res => this.contract = res);
-*/
-    }
-
   //creating a list of programSummaries: (programinfo + according versions to each program)
   //private createProgramSummariesFromJsonList(programList: Program[]):{string:ProgramSummary}{
   private createProgramSummariesFromJsonList(programList: Program[], versionList:ProgramVersion[]){
@@ -1084,7 +843,6 @@ export class ProgramService {
       }
 
   }
-
 
   private createProgramNameList():string[]{
       let programNames = [];

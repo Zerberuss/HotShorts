@@ -15,7 +15,7 @@ const APP_ROUTES: Routes = [
     {
         //lazy loading module
         path: 'programs',
-        loadChildren: './program-search/program-module#ProgramModule',
+        loadChildren: './program-main/program-module#ProgramModule',
         data: {preload:true}
     },
     {
