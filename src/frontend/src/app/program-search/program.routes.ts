@@ -8,6 +8,7 @@ import {VersionEditComponent} from "../program-forms/version-edit.component";
 import {ShortcutCreateComponent} from "../program-forms/shortcut-create.component";
 import {ShortcutEditComponent} from "../program-forms/shortcut-edit.component";
 import {ProgramSearchComponent} from "./program-search.component";
+import {ProgramCreateComponent} from "../program-forms/program-create.component";
 
 
 const PROGRAM_ROUTES: Routes = [
@@ -26,6 +27,10 @@ const PROGRAM_ROUTES: Routes = [
     {
         path: 'program-search',
         component: ProgramSearchComponent
+    },
+    {
+        path: 'program-create',
+        component: ProgramCreateComponent
     },
     {
         path: 'program-edit/:id',

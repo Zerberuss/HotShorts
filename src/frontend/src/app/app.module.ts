@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import {AppRouterModule, APP_ROUTES_MODULE_PROVIDER} from "./app.routes";
 import {HomeComponent} from "./home/home.component";
-import {ProgramCreateComponent} from "./program-forms/program-create.component";
 import {SharedModule} from "./shared/shared.module";
 
 
@@ -14,11 +13,11 @@ import {SharedModule} from "./shared/shared.module";
     BrowserModule,
     FormsModule,
     HttpModule,
-    SharedModule,
+    SharedModule.forRoot(),
     AppRouterModule
   ],
   declarations: [
-    AppComponent, HomeComponent, ProgramCreateComponent
+    AppComponent, HomeComponent
   ],
   providers: [
     APP_ROUTES_MODULE_PROVIDER

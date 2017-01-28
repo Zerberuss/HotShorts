@@ -1,13 +1,14 @@
 /**
  * Created by simon41 on 11/30/2016.
  */
-import {NgModule} from "@angular/core";
+import {NgModule, ModuleWithProviders} from "@angular/core";
 import { CommonModule} from '@angular/common';
 import {OSVersionPipe} from "./pipes/os-version.pipe";
 import {BASE_URL, PROGRAMS_URL, VERSIONS_URL, SHORTCUTS_URL, PROGRAM_URL_PREFIX} from '../app.tokens';
 import {DecimalPipe} from "./pipes/decimal-pipe";
 import {ProgramFilterPipe} from "./pipes/filter-pipe";
 import {UniversalFilterPipe} from "./pipes/universal-filter.pipe";
+import {ProgramService} from "../program-search/services/program.service";
 
 const BASE_URL_FOR_PRODUCTION = "http://localhost:8080/";
 const PROGRAM_URL_DEV = "http://localhost:8080/programs";
@@ -35,5 +36,12 @@ const PROGRAM_URL_PREFIX_DEV = "programs";
 
 })
 export class SharedModule {
+
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [ProgramService]
+    }
+  }
 
 }

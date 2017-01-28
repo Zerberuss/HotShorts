@@ -26,7 +26,6 @@ import {RouterModule} from "@angular/router";
         ProgramDetailEmptyComponent
     ],
     providers: [
-        ProgramService
     ],
     exports: [
         ProgramDetailComponent,

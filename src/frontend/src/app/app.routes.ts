@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {PreloadSelectedPaths} from "./preload-strategy/preload-selected-paths";
-import {ProgramCreateComponent} from "./program-forms/program-create.component";
 
 const APP_ROUTES: Routes = [
     {
@@ -20,14 +19,9 @@ const APP_ROUTES: Routes = [
         data: {preload:true}
     },
     {
-        path: 'program-create',
-        component: ProgramCreateComponent
-    }
-    /*,
-    {
         path: '**',
         redirectTo: 'home'
-    }*/
+    }
 
 
 ];

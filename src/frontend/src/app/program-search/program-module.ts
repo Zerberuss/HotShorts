@@ -16,6 +16,7 @@ import {ShortcutCreateComponent} from "../program-forms/shortcut-create.componen
 import {ShortcutEditComponent} from "../program-forms/shortcut-edit.component";
 import {ProgramsRouterModule} from "./program.routes";
 import {DetailModule} from "../program-detail/detail-module";
+import {ProgramCreateComponent} from "../program-forms/program-create.component";
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import {DetailModule} from "../program-detail/detail-module";
     declarations: [
         ProgramSearchComponent,
         ProgramEntryComponent,
+        ProgramCreateComponent,
         ProgramEditComponent,
         VersionCreateComponent,
         VersionEditComponent,
@@ -35,7 +37,6 @@ import {DetailModule} from "../program-detail/detail-module";
         ShortcutEditComponent
     ],
     providers: [
-        ProgramService
     ],
     exports: [
 
