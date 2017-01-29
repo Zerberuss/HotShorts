@@ -100,7 +100,7 @@ export class VersionPageComponent{
         );
     }
 
-    deleteVersion(version:ProgramVersion){ //ToDo: version is here of type ProgramSummaryVersionEntry, change the function. The below functions work however, because the necessary attributes are still present
+    deleteVersion(version:ProgramVersion){
         console.log(version);
 
         this.programService.deleteVersionOnlineAndFromArray(version, this.programVersions);
@@ -124,13 +124,15 @@ export class VersionPageComponent{
         }
     }
 
-    createProgramSummary(){
-        if (this.program!=null){
+    createProgramSummary() {
+        if (this.program != null) {
             console.log("program[_links][self][href]");
             //console.log(this.program["_links"]["self"]["href"]);
             //let SummarySubsription:Subscription = this.programService.createProgramSummaryForProgramUrl(program["_links"]["self"]["href"]);
             let programSummary = {};
-            var callbackSuccess = (summaryObject)=>{this.programSummary = <ProgramSummary> summaryObject;};
+            var callbackSuccess = (summaryObject) => {
+                this.programSummary = <ProgramSummary> summaryObject;
+            };
             //this.programService.assignProgramSummaryForProgramUrl(this.selectedProgram["_links"]["self"]["href"], programSummary, callbackSuccess);
             this.programService.assignProgramSummaryForProgram(this.program, programSummary, callbackSuccess);
             console.log("select function program summary:");
@@ -139,13 +141,6 @@ export class VersionPageComponent{
         }
 
 
-    }
-
-    ngOnInitOld() {
-        this.programName = this.route.snapshot.params['name']; //Snapshot approach. programName will not change if route param changes
-        //this.paramsSub = this.route.params.subscribe(params => this.programName = params['name'].toString()); //Observable Approach
-        console.log("ngOnInit programName: " + this.programName);
-        this.loadProgram();
     }
 
     ngOnInit(){

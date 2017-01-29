@@ -109,28 +109,7 @@ export class ProgramEditComponent {
             )
     }
 
-    //old
-    save(): void {
-        this
-            .programService
-            .saveProgram(this.program)
-            .subscribe(
-                programObject => {
-                    this.program = programObject;
-                    this.message = "Daten wurden gespeichert!";
-                    //either reload all programs or just update the program locally: We update it locally:
-                    //this.programService.loadAllProgramsFromServer();
-                    this.programService.updateProgramLocally(this.program)
-                    //redirect to the Program Search page:
-                    this.programService.navigateToRoute(['programs/program-search']);
 
-                },
-                (err) => {
-                    this.message = "Fehler beim Speichern: " + err.text();
-                }
-            )
-
-    }
 
 
 

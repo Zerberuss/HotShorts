@@ -111,7 +111,6 @@ export class ProgramCreateComponent {
     }
 
     create() {
-        //ToDo: check here if all values in the forms are correct!
         let newProgram = <Program> {
             name: this.programName,
             description: this.description,
