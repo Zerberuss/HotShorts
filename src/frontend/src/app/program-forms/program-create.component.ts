@@ -132,7 +132,6 @@ export class ProgramCreateComponent {
                     // if (this.programService.programs.findIndex((prog:Program)=>prog.name == program.name) < 0){
                     //     this.programService.programs.push(program);
                     // }
-                    //this.programService.updateProgramLocally(program);
 
                     this.resetComponentMembers();
                     //redirect to the Program Search page:

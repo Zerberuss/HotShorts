@@ -36,36 +36,8 @@ export class ProgramService {
 
   }
 
-
-    public static combinePaths(path1:string, path2:string):string{
-        var path_1:string;
-        var path_2:string;
-
-        if (path2.startsWith("/")){
-            path_2 = path2.substring(1);
-        } else {
-            path_2 = path2;
-        }
-
-        if (path1.endsWith("/")){
-            path_1 = path1.substring(0, path1.length - 1);
-        } else {
-            path_1 = path1;
-        }
-
-        return path_1 + "/" + path_2;
-    }
-
-    public static cloneObject<T>(obj:T):T{
-        return <T> JSON.parse(JSON.stringify(obj));
-    }
-
     public navigateToRoute(args:any[]){
         this.router.navigate(args);
-    }
-
-    public getLocalProgramByName(progName:string):Program{
-        return this.programs.find((prog:Program)=>prog.name == progName);
     }
 
     public updateProgramLocally(program:Program){
@@ -90,10 +62,6 @@ export class ProgramService {
 
     public updateShortcutByAttributesLocally(shortcut:Shortcut){
         this.updateLocallyV2<Shortcut>(shortcut, "id", this.shortcuts);
-    }
-
-    public updateShortcutInArray(shortcut:Shortcut, arr:Shortcut[]){
-        this.updateLocally<Shortcut>(shortcut, "id", arr);
     }
 
     private updateLocally<T>(obj:T, idAttribute:string, localArray:T[]){
@@ -133,8 +101,6 @@ export class ProgramService {
         let url = shortcut["_links"]["programVersion"]["href"];
 
         return this.getUrlContentAsJson(url);
-
-        //return shortcut["_links"]["programVersion"]["href"];
     }
 
     //retrives the foreign key referenced Url for the Version, maybe better as static function in ProgramVersion
@@ -143,7 +109,6 @@ export class ProgramService {
         let url = version["_links"]["program"]["href"];
 
         return this.getUrlContentAsJson(url);
-        //return version["_links"]["program"]["href"];
     }
 
     public static getSelfLinkFromObject<T>(prog:T){
@@ -159,7 +124,7 @@ export class ProgramService {
     }
 
     public addNewShortcutLocally(shortcut:Shortcut){
-        this.updateLocally<Shortcut>(shortcut, "id", this.shortcuts);
+        this.addLocally<Shortcut>(shortcut, "id", this.shortcuts);
     }
 
     private addLocally<T>(obj:T, idAttribute:string, localArray:T[]){
@@ -196,17 +161,6 @@ export class ProgramService {
         return headers;
     }
 
-    public createProgram(program:Program): Observable<Program>{
-        let url = this.buildUrlForProgram(program);
-
-        let headers = this.generateHttpHeader();
-
-        return this
-            .http
-            .put(url, program, {headers})
-            .map(resp => resp.json());
-    }
-
     public createProgramV2(program:Program): Observable<Program>{
         let url = this.buildUrlForProgram(program);
         return this.create<Program>(program, url);
@@ -240,60 +194,15 @@ export class ProgramService {
         return "/shortcuts/" + id.toString();
     }
 
-    //ToDo: The primary key has to be generated on the server side, so how do we know how we can create the new version?
-    public createVersion(programVersion:ProgramVersion): Observable<ProgramVersion>{
-        //let url = this.buildUrlForVersion(programVersion);
-        let url = this.versionsUrl;
-
-        let headers = this.generateHttpHeader();
-
-        return this
-            .http
-            .put(url, programVersion, {headers})
-            .map(resp => resp.json());
-    }
-
-    public createVersionV2(programVersion:ProgramVersion): Observable<ProgramVersion>{
-        return this.create<ProgramVersion>(programVersion, this.versionsUrl);
-    }
-
     public createVersionV3(programVersion): Observable<ProgramVersion>{
-        //return this.create(programVersion, this.versionsUrl);
-        //return this.save(programVersion, this.versionsUrl + "/");
         return this.save(programVersion, this.versionsUrl);
     }
-
-    public createVersionV4(programVersion, programName:string): Observable<ProgramVersion>{
-        //return this.create(programVersion, this.versionsUrl);
-        //return this.save(programVersion, this.versionsUrl + "/");
-        return this.save(programVersion, this.programUrl + "/" + programName + "/" + "programVersions");
-    }
-
 
     private buildUrlForVersion(version:ProgramVersion):string{
         return this.versionsUrl + "/" + version.id;// + "/";
     }
 
-    //ToDo: Do not send the id, but let the server create the shortcut id.
-    public createShortcut(shortcut:Shortcut): Observable<Shortcut>{
-        //let url = this.buildUrlForShortcut(shortcut);
-        let url = this.shortcutsUrl;
-
-        let headers = this.generateHttpHeader();
-
-        return this
-            .http
-            .put(url, shortcut, {headers})
-            .map(resp => resp.json());
-    }
-
-    public createShortcutV2(shortcut:Shortcut): Observable<Shortcut>{
-        return this.create<Shortcut>(shortcut, this.shortcutsUrl);
-    }
-
     public createShortcutV3(shortcut): Observable<Shortcut>{
-        //return this.create(shortcut, this.shortcutsUrl);
-        //return this.save(shortcut, this.shortcutsUrl + "/");
         return this.save(shortcut, this.shortcutsUrl);
     }
 
@@ -330,34 +239,28 @@ export class ProgramService {
     }
 
     public saveProgramByPut(program:any, programName:string):Observable<Program>{
-        //return this.save<Program>(program, this.buildUrlForProgram(program));
         return this.putSave(program, this.programUrl + "/" + programName);
     }
 
     public saveVersionByPut(version:any, versionId:number):Observable<ProgramVersion>{
-        //return this.save<ProgramVersion>(version, this.buildUrlForVersion(version));
         return this.putSave(version, this.versionsUrl + "/" + versionId);
     }
 
     //the shortcut object does not necessarily have the id attribute we need for creating the url, so we have to pass the id separately
     public saveShortcutByPut(shortcut:any, shortcutId:number):Observable<Shortcut>{
-        //return this.save<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut));
         return this.putSave(shortcut, this.shortcutsUrl + "/" + shortcutId);
     }
 
     //Seems like we only have to access the baseUrl, not the concrete Url to the object for the update.
     public saveProgram(program:Program):Observable<Program>{
-        //return this.save<Program>(program, this.buildUrlForProgram(program));
         return this.save<Program>(program, this.programUrl + "/");
     }
 
     public saveVersion(version:ProgramVersion):Observable<ProgramVersion>{
-        //return this.save<ProgramVersion>(version, this.buildUrlForVersion(version));
         return this.save<ProgramVersion>(version, this.versionsUrl + "/");
     }
 
     public saveShortcut(shortcut:Shortcut):Observable<Shortcut>{
-        //return this.save<Shortcut>(shortcut, this.buildUrlForShortcut(shortcut));
         return this.save<Shortcut>(shortcut, this.shortcutsUrl + "/");
     }
 
@@ -430,9 +333,6 @@ export class ProgramService {
                 ratingNr: programToChange.ratingNr
             };
 
-            //let url = this.buildUrlForProgram(programToChange);
-            //.saveProgram(saveObj, this.program.name)
-
             this.saveProgramByPut(saveObj, applicationName)
                 .subscribe(
                     (program) => {
@@ -459,8 +359,6 @@ export class ProgramService {
                 ratingCount: shortcutToChange.ratingCount,
                 ratingNr: shortcutToChange.ratingNr
             };
-
-            //let url = this.buildUrlForShortcut(shortcutToChange);
 
             this.saveShortcutByPut(saveObj, shortcutToChange.id)
                 .subscribe(
@@ -507,21 +405,6 @@ export class ProgramService {
     }
 
 
-    //Most generic and reuseable find method, sadly with the spring data server, the search function does not work that way
-    // public findObject<T>(serverAttribute:string, attributeValue:string, url):Observable<T>{
-    //
-    //     let search = new URLSearchParams();
-    //     search.set(serverAttribute, attributeValue);
-    //
-    //     let headers = this.generateHttpHeader();
-    //
-    //     return this
-    //         .http
-    //         .get(url, { headers, search })
-    //         .map(resp => resp.json());
-    // }
-
-  //ToDo: sending authorization header information in every request can cause problems such as 403 response status to preflight option requests
   public getUrlContentAsJson(url:string){
         let headers = this.generateHttpHeader();
 
@@ -557,21 +440,6 @@ export class ProgramService {
 
   }
 
-  public getAllVersionInformation(){
-    var versionInformation = [];
-
-    this.getAllVersions().subscribe(
-        (programList: Program[]) => {
-          //this.programs = programList;
-          return programList;
-        },
-        (err) => {
-          console.error('Fehler beim Laden der Versionsinformationen', err);
-          return [];
-        }
-    )
-  }
-
   private createEmptyProgramSummariesFromPrograms(programList:Program[]){
       let programSummaries = {};
       for (let p of programList){
@@ -593,16 +461,6 @@ export class ProgramService {
       return programSummaries;
   }
 
-  public createProgramSummaryForProgram(){
-      let programSummeries = {};
-
-      this.getAllPrograms().map((prog)=>{
-          let programs = this.accessProgramsFromJson(prog);
-          let versionLinks:string = programs["_links"]["programVersions"]["href"];
-          programSummeries = this.createEmptyProgramSummariesFromPrograms(<Program[]> programs);
-          return this.getUrlContentAsJson(versionLinks);
-      });
-  }
 
   public createProgramUrlFromProgramName(programName:string){
       return this.programUrl + "/" + programName.replace(" ", "%20") + "/";
@@ -650,63 +508,6 @@ export class ProgramService {
       );
 
   }
-
-    //example url: http://localhost:8080/programs/Visual%20Studio/
-    //Parameters:
-    //programSummary - this is the object where the created programSummary is written into
-    //callbackSuccess - the callback function that is called if this function is successful. The created ProgramSummary will be passed to this callback function
-    //callbackFailure - the callback function that is called if this function fails. Not argument is passed for this function.
-    public assignProgramSummaryForProgramUrl(programUrl:string, programSummary, callbackSuccess?, callbackFailure?){
-        if (!callbackSuccess){
-            callbackSuccess = (summaryObject)=>{console.log("callbackSuccess")};
-        }
-        if (!callbackFailure){
-            callbackFailure = ()=>{console.log("callbackFailure")};
-        }
-        this.getUrlContentAsJson(programUrl).subscribe(
-            (program)=>{
-                let versionLink = program["_links"]["programVersions"]["href"];
-                //Typescript "cast" - not a real cast of course, precompile check only
-                let p:Program = <Program> program;
-                programSummary = {
-                    name: p.name,
-                    description: p.description,
-                    website: p.website,
-                    ratingNr: p.ratingNr,
-                    ratingCount: p.ratingCount,
-                    versions: {
-                        linux:[],
-                        windows:[],
-                        osx:[]
-                    }
-                };
-                this.getUrlContentAsJson(versionLink).subscribe(
-                    (versions)=>{
-                        let versionList:ProgramVersion[] = this.accessVersionsFromJson(versions);
-                        this.assignVersionsToProgramSummary(programSummary, versionList);
-                        console.log("programSummary:");
-                        console.log(programSummary);
-                        callbackSuccess(programSummary);
-                        //return programSummary;
-
-                    },
-                    (err)=>{
-                        console.error('Fehler beim Laden der Versionen', err);
-                        callbackFailure();
-                        //return {};
-                    }
-                );
-            },
-            (err)=>{
-                console.error('Fehler beim Laden des Programmlinks', err);
-                callbackFailure();
-                //return {};
-            }
-
-        );
-
-    }
-
 
     //example url: http://localhost:8080/programs/Visual%20Studio/
     //Parameters:
@@ -824,57 +625,6 @@ export class ProgramService {
       }
       return summary;
 
-  }
-
-
-  public getProgramNamesList(){
-      if (this.programs.length > 0){
-        this.programNames = this.createProgramNameList();
-      } else {
-          this.getAllPrograms().subscribe(
-              (programList: Program[]) => {
-                  this.programNames = this.createProgramNameList();
-              },
-              (err) => {
-                  console.error('Fehler beim Laden von Programinformationen', err);
-                  return [];
-              }
-          )
-      }
-
-  }
-
-  private createProgramNameList():string[]{
-      let programNames = [];
-      for (let p of this.programs){
-          programNames.push(p.name);
-      }
-        programNames.sort();
-      return programNames;
-  }
-
-  public getProgramSummaries(){
-    var programSummaries = {};
-
-    this.getAllPrograms().subscribe(
-        (programList: Program[]) => {
-            //this.programs = programList;
-            this.getAllVersions().subscribe(
-                (versionList: ProgramVersion[]) => {
-                    //this.programs = programList;
-                    return this.createProgramSummariesFromJsonList(programList, versionList);
-                },
-                (err2) => {
-                    console.error('Fehler beim Laden der Versionsinformationen', err2);
-                    return programSummaries;
-                }
-            )
-        },
-        (err) => {
-            console.error('Fehler beim Laden von Programinformationen', err);
-            return programSummaries;
-        }
-    )
   }
 
 }

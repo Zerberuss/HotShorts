@@ -12,15 +12,7 @@ import {PipeTransform, Pipe} from "@angular/core";
 export class UniversalFilterPipe implements PipeTransform{
 
     //http://stackoverflow.com/questions/8834126/how-to-efficiently-check-if-variable-is-array-or-object-in-nodejs-v8
-    // isArray = function(a) {
-    //     return (!!a) && (a.constructor === Array);
-    // };
-    //
-    ////fastest solution:
-    // isArray = function (obj){
-    //     return !!obj && Array === obj.constructor;
-    // }
-    
+
     isObject = function(a) {
         return (!!a) && (a.constructor === Object);
     };

@@ -13,6 +13,5 @@ export class PreloadSelectedPaths implements PreloadingStrategy {
         else {
             return Observable.of(null);
         }
-
     }
 }

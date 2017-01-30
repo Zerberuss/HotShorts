@@ -5,10 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by johann on 8/23/16.
- */
-
 @Entity
 @Table(name = "version")
 public class ProgramVersion {

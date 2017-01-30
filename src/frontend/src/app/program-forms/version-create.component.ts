@@ -96,14 +96,12 @@ export class VersionCreateComponent {
             versionText: this.versionText,
             //foreign key has to be the program URL!!
             program: this.programService.buildUrlForProgramByName(this.programService.programNameForNewlyCreatedVersion)
-            //program: this.programService.getLocalProgramByName(this.programService.programNameForNewlyCreatedVersion)
 
         };
 
         console.log(newVersion);
         this
             .programService
-            //.createVersionV4(newVersion, this.programService.programNameForNewlyCreatedVersion)
             .createVersionV3(newVersion)
             .subscribe(
                 version => {
@@ -111,10 +109,7 @@ export class VersionCreateComponent {
                     console.log(version);
                     //this.person = person;
                     this.message = "version was created successfully!";
-                    //ad the person to the local people array, but only if the index does not exist yet:
-                    // if (this.programService.shortcuts.findIndex((shct:Shortcut)=>shct.id == shortcut.id) < 0){
-                    //     this.programService.shortcuts.push(shortcut);
-                    // }
+                    //add the person to the local people array, but only if the index does not exist yet:
                     this.programService.addNewVersionLocally(version);
                     //reset the form entries:
                     this.resetComponentMembers();

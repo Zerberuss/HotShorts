@@ -155,10 +155,7 @@ export class ShortcutCreateComponent {
                     console.log(shortcut);
                     //this.person = person;
                     this.message = "Shortcut was created successfully!";
-                    //ad the person to the local people array, but only if the index does not exist yet:
-                    // if (this.programService.shortcuts.findIndex((shct:Shortcut)=>shct.id == shortcut.id) < 0){
-                    //     this.programService.shortcuts.push(shortcut);
-                    // }
+                    //add the person to the local people array, but only if the index does not exist yet:
                     this.programService.addNewShortcutLocally(shortcut);
                     //reset the form entries:
                     this.resetComponentMembers();

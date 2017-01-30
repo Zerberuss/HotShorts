@@ -182,32 +182,6 @@ export class ShortcutEditComponent {
 
     }
 
-    save(): void {
-        this
-            .programService
-            .saveShortcut(this.shortcut)
-            .subscribe(
-                shortcutObject => {
-                    //this.appendForeignKeyToShortcut(shortcutObject);
-                    this.shortcut = shortcutObject;
-                    let self = this;
-                    this.appendForeignKeyToShortcut(this.shortcut, function(){
-                        self.programService.updateShortcutLocally(self.shortcut);
-                        self.message = "Daten wurden gespeichert!";
-                        //redirect to the Program Detail page:
-                        self.programService.navigateToRoute([self.programService.currentProgramDetailUrl]);
-                    });
-                    //this.message = "Daten wurden gespeichert!";
-                    //redirect to the Program Detail page:
-                    //this.programService.navigateToRoute([this.programService.currentProgramDetailUrl]);
-
-                },
-                (err) => {
-                    this.message = "Fehler beim Speichern: " + err.text();
-                }
-            )
-    }
-
     resetRating(): void{
         this.shortcut.ratingNr = 0;
         this.shortcut.ratingCount = 0;

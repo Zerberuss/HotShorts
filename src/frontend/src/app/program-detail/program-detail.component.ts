@@ -12,8 +12,6 @@ import {isNullOrUndefined} from "util";
     selector:'program-detail',
     templateUrl:'./program-detail.component.html',
     styleUrls: ['../styles/hotshorts-main.css']
-    //,providers: [ProgramService]
-
 })
 
 export class ProgramDetailComponent{
@@ -42,7 +40,6 @@ export class ProgramDetailComponent{
     }
 
     delete(shortcut:Shortcut){
-        //this.programService.deleteShortcut(shortcut);
         this.programService.deleteShortcutOnlineAndFromArray(shortcut, this.shortcuts);
     }
 
@@ -55,20 +52,6 @@ export class ProgramDetailComponent{
     //Used for saving the current site inside a variable, so that we can return to it, after we finished editing a shortcut etc.
     storeCurrentUrlInProgramService(){
         this.programService.currentProgramDetailUrl = this.router.url;
-    }
-
-    loadVersion(){
-        this.programService.getVersionFromServer(this.id)
-            .subscribe(
-                (version:ProgramVersion) => {
-                    this.shortcutsLink = version["_links"]["shortcuts"]["href"];
-                    this.versionInfo = version;
-                    this.loadShortcuts();
-                },
-                (err) => {
-                    console.error('Fehler beim Laden der Version in ngOnInit', err);
-                }
-            );
     }
 
     loadVersionWithIdAndStoreId(versionId:number){

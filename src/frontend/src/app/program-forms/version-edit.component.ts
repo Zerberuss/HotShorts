@@ -140,27 +140,4 @@ export class VersionEditComponent {
 
     }
 
-    //Version 1: foreign key was built and stored back for every operation until we find out that it was possible to make partial updates of only certain attributes
-    save(): void {
-        this
-            .programService
-            .saveVersion(this.version)
-            .subscribe(
-                versionObject => {
-                    this.version = versionObject;
-                    let self = this;
-                    this.appendForeignKeyToVersion(this.version, function(){
-                        self.programService.updateVersionLocally(self.version);
-                        self.message = "Daten wurden gespeichert!";
-                        //redirect to the Program Detail page:
-                        self.programService.navigateToRoute([self.programService.currentProgramDetailUrl]);
-                    });
-                },
-                (err) => {
-                    this.message = "Fehler beim Speichern: " + err.text();
-                }
-            )
-
-    }
-
 }

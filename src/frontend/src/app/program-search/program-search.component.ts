@@ -77,22 +77,6 @@ export class ProgramSearchComponent {
     this.selectedProgram = program;
   }
 
-  getSummaryFromSelectedProgram(){
-      if (this.selectedProgram!=null){
-          console.log("program[_links][self][href]");
-          console.log(this.selectedProgram["_links"]["self"]["href"]);
-          //let SummarySubsription:Subscription = this.programService.createProgramSummaryForProgramUrl(program["_links"]["self"]["href"]);
-          let programSummary = {};
-          var callbackSuccess = (summaryObject)=>{this.selectedProgramSummary = <ProgramSummary> summaryObject;};
-          //this.programService.assignProgramSummaryForProgramUrl(this.selectedProgram["_links"]["self"]["href"], programSummary, callbackSuccess);
-          this.programService.assignProgramSummaryForProgram(this.selectedProgram, programSummary, callbackSuccess);
-          console.log("select function program summary:");
-          console.log(programSummary);
-          //this.selectedProgramSummary = <ProgramSummary> programSummary;
-      }
-
-  }
-
   delete(prog:Program){
       this.programService.deleteProgram(prog);
   }
