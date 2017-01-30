@@ -21,7 +21,7 @@ export class DecimalPipe implements PipeTransform {
         }
 
         if (this.isNumeric(value)){
-            console.log("Decimal Pipe Value: " + value);
+            //console.log("Decimal Pipe Value: " + value);
             return Math.round(parseFloat(value) * Math.pow(10, decimalDigits)) / Math.pow(10, decimalDigits);
         } else {
             return 0;
