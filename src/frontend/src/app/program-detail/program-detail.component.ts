@@ -188,30 +188,35 @@ export class ProgramDetailComponent{
 
         //Header
         if (this.versionInfo && this.programService.programNameForNewlyCreatedVersion){
+            doc.setFontSize(20);
             doc.setFontType('bold');
             doc.text(this.programService.programNameForNewlyCreatedVersion  + " Shortcut List", 10, 15);
             doc.setFontType('normal');
 
-            doc.text("OS:  ", 20, 60);
-            doc.addImage(osPicDataUrls[this.versionInfo.osType], 'JPEG',35, 54, 10, 7);
-            doc.text(new OSVersionPipe().transform(this.versionInfo.osType, "long"), 45, 60);
+            doc.setFontSize(14);
 
-            doc.text("Version "+ this.versionInfo.versionText, 110, 60);
+            doc.text("OS:  ", 20, 62);
+            doc.addImage(osPicDataUrls[this.versionInfo.osType], 'JPEG',35, 56, 8, 8);
+            doc.text(new OSVersionPipe().transform(this.versionInfo.osType, "long"), 45, 62);
+
+            doc.text("Version "+ this.versionInfo.versionText, 110, 62);
         } else {
-            doc.text("Shortcut List", 10, 30);
+            doc.text("Shortcut List", 17, 50);
         }
 
-        doc.setFontSize(10);
-        doc.text(this.versionInfo.program.shortDescription, 10, 30);
+        doc.setFontSize(12);
+        doc.text("To get all Hotshorts go to", 12, 27); 
 
-        doc.setFontSize(14);
-        doc.text("OS:  ", 10, 40);
+        doc.setFontSize(12);
+        doc.text("https://www.hotshorts.com", 12, 35);
         //Shortcut List
 
-        doc.setFontSize(14);
-        doc.text("OS:  ", 10, 50);
+        doc.setFontSize(17);
+        doc.setFontType('bold');
+        doc.text("Shortcut List:  ", 17, 50);
+        doc.setFontType('normal');
 
-        doc.addImage(keysPicDataUrl, 'JPEG',100, 7, 12, 8);
+        doc.addImage(keysPicDataUrl, 'JPEG',56, 43, 12, 8);
 
         yPosLine += yPosIncrease;
 
@@ -223,6 +228,8 @@ export class ProgramDetailComponent{
         doc.text("Hotkey", xPosShortcutKeyCode, yPosLine);
         doc.text("Short Description", xPosShortCutDescriptionShort, yPosLine);
         doc.text(this.addBreakCharactersToString("Long Description", charactersInLine), xPosShortCutDescription, yPosLine);
+
+        doc.line(20, yPosLine+3, 200, yPosLine+3) // horizontal line 65 + 13 - > 78
 
         yPosLine += yPosIncrease;
 
