@@ -1,4 +1,4 @@
-<div>
+<div id="pdfDiv">
     <h3><b>Shortcut List <img alt="" style="width: 32px; height: 25px;" src="images/keys-icon.png"></b></h3>
 
     <table class="table table-striped">
@@ -64,9 +64,11 @@
             </td>
         </tr>
     </table>
-
+</div>
+<div>
     <div>
         <button class="btn btn-default" (click)="goToShortcutCreate()">create new Shortcut</button>
+        <button class="btn btn-default" (click)="generateShortcutsPdfV2()">Save Hotkey List as PDF</button>
     </div>
     <br>
     <p>

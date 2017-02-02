@@ -7,6 +7,11 @@ import {ActivatedRoute, Router, Params} from "@angular/router";
 import {Shortcut} from "../entities/shortcuts";
 import {ProgramVersion} from "../entities/programVersions";
 import {isNullOrUndefined} from "util";
+//import 'jspdf';
+import * as jsPDF from 'jspdf';
+//import 'jspdf';
+
+//declare let jsPDF;
 
 @Component({
     selector:'program-detail',
@@ -111,5 +116,80 @@ export class ProgramDetailComponent{
             return new Array(Math.round(num));
         }
         return Array();
+    }
+
+    generateShortcutsPdf(){
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#theIdsToBypassWhenRendering': function (element, renderer) {
+                return true;
+            }
+        };
+
+        // doc.addHTML(document.getElementById("pdfDiv"), 15, 15, {
+        //     'background': '#FFFFFF',
+        // }, function() {
+        //     doc.save('sample-file.pdf');
+        // });
+
+        doc.fromHTML(document.getElementById("pdfDiv"), 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        });
+
+        if (this.versionInfo && this.programService.programNameForNewlyCreatedVersion){
+            doc.save(this.programService.programNameForNewlyCreatedVersion + " Version " + this.versionInfo.versionText + " Hotkey List.pdf");
+        } else {
+            doc.save("Hotkey List.pdf");
+        }
+    }
+
+    generateShortcutsPdfV2(){
+
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        // source can be HTML-formatted string, or a reference
+        // to an actual DOM element from which the text will be scraped.
+        let source = document.getElementById("pdfDiv");
+
+        let self = this;
+
+        // we support special element handlers. Register them with jQuery-style
+        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+        // There is no support for any other type of selectors
+        // (class, of compound) at this time.
+        let specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector
+            '#bypassThisId': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"
+                return true
+            }
+        };
+        let margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+        // all coords and widths are in jsPDF instance's declared units
+        // 'inches' in this case
+        pdf.fromHTML(
+            source, // HTML string or DOM elem ref.
+            margins.left, // x coord
+            margins.top, { // y coord
+                'width': margins.width, // max width of content on PDF
+                'elementHandlers': specialElementHandlers
+            },
+
+            function (dispose) {
+                // dispose: object with X, Y of the last line add to the PDF
+                //          this allow the insertion of new lines after html
+                if (self.versionInfo && self.programService.programNameForNewlyCreatedVersion){
+                    pdf.save(self.programService.programNameForNewlyCreatedVersion + " Version " + self.versionInfo.versionText + " Hotkey List.pdf");
+                } else {
+                    pdf.save("Hotkey List.pdf");
+                }
+            }, margins
+        );
+
     }
 }
