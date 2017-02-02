@@ -10,6 +10,7 @@ import {isNullOrUndefined} from "util";
 //import 'jspdf';
 import * as jsPDF from 'jspdf';
 import {OSVersionPipe} from "../shared/pipes/os-version.pipe";
+import {ProgramModule} from "../program-main/program-module";
 
 //import 'jspdf';
 
@@ -26,6 +27,7 @@ export class ProgramDetailComponent{
     shortcuts:Shortcut[];
     shortcutsLink:string;
     versionInfo:ProgramVersion;
+
     id: any;
     paramsSub: any;
     alreadyRated: { [key:number]:number; };
@@ -168,7 +170,7 @@ export class ProgramDetailComponent{
     //ignore the html file and create the pdf manually
     generateShortcutsPdfManually() {
         var doc = new jsPDF();
-        let yPosLine = 50;
+        let yPosLine = 65;
         const xPosShortcutKeyCode = 20;
         const xPosShortCutDescriptionShort = 70;
         const xPosShortCutDescription = 110;
@@ -190,16 +192,24 @@ export class ProgramDetailComponent{
             doc.text(this.programService.programNameForNewlyCreatedVersion  + " Shortcut List", 10, 15);
             doc.setFontType('normal');
 
-            doc.text("OS:  ", 10, 30);
-            doc.addImage(osPicDataUrls[this.versionInfo.osType], 'JPEG',25, 24, 10, 7);
-            doc.text(new OSVersionPipe().transform(this.versionInfo.osType, "long"), 35, 30);
+            doc.text("OS:  ", 20, 60);
+            doc.addImage(osPicDataUrls[this.versionInfo.osType], 'JPEG',35, 54, 10, 7);
+            doc.text(new OSVersionPipe().transform(this.versionInfo.osType, "long"), 45, 60);
 
-            doc.text("Version "+ this.versionInfo.versionText, 110, 30);
+            doc.text("Version "+ this.versionInfo.versionText, 110, 60);
         } else {
             doc.text("Shortcut List", 10, 30);
         }
 
+        doc.setFontSize(10);
+        doc.text(this.versionInfo.program.shortDescription, 10, 30);
 
+        doc.setFontSize(14);
+        doc.text("OS:  ", 10, 40);
+        //Shortcut List
+
+        doc.setFontSize(14);
+        doc.text("OS:  ", 10, 50);
 
         doc.addImage(keysPicDataUrl, 'JPEG',100, 7, 12, 8);
 
