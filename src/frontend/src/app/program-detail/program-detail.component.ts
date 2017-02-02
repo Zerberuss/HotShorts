@@ -144,6 +144,55 @@ export class ProgramDetailComponent{
         }
     }
 
+    //http://stackoverflow.com/questions/1772941/how-can-i-insert-a-character-after-every-n-characters-in-javascript
+    addBreakCharactersToString(sourceString:string, charactersInLine:number):string{
+
+        var re = new RegExp("/(.{" + charactersInLine + "})/g");
+        //return sourceString.replace(re,"$&" + "<br>");
+        return sourceString.replace(re,"\n");
+
+        // var ret = [];
+        // var i;
+        // var len;
+        //
+        // for(i = 0, len = sourceString.length; i < len; i += charactersInLine) {
+        //     ret.push(sourceString.substr(i, charactersInLine))
+        // }
+        //
+        // return ret.join("$&" + "<br>");
+    }
+
+    generateShortcutsPdfManually() {
+        var doc = new jsPDF();
+        let yPosLine = 70;
+        const xPosShortcutKeyCode = 20;
+        const xPosShortCutDescriptionShort = 70;
+        const xPosShortCutDescription = 110;
+        const yPosIncrease = 30;
+        const charactersInLine = 40;
+
+        if (this.versionInfo && this.programService.programNameForNewlyCreatedVersion){
+            doc.text("Hotkey List for " + this.programService.programNameForNewlyCreatedVersion + " Version " + this.versionInfo.versionText, 10, 30);
+        }
+
+        doc.setFontSize(10);
+
+        for (let item of this.shortcuts){
+            doc.text(item.keyCode, xPosShortcutKeyCode, yPosLine);
+            doc.text(item.descriptionShort, xPosShortCutDescriptionShort, yPosLine);
+            doc.text(this.addBreakCharactersToString(item.description, charactersInLine), xPosShortCutDescription, yPosLine);
+
+            yPosLine += yPosIncrease;
+        }
+
+
+        if (this.versionInfo && this.programService.programNameForNewlyCreatedVersion){
+            doc.save(this.programService.programNameForNewlyCreatedVersion + " Version " + this.versionInfo.versionText + " Hotkey List.pdf");
+        } else {
+            doc.save("Hotkey List.pdf");
+        }
+    }
+
     generateShortcutsPdfV2(){
 
         var pdf = new jsPDF('p', 'pt', 'letter');
